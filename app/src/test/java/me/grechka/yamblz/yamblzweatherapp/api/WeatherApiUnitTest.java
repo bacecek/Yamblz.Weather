@@ -14,7 +14,7 @@ import io.reactivex.observers.TestObserver;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseApiUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CurrentWeatherResponse;
 import me.grechka.yamblz.yamblzweatherapp.models.response.Weather;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.WeatherApi;
+import me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;

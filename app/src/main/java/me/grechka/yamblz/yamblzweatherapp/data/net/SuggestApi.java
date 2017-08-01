@@ -1,4 +1,4 @@
-package me.grechka.yamblz.yamblzweatherapp.repository.net;
+package me.grechka.yamblz.yamblzweatherapp.data.net;
 
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;

@@ -15,7 +15,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.response.CityLocation;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
 import me.grechka.yamblz.yamblzweatherapp.models.response.Place;
 import me.grechka.yamblz.yamblzweatherapp.models.response.SuggestionResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.SuggestApi;
+import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;

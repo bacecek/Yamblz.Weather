@@ -2,9 +2,6 @@ package me.grechka.yamblz.yamblzweatherapp.base;
 
 import com.google.gson.GsonBuilder;
 
-import org.junit.After;
-import org.junit.Before;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -13,7 +10,6 @@ import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.SuggestApi;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;

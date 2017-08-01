@@ -16,6 +16,7 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onLoad();
         setContentView(obtainLayoutView());
         ButterKnife.bind(this);
 
@@ -25,6 +26,9 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
 
     @LayoutRes
     protected abstract int obtainLayoutView();
+
+    protected void onLoad() {
+    }
 
     protected void onInit() {
     }

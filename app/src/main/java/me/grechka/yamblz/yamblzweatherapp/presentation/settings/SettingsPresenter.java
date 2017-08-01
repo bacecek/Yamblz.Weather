@@ -7,9 +7,8 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
-import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
-import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobUtils;
+import me.grechka.yamblz.yamblzweatherapp.data.prefs.PreferencesManager;
+import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
 
 /**
  * Created by Grechka on 14.07.2017.

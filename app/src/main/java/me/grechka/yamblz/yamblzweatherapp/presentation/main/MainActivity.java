@@ -46,13 +46,20 @@ public class MainActivity extends BaseActivity
     @ProvidePresenter
     public MainPresenter providePresenter() {
         return WeatherApp
-                .getComponent()
+                .get(this)
+                .getAppComponent()
                 .getMainPresenter();
     }
 
     @Override
     protected int obtainLayoutView() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onLoad() {
+        super.onLoad();
+        setTheme(R.style.AppTheme_NoActionBar);
     }
 
     @Override

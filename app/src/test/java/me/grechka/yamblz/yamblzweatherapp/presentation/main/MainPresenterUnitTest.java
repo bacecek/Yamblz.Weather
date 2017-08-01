@@ -8,7 +8,7 @@ import org.mockito.Mock;
 
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 
 import static org.mockito.Mockito.*;
 

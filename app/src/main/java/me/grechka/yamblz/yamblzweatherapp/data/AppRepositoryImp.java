@@ -1,22 +1,22 @@
-package me.grechka.yamblz.yamblzweatherapp.repository;
+package me.grechka.yamblz.yamblzweatherapp.data;
 
 import android.support.annotation.NonNull;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import me.grechka.yamblz.yamblzweatherapp.interactor.Interactor;
+import me.grechka.yamblz.yamblzweatherapp.domain.Interactor;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.CurrentWeather;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CityLocation;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CurrentWeatherResponse;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
 import me.grechka.yamblz.yamblzweatherapp.models.response.SuggestionResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.SuggestApi;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.WeatherApi;
-import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
+import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
+import me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi;
+import me.grechka.yamblz.yamblzweatherapp.data.prefs.PreferencesManager;
 
-import static me.grechka.yamblz.yamblzweatherapp.repository.net.WeatherApi.API_KEY;
-import static me.grechka.yamblz.yamblzweatherapp.repository.net.WeatherApi.UNITS_DEFAULT;
+import static me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi.API_KEY;
+import static me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi.UNITS_DEFAULT;
 
 /**
  * Created by Grechka on 16.07.2017.

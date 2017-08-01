@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
-import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
-import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobUtils;
+import me.grechka.yamblz.yamblzweatherapp.data.prefs.PreferencesManager;
+import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
 
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;

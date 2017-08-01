@@ -9,7 +9,7 @@ import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.JsonProvider;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 

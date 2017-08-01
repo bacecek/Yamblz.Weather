@@ -1,8 +1,7 @@
-package me.grechka.yamblz.yamblzweatherapp.repository.prefs;
+package me.grechka.yamblz.yamblzweatherapp.data.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.renderscript.Double2;
 import android.support.annotation.NonNull;
 
 import me.grechka.yamblz.yamblzweatherapp.models.City;

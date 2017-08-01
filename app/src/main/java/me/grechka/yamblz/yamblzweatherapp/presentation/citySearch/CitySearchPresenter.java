@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**

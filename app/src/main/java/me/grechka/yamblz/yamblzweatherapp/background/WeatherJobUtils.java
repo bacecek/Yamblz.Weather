@@ -1,4 +1,6 @@
-package me.grechka.yamblz.yamblzweatherapp.schedule;
+package me.grechka.yamblz.yamblzweatherapp.background;
+
+import android.support.annotation.NonNull;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
@@ -13,11 +15,11 @@ import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
 
 public class WeatherJobUtils {
 
-    @Inject
-    JobManager jobManager;
+    private JobManager jobManager;
 
-    public WeatherJobUtils() {
-        WeatherApp.getComponent().inject(this);
+    @Inject
+    public WeatherJobUtils(@NonNull JobManager jobManager) {
+        this.jobManager = jobManager;
     }
 
     public void scheduleWeatherJob(int minutes) {

@@ -8,7 +8,7 @@ import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.CurrentWeather;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 import static org.mockito.Mockito.*;

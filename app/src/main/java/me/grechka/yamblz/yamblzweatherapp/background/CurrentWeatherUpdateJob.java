@@ -1,4 +1,4 @@
-package me.grechka.yamblz.yamblzweatherapp.schedule;
+package me.grechka.yamblz.yamblzweatherapp.background;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -7,8 +7,7 @@ import com.evernote.android.job.Job;
 
 import javax.inject.Inject;
 
-import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 
 /**
  * Created by Grechka on 14.07.2017.
@@ -18,18 +17,18 @@ public class CurrentWeatherUpdateJob extends Job {
 
     static final String TAG = "job_update_current_weather";
 
-    @Inject
-    AppRepository appRepository;
+    private AppRepository repository;
 
-    CurrentWeatherUpdateJob() {
-        WeatherApp.getComponent().inject(this);
+    @Inject
+    CurrentWeatherUpdateJob(@NonNull AppRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     @NonNull
     protected Result onRunJob(Params params) {
         Log.d("Job", "onRunJob: Job started");
-        appRepository.updateCurrentWeather();
+        repository.updateCurrentWeather();
         return Result.SUCCESS;
     }
 }

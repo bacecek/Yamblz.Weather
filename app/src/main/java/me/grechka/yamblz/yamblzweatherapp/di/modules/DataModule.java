@@ -7,13 +7,13 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.grechka.yamblz.yamblzweatherapp.interactor.Interactor;
-import me.grechka.yamblz.yamblzweatherapp.interactor.InteractorImp;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.SuggestApi;
-import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepositoryImp;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.WeatherApi;
+import me.grechka.yamblz.yamblzweatherapp.domain.Interactor;
+import me.grechka.yamblz.yamblzweatherapp.domain.InteractorImp;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
+import me.grechka.yamblz.yamblzweatherapp.data.prefs.PreferencesManager;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepositoryImp;
+import me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi;
 
 /**
  * Created by Grechka on 19.07.2017.

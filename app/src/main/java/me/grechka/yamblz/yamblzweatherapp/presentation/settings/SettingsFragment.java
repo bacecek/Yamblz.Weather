@@ -41,7 +41,10 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        WeatherApp.getComponent().inject(this);
+        WeatherApp
+                .get(context)
+                .getAppComponent()
+                .inject(this);
 
     }
 

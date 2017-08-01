@@ -62,8 +62,11 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        WeatherApp
+                .get(context)
+                .getAppComponent()
+                .inject(this);
 
-        WeatherApp.getComponent().inject(this);
         listener = (OnDismissDialogListener) getActivity();
     }
 

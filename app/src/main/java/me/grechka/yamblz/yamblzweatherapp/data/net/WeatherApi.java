@@ -1,8 +1,7 @@
-package me.grechka.yamblz.yamblzweatherapp.repository.net;
+package me.grechka.yamblz.yamblzweatherapp.data.net;
 
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CurrentWeatherResponse;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 

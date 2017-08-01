@@ -8,7 +8,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.models.CurrentWeather;
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**

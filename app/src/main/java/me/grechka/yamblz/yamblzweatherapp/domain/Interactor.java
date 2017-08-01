@@ -1,4 +1,4 @@
-package me.grechka.yamblz.yamblzweatherapp.interactor;
+package me.grechka.yamblz.yamblzweatherapp.domain;
 
 import me.grechka.yamblz.yamblzweatherapp.models.CurrentWeather;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CurrentWeatherResponse;

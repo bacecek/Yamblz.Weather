@@ -1,4 +1,4 @@
-package me.grechka.yamblz.yamblzweatherapp.repository;
+package me.grechka.yamblz.yamblzweatherapp.data;
 
 import android.support.annotation.NonNull;
 

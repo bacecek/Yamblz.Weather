@@ -1,10 +1,7 @@
-package me.grechka.yamblz.yamblzweatherapp.interactor;
+package me.grechka.yamblz.yamblzweatherapp.domain;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.models.CurrentWeather;

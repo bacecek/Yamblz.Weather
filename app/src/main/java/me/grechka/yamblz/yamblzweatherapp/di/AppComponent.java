@@ -9,12 +9,12 @@ import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.JobModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.NetworkModule;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainPresenter;
-import me.grechka.yamblz.yamblzweatherapp.interactor.InteractorImp;
+import me.grechka.yamblz.yamblzweatherapp.domain.InteractorImp;
 import me.grechka.yamblz.yamblzweatherapp.presentation.citySearch.CitySearchFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.settings.SettingsFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.settings.SettingsPresenter;
-import me.grechka.yamblz.yamblzweatherapp.schedule.CurrentWeatherUpdateJob;
-import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobUtils;
+import me.grechka.yamblz.yamblzweatherapp.background.CurrentWeatherUpdateJob;
+import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
 import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherPresenter;
 

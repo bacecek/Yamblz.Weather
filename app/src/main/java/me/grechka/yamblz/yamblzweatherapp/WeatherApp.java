@@ -1,8 +1,8 @@
 package me.grechka.yamblz.yamblzweatherapp;
 
 import android.app.Application;
-
-import com.arellomobile.mvp.MvpFacade;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
@@ -12,35 +12,37 @@ import me.grechka.yamblz.yamblzweatherapp.di.DaggerAppComponent;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.JobModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.NetworkModule;
-import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
-import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobUtils;
+import me.grechka.yamblz.yamblzweatherapp.data.prefs.PreferencesManager;
+import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
 
 /**
  * Created by Grechka on 14.07.2017.
  */
-
 public class WeatherApp extends Application {
-    private static AppComponent component;
 
-    @Inject
-    PreferencesManager preferencesManager;
-    @Inject
-    WeatherJobUtils weatherJobUtils;
+    @Inject WeatherJobUtils weatherJobUtils;
+    @Inject PreferencesManager preferencesManager;
 
-    public static AppComponent getComponent() {
-        return component;
+    private AppComponent appComponent;
+
+    public static WeatherApp get(@NonNull Context context) {
+        return (WeatherApp) context.getApplicationContext();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        component = buildComponent();
-        component.inject(this);
-        MvpFacade.init();
-        setUpdateSchedule();
+        appComponent = buildDi();
+        appComponent.inject(this);
+
+        onSchedule();
     }
 
-    protected AppComponent buildComponent() {
+    public AppComponent getAppComponent() {
+        return appComponent;
+    }
+
+    protected AppComponent buildDi() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .jobModule(new JobModule())
@@ -49,7 +51,7 @@ public class WeatherApp extends Application {
                 .build();
     }
 
-    void setUpdateSchedule() {
+    void onSchedule() {
         int minutes = Integer.parseInt(preferencesManager.getUpdateFrequency());
         weatherJobUtils.scheduleWeatherJob(minutes);
     }
