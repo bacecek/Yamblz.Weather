@@ -10,7 +10,7 @@ To display the weather was used an open API. [OpenWeatherAPI](https://openweathe
 
 MIT License
 
-Copyright (c) 2017 Alexander Dadukin
+Copyright (c) 2017 Alexander Dadukin, Irina Kravtsova
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
