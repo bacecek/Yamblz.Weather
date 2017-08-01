@@ -4,16 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.activity.MainActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:logo="@drawable/ic_launcher_round"
-        app:contentInsetStartWithNavigation="0dp"
-        app:titleMarginStart="@dimen/activity_horizontal_margin">
-    </android.support.v7.widget.Toolbar>
+    tools:context=".presentation.main.MainActivity">
 
     <TextView
         android:id="@+id/update_frequency_title"

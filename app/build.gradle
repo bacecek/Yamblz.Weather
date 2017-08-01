@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'jacoco-android'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -58,6 +59,9 @@ dependencies {
     compile libraries.supportCard
     compile libraries.constraint
 
+    compile libraries.butterknife
+    annotationProcessor libraries.butterknifeCompiler
+
     compile libraries.dagger
     annotationProcessor libraries.daggerCompiler
 
@@ -80,7 +84,7 @@ dependencies {
     testCompile libraries.junit
     testCompile libraries.mockito
     testCompile libraries.mockwebserver
-    
+
     androidTestCompile(libraries.espressoCore, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

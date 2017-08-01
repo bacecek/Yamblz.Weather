@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">YaMblzWeatherApp</string>
+    <string name="app_name">Мобилизация.Погода</string>
 
-    <string name="navigation_drawer_open">Открытие Navigation Drawer</string>
-    <string name="navigation_drawer_close">Закрытие Navigation Drawer</string>
-
-    <string name="action_settings">Настройки</string>
-    <string name="action_about">О приложении</string>
+    <!--MainActivity region -->
+    <string name="main_activity_navigation_weather">Погода</string>
+    <string name="main_activity_navigation_common">Общее</string>
+    <string name="main_activity_navigation_settings">Настройки</string>
+    <string name="main_activity_navigation_about">О приложении</string>
+    <!--Endregion -->
 
     <string name="future_functions">Здесь будет будущая функциональность</string>
 

@@ -11,7 +11,6 @@ import me.grechka.yamblz.yamblzweatherapp.di.modules.AppModule;
 import me.grechka.yamblz.yamblzweatherapp.di.DaggerAppComponent;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.JobModule;
-import me.grechka.yamblz.yamblzweatherapp.di.modules.NavigationModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.NetworkModule;
 import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
 import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobUtils;
@@ -45,7 +44,6 @@ public class WeatherApp extends Application {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .jobModule(new JobModule())
-                .navigationModule(new NavigationModule())
                 .networkModule(new NetworkModule())
                 .dataModule(new DataModule())
                 .build();

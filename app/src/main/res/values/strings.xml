@@ -1,11 +1,16 @@
 <resources>
-    <string name="app_name">YaMblzWeatherApp</string>
+    <string name="app_name">Ymblz.Weather</string>
+    <string name="app_name_alias" translatable="false">#Ymblz</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="action_about">About</string>
+    <!--MainActivity region -->
+    <string name="main_activity_navigation_weather">Weather</string>
+    <string name="main_activity_navigation_common">Common</string>
+    <string name="main_activity_navigation_settings">Settings</string>
+    <string name="main_activity_navigation_about">About</string>
+    <!--Endregion -->
 
     <string name="future_functions">Here will be future functions</string>
 

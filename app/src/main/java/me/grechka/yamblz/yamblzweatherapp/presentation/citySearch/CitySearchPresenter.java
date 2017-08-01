@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
-import me.grechka.yamblz.yamblzweatherapp.repository.Repository;
+import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -22,13 +22,13 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
 
     private RxSchedulers schedulers;
-    private Repository appRepository;
+    private AppRepository appAppRepository;
 
     @Inject
-    public CitySearchPresenter(@NonNull Repository appRepository,
+    public CitySearchPresenter(@NonNull AppRepository appAppRepository,
                                @NonNull RxSchedulers schedulers) {
         this.schedulers = schedulers;
-        this.appRepository = appRepository;
+        this.appAppRepository = appAppRepository;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
         getViewState().clearSuggestions();
         getViewState().showLoading();
 
-        this.appRepository.obtainSuggestedCities(input.toString())
+        this.appAppRepository.obtainSuggestedCities(input.toString())
                 .compose(schedulers.getIoToMainTransformer())
                 .subscribe(city -> {
                     getViewState().hideLoading();
@@ -55,14 +55,14 @@ public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
     }
 
     public void fetchCity(@NonNull City item) {
-        appRepository.obtainCityInfo(item.getPlaceId())
+        appAppRepository.obtainCityInfo(item.getPlaceId())
                 .compose(schedulers.getComputationToMainTransformerSingle())
                 .map(city -> new City.Builder(item)
                                 .location(city.getInfo().getGeometry().getLocation())
                                 .build())
                 .subscribe(city -> {
                     getViewState().closeDialog();
-                    appRepository.saveCity(city);
+                    appAppRepository.saveCity(city);
                 });
     }
 }

@@ -1,66 +1,55 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.settings;
 
-
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
-import me.grechka.yamblz.yamblzweatherapp.models.response.Weather;
+import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
+import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class SettingsFragment extends MvpAppCompatFragment implements SettingsView,
+public class SettingsFragment extends BaseFragment implements SettingsView,
         RadioGroup.OnCheckedChangeListener {
 
-    private View view;
-    private RadioGroup radioGroup;
+    @BindView(R.id.update_frequency_group) RadioGroup radioGroup;
 
+    @Inject
     @InjectPresenter
     SettingsPresenter presenter;
 
     @ProvidePresenter
     public SettingsPresenter presenter() {
-        return WeatherApp
-                .getComponent()
-                .getSettingsPresenter();
+        return presenter;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_settings, container, false);
-
-        WeatherApp.getComponent().inject(this);
-
-        setToolbar();
-
-        radioGroup = (RadioGroup) view.findViewById(R.id.update_frequency_group);
-        radioGroup.setOnCheckedChangeListener(this);
-        setCheckedFrequency();
-
-        return view;
+    protected int obtainLayoutView() {
+        return R.layout.fragment_settings;
     }
 
-    private void setToolbar() {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.action_settings);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        WeatherApp.getComponent().inject(this);
+
+    }
+
+    @Override
+    protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
+        super.onViewsCreated(savedInstanceState);
+        radioGroup.setOnCheckedChangeListener(this);
+        setCheckedFrequency();
     }
 
     private void setCheckedFrequency() {
@@ -76,6 +65,18 @@ public class SettingsFragment extends MvpAppCompatFragment implements SettingsVi
     }
 
     private int getFrequencyFromTag(@IdRes int checkedId) {
-        return Integer.parseInt((String) view.findViewById(checkedId).getTag());
+        return Integer.parseInt((String) getView().findViewById(checkedId).getTag());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ((AppCompatActivity) getActivity())
+                .getSupportActionBar()
+                .setTitle(R.string.main_activity_navigation_settings);
+
+        ((OnDrawerLocked) getActivity())
+                .setDrawerEnabled(false);
     }
 }

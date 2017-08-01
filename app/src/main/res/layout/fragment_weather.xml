@@ -1,26 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
-    tools:context=".presentation.activity.MainActivity">
+    tools:context=".presentation.main.MainActivity">
 
-    <include layout="@layout/screen_weather"
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </include>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/activity_main_header_search"
-        app:menu="@menu/activity_main_drawer" />
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/default_city"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"/>
 
-</android.support.v4.widget.DrawerLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cur_temp"
+            android:textSize="40sp"
+            app:layout_constraintTop_toBottomOf="@id/city"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/degree"
+            app:layout_constraintStart_toEndOf="@id/cur_temp"
+            app:layout_constraintTop_toBottomOf="@id/city"
+            android:text="@string/celsius"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/temp_max"
+            app:layout_constraintTop_toBottomOf="@id/cur_temp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/degree_max"
+            app:layout_constraintStart_toEndOf="@id/temp_max"
+            app:layout_constraintTop_toBottomOf="@id/cur_temp"
+            android:text="@string/celsius"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/temp_divider"
+            app:layout_constraintTop_toBottomOf="@id/cur_temp"
+            app:layout_constraintStart_toEndOf="@id/degree_max"
+            android:text=" / "
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/temp_min"
+            app:layout_constraintTop_toBottomOf="@id/cur_temp"
+            app:layout_constraintStart_toEndOf="@id/temp_divider"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/degree_min"
+            app:layout_constraintStart_toEndOf="@id/temp_min"
+            app:layout_constraintTop_toBottomOf="@id/cur_temp"
+            android:text="@string/celsius"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wind_title"
+            android:text="@string/wind_title"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/temp_max"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wind_value"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/temp_max"
+            app:layout_constraintStart_toEndOf="@id/wind_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wind_units"
+            android:text="@string/wind_units"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/temp_max"
+            app:layout_constraintStart_toEndOf="@id/wind_value" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/humidity_title"
+            android:text="@string/humidity_title"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wind_title"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/humidity_value"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/humidity_title"
+            app:layout_constraintTop_toBottomOf="@id/wind_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/humidity_units"
+            android:text=" %"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/wind_title"
+            app:layout_constraintStart_toEndOf="@id/humidity_value" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/description"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/humidity_title"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@+id/weather_icon"
+            app:layout_constraintTop_toBottomOf="@id/city"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -24,12 +24,8 @@ public interface WeatherView extends MvpView {
                             String tempMax,
                             String wind);
 
-    @StateStrategyType(AddToEndSingleStrategy.class)
-    void closeDrawer();
-
     @StateStrategyType(SkipStrategy.class)
     void showMessage(String message);
 
     void showCity(@NonNull City city);
-    void showCitySearch();
 }

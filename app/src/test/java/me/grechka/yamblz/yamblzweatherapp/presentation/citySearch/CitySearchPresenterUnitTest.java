@@ -9,7 +9,7 @@ import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.repository.Repository;
+import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.JsonProvider;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
@@ -29,7 +29,8 @@ public class CitySearchPresenterUnitTest extends BaseUnitTest {
             .build();
 
     @Mock CitySearchView view;
-    @Mock Repository repository;
+    @Mock
+    AppRepository appRepository;
     @Mock RxSchedulers schedulers;
 
     @Before
@@ -37,7 +38,7 @@ public class CitySearchPresenterUnitTest extends BaseUnitTest {
     public void onInit() {
         super.onInit();
 
-        presenter = new CitySearchPresenter(repository, schedulers);
+        presenter = new CitySearchPresenter(appRepository, schedulers);
         presenter.attachView(view);
     }
 
@@ -45,10 +46,10 @@ public class CitySearchPresenterUnitTest extends BaseUnitTest {
     public void onMockInit() {
         CityResponseModel cityResponse = JsonProvider.openFile(CityResponseModel.class, "places-city.json");
 
-        when(repository.obtainSuggestedCities(anyString()))
+        when(appRepository.obtainSuggestedCities(anyString()))
                 .thenReturn(Observable.just(sanJose));
 
-        when(repository.obtainCityInfo(anyString()))
+        when(appRepository.obtainCityInfo(anyString()))
                 .thenReturn(Single.just(cityResponse));
 
         when(schedulers.getIoToMainTransformer())
@@ -79,6 +80,6 @@ public class CitySearchPresenterUnitTest extends BaseUnitTest {
         presenter.fetchCity(sanJose);
 
         verify(view).closeDialog();
-        verify(repository).saveCity(any(City.class));
+        verify(appRepository).saveCity(any(City.class));
     }
 }

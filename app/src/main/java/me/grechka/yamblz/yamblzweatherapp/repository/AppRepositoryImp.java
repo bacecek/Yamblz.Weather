@@ -1,7 +1,6 @@
 package me.grechka.yamblz.yamblzweatherapp.repository;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -23,7 +22,7 @@ import static me.grechka.yamblz.yamblzweatherapp.repository.net.WeatherApi.UNITS
  * Created by Grechka on 16.07.2017.
  */
 
-public class RepositoryImp implements Repository {
+public class AppRepositoryImp implements AppRepository {
 
     private City city;
     private CurrentWeather currentWeather;
@@ -34,10 +33,10 @@ public class RepositoryImp implements Repository {
     private PreferencesManager preferencesManager;
 
 
-    public RepositoryImp(@NonNull Interactor interactor,
-                         @NonNull WeatherApi weatherApi,
-                         @NonNull SuggestApi suggestApi,
-                         @NonNull PreferencesManager preferencesManager) {
+    public AppRepositoryImp(@NonNull Interactor interactor,
+                            @NonNull WeatherApi weatherApi,
+                            @NonNull SuggestApi suggestApi,
+                            @NonNull PreferencesManager preferencesManager) {
         this.interactor = interactor;
         this.weatherApi = weatherApi;
         this.suggestApi = suggestApi;

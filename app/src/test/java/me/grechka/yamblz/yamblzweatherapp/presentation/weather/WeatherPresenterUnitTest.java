@@ -3,17 +3,12 @@ package me.grechka.yamblz.yamblzweatherapp.presentation.weather;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.verification.VerificationMode;
-
-import java.util.Observable;
 
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.CurrentWeather;
-import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherPresenter;
-import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherView;
-import me.grechka.yamblz.yamblzweatherapp.repository.Repository;
+import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 import static org.mockito.Mockito.*;
@@ -27,7 +22,8 @@ public class WeatherPresenterUnitTest extends BaseUnitTest {
     private WeatherPresenter presenter;
 
     @Mock WeatherView view;
-    @Mock Repository repository;
+    @Mock
+    AppRepository appRepository;
     @Mock RxSchedulers scheduler;
 
     @Before
@@ -35,7 +31,7 @@ public class WeatherPresenterUnitTest extends BaseUnitTest {
     public void onInit() {
         super.onInit();
 
-        presenter = new WeatherPresenter(scheduler, repository);
+        presenter = new WeatherPresenter(scheduler, appRepository);
         presenter.attachView(view);
     }
 
@@ -43,7 +39,7 @@ public class WeatherPresenterUnitTest extends BaseUnitTest {
     public void onMockInit() {
         CurrentWeather item = new CurrentWeather("", "", "", "", "", "");
 
-        when(repository.updateCurrentWeather())
+        when(appRepository.updateCurrentWeather())
                 .thenReturn(Single.just(item));
 
         when(scheduler.getIoToMainTransformerSingle())
@@ -67,7 +63,7 @@ public class WeatherPresenterUnitTest extends BaseUnitTest {
     public void weatherPresenter_getCachedCurrentWeatherWhenWeatherIsInCache_success() {
         CurrentWeather item = new CurrentWeather("12", "", "", "", "", "");
 
-        when(repository.getSavedCurrentWeather())
+        when(appRepository.getSavedCurrentWeather())
                 .thenReturn(Single.just(item));
 
         presenter.showSavedCurrentWeather();
@@ -80,12 +76,12 @@ public class WeatherPresenterUnitTest extends BaseUnitTest {
     public void weatherPresenter_getCachedCurrentWeatherWhenWeatherNeedToBeDownloaded_wereCalledUpdateWeatherMethod() {
         CurrentWeather item = new CurrentWeather("-", "", "", "", "", "");
 
-        when(repository.getSavedCurrentWeather())
+        when(appRepository.getSavedCurrentWeather())
                 .thenReturn(Single.just(item));
 
         presenter.showSavedCurrentWeather();
 
-        verify(repository).updateCurrentWeather();
+        verify(appRepository).updateCurrentWeather();
         verify(view).showCurrentWeather(anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString());
     }

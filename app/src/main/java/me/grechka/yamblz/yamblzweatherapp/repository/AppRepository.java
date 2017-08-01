@@ -13,7 +13,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
  * Created by Grechka on 16.07.2017.
  */
 
-public interface Repository {
+public interface AppRepository {
 
     City getCity();
     void saveCity(@NonNull City city);

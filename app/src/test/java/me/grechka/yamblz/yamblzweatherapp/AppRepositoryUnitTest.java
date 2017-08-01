@@ -12,8 +12,8 @@ import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.interactor.Interactor;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.response.SuggestionResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.repository.Repository;
-import me.grechka.yamblz.yamblzweatherapp.repository.RepositoryImp;
+import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.repository.AppRepositoryImp;
 import me.grechka.yamblz.yamblzweatherapp.repository.net.SuggestApi;
 import me.grechka.yamblz.yamblzweatherapp.repository.net.WeatherApi;
 import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
@@ -27,21 +27,21 @@ import static org.mockito.Mockito.when;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class RepositoryUnitTest extends BaseUnitTest {
+public class AppRepositoryUnitTest extends BaseUnitTest {
 
     @Mock SuggestApi suggestApi;
     @Mock WeatherApi weatherApi;
     @Mock Interactor interactor;
     @Mock PreferencesManager prefs;
 
-    private Repository repository;
+    private AppRepository appRepository;
     private City[] cities = new City[2];
 
     @Before
     @Override
     public void onInit() {
         super.onInit();
-        repository = new RepositoryImp(interactor, weatherApi, suggestApi, prefs);
+        appRepository = new AppRepositoryImp(interactor, weatherApi, suggestApi, prefs);
 
         cities[0] = new City.Builder()
                         .placeId("ChIJ9T_5iuTKj4ARe3GfygqMnbk")
@@ -69,7 +69,7 @@ public class RepositoryUnitTest extends BaseUnitTest {
         when(suggestApi.obtainSuggestedCities(anyString(), anyString(), anyString()))
                 .thenReturn(Single.just(suggestions));
 
-        TestObserver<City> observer = repository.obtainSuggestedCities("San Jose").test();
+        TestObserver<City> observer = appRepository.obtainSuggestedCities("San Jose").test();
         observer
                 .assertNoErrors()
                 .assertValueCount(2)
@@ -84,7 +84,7 @@ public class RepositoryUnitTest extends BaseUnitTest {
         when(suggestApi.obtainSuggestedCities(anyString(), anyString(), anyString()))
                 .thenReturn(Single.just(suggestions));
 
-        TestObserver<City> observer = repository.obtainSuggestedCities("San Jose").test();
+        TestObserver<City> observer = appRepository.obtainSuggestedCities("San Jose").test();
         observer
                 .assertTerminated()
                 .assertError(IllegalArgumentException.class);

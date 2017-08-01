@@ -9,6 +9,9 @@ ext.versions = [
 
 		retrolambdaGradlePlugin      : '3.6.1',
 		androidGradlePlugin          : '2.3.3',
+		jacocoGradlePlugin			 : '0.1.1',
+
+		butterknife					 : '8.7.0',
 
 		rxjava                       : '2.0.6',
 		rxandroid                    : '2.0.1',
@@ -31,6 +34,7 @@ ext.versions = [
 ext.gradlePlugins = [
 		android          : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
 		retrolambda      : "me.tatarka:gradle-retrolambda:$versions.retrolambdaGradlePlugin",
+		jacoco    		 : "com.dicedmelon.gradle:jacoco-android:$versions.jacocoGradlePlugin",
 ]
 
 ext.modules = [
@@ -49,9 +53,11 @@ ext.libraries = [
 		constraint    		    : "com.android.support.constraint:constraint-layout:$versions.constraint",
 
 		//common
+		butterknife				: "com.jakewharton:butterknife:$versions.butterknife",
+		butterknifeCompiler	    : "com.jakewharton:butterknife-compiler:$versions.butterknife",
+
 		dagger					: "com.google.dagger:dagger:$versions.dagger",
 		daggerCompiler			: "com.google.dagger:dagger-compiler:$versions.dagger",
-
 
 		retrofit				: "com.squareup.retrofit2:retrofit:$versions.retrofit",
 		converterGson			: "com.squareup.retrofit2:converter-gson:$versions.retrofit",

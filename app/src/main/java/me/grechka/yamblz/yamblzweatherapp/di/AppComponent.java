@@ -7,12 +7,10 @@ import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.AppModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.JobModule;
-import me.grechka.yamblz.yamblzweatherapp.di.modules.NavigationModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.NetworkModule;
-import me.grechka.yamblz.yamblzweatherapp.presentation.activity.MainPresenter;
+import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainPresenter;
 import me.grechka.yamblz.yamblzweatherapp.interactor.InteractorImp;
 import me.grechka.yamblz.yamblzweatherapp.presentation.citySearch.CitySearchFragment;
-import me.grechka.yamblz.yamblzweatherapp.repository.RepositoryImp;
 import me.grechka.yamblz.yamblzweatherapp.presentation.settings.SettingsFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.settings.SettingsPresenter;
 import me.grechka.yamblz.yamblzweatherapp.schedule.CurrentWeatherUpdateJob;
@@ -24,8 +22,7 @@ import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherPresenter;
  * Created by Grechka on 19.07.2017.
  */
 
-@Component(modules = {AppModule.class, JobModule.class, NavigationModule.class,
-        NetworkModule.class, DataModule.class })
+@Component(modules = {AppModule.class, JobModule.class, NetworkModule.class, DataModule.class })
 @Singleton
 public interface AppComponent {
 
