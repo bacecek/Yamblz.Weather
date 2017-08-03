@@ -14,8 +14,6 @@ public final class PrefsStorage implements Storage<String> {
     private static final String TAG = "Weather.App.SharedPrefs";
     private static final String APP_PREFERENCES = "wether.app.shared.preferences";
 
-    public static final String FREQUENCY_KEY = "keys.frequency";
-
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 

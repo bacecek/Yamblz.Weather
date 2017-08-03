@@ -75,7 +75,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
         super.onViewsCreated(savedInstanceState);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        forecastAdapter = new ForecastAdapter(weatherTypes);
+        forecastAdapter = new ForecastAdapter(getTempUnits(), weatherTypes);
         forecastRecyclerView.setAdapter(forecastAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         forecastRecyclerView.setLayoutManager(linearLayoutManager);
@@ -88,13 +88,24 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     }
 
     @Override
+    public void clearForecast() {
+        forecastAdapter.clear();
+    }
+
+    @Override
     public void setWeather(@NonNull Weather weather,
                                    @NonNull WeatherType type) {
         weatherIcon.setText(getString(type.getIconRes()));
-        temperatureView.setText(String.valueOf(weather.getTemperature()));
-        humidityView.setText(String.valueOf(weather.getHumidity()));
-        pressureView.setText(String.valueOf(weather.getPressure()));
-        speedView.setText(String.valueOf(weather.getWindSpeed()));
+
+        temperatureView.setText(getString(R.string.weather_fragment_temperature,
+                weather.getTemperature(), getTempUnits()));
+
+        humidityView.setText(getString(R.string.weather_fragment_humidity, weather.getHumidity()));
+        pressureView.setText(getString(R.string.weather_fragment_pressure,
+                weather.getPressure(), getPressureUnits()));
+        speedView.setText(getString(R.string.weather_fragment_wind_speed,
+                weather.getWindSpeed(), getSpeedUnits()));
+
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -106,17 +117,6 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     public void onDialogDismissed() {
         presenter.updateCity();
         presenter.updateWeather();
-    }
-
-    @Override
-    public void showMessage(String message) {
-        if (message.equals("Error")) message = getResources().getString(R.string.error);
-        else if (message.equals("No network")) message = getResources().getString(R.string.no_network);
-        swipeRefreshLayout.setRefreshing(false);
-        Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
-        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-        if( v != null) v.setGravity(Gravity.CENTER);
-        toast.show();
     }
 
     @Override
@@ -134,5 +134,20 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
 
         ((OnDrawerLocked) getActivity())
                 .setDrawerEnabled(true);
+    }
+
+    private String getTempUnits() {
+        return presenter.isCelsius() ? getString(R.string.all_weather_celsius)
+                : getString(R.string.all_weather_fahrenheit);
+    }
+
+    private String getSpeedUnits() {
+        return  presenter.isMs() ? getString(R.string.all_weather_ms)
+                : getString(R.string.all_weather_kmh);
+    }
+
+    private String getPressureUnits() {
+        return presenter.isMmHg() ? getString(R.string.all_weather_mmhg)
+                : getString(R.string.all_weather_pascal);
     }
 }

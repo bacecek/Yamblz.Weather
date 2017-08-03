@@ -4,6 +4,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorYandexPrimary</item>
+        <item name="android:listDivider">@color/colorGreyMd200</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -40,20 +41,27 @@
         <item name="android:background">@color/colorGreyMd800</item>
     </style>
 
+    <style name="TextInputLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">@color/colorGreyMd600</item>
+        <item name="colorAccent">@color/colorGreyMd900</item>
+        <item name="colorControlNormal">@color/colorGreyMd900</item>
+        <item name="colorControlActivated">@color/colorGreyMd900</item>
+    </style>
+
     <style name="WeatherLargeIcon" parent="@android:style/TextAppearance.Large">
-        <item name="android:textSize">72sp</item>
+        <item name="android:textSize">96sp</item>
         <item name="android:textColor">@color/colorGreyMd700</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="WeatherMediumIcon" parent="@android:style/TextAppearance.Large">
-        <item name="android:textSize">44sp</item>
+    <style name="WeatherMediumIcon" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">40sp</item>
         <item name="android:textColor">@color/colorGreyMd700</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="WeatherSmallIcon" parent="@android:style/TextAppearance.Large">
-        <item name="android:textSize">34sp</item>
+    <style name="WeatherSmallIcon" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/colorGreyMd700</item>
         <item name="android:gravity">center</item>
     </style>
@@ -65,8 +73,8 @@
         <item name="android:typeface">sans</item>
     </style>
 
-    <style name="WeatherMediumText" parent="@android:style/TextAppearance.Large">
-        <item name="android:textSize">22sp</item>
+    <style name="WeatherMediumText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorGreyMd800</item>
         <item name="android:typeface">sans</item>
     </style>

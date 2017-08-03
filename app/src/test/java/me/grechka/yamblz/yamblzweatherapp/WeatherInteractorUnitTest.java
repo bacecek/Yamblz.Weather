@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractor;
-import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractorImp;
+import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractorImpl;
 import me.grechka.yamblz.yamblzweatherapp.utils.JsonProvider;
 
 import static org.mockito.Matchers.anyInt;
@@ -33,7 +33,7 @@ public class WeatherInteractorUnitTest extends BaseUnitTest {
     public void onInit() {
         super.onInit();
 
-        weatherInteractor = new WeatherInteractorImp(context);
+        weatherInteractor = new WeatherInteractorImpl(context);
 
         weather = new CurrentWeather(
                 "27", "clear sky", "51",

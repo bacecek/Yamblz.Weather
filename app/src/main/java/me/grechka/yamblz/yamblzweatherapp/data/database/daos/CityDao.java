@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.CityEntity;
 
@@ -30,7 +31,7 @@ public interface CityDao {
     long[] insertAll(CityEntity... entities);
 
     @Query("SELECT * FROM cities WHERE active IS 1")
-    Single<CityEntity> findActive();
+    Flowable<CityEntity> findActive();
 
     @Query("SELECT * FROM cities")
     Single<List<CityEntity>> find();

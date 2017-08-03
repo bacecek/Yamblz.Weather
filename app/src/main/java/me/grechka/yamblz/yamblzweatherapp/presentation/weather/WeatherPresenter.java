@@ -9,8 +9,11 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractor;
+import me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersConfig;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
@@ -24,16 +27,16 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 public class WeatherPresenter extends MvpPresenter<WeatherView> {
 
     private RxSchedulers scheduler;
-    private AppRepository appRepository;
     private Set<WeatherType> weatherTypes;
+    private WeatherInteractor interactor;
 
     @Inject
     public WeatherPresenter(@NonNull RxSchedulers scheduler,
-                            @NonNull AppRepository appRepository,
+                            @NonNull WeatherInteractor interactor,
                             @NonNull Set<WeatherType> weatherTypes) {
         this.scheduler = scheduler;
-        this.appRepository = appRepository;
         this.weatherTypes = weatherTypes;
+        this.interactor = interactor;
     }
 
     @Override
@@ -41,32 +44,47 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
         super.attachView(view);
 
         getWeather();
-       // getForecast();
+        getForecast();
     }
 
     void updateCity() {
-        appRepository.getCity()
+        interactor.getCity()
                 .subscribe(getViewState()::showCity);
     }
 
     void updateWeather() {
-        appRepository
-                .updateCurrentWeather()
+        interactor
+                .updateWeather()
                 .compose(scheduler.getIoToMainTransformerSingle())
                 .subscribe(this::setWeather);
     }
 
     void getWeather() {
-        appRepository.getSavedCurrentWeather()
-                .onErrorResumeNext(t -> appRepository.updateCurrentWeather())
-                .compose(scheduler.getIoToMainTransformerSingle())
+        interactor.getCachedWeather()
+                //.onErrorResumeNext(t -> interactor.updateWeather())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setWeather, t -> t.printStackTrace());
     }
 
     void getForecast() {
-        appRepository.getForecast()
+        getViewState().clearForecast();
+
+        interactor.getForecast()
                 .compose(scheduler.getIoToMainTransformer())
                 .subscribe(getViewState()::addForecast);
+    }
+
+    boolean isCelsius() {
+        return interactor.getModes()[0] == ConvertersConfig.TEMPERATURE_CELSIUS;
+    }
+
+    boolean isMmHg() {
+        return interactor.getModes()[1] == ConvertersConfig.PRESSURE_MMHG;
+    }
+
+    boolean isMs() {
+        return interactor.getModes()[2] == ConvertersConfig.SPEED_MS;
     }
 
     private void setWeather(@NonNull Weather weather) {

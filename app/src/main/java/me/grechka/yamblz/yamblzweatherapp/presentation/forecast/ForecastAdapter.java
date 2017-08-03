@@ -28,10 +28,13 @@ import sasd97.java_blog.xyz.richtextview.RichTextView;
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
 
     private Context context;
+    private String tempUnits;
     private List<Weather> forecasts;
     private Set<WeatherType> weatherTypes;
 
-    public ForecastAdapter(Set<WeatherType> weatherTypes) {
+    public ForecastAdapter(@NonNull String tempUnits,
+                           @NonNull Set<WeatherType> weatherTypes) {
+        this.tempUnits = tempUnits;
         forecasts = new ArrayList<>();
         this.weatherTypes = weatherTypes;
     }
@@ -39,6 +42,11 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     public void add(@NonNull Weather weather) {
         forecasts.add(weather);
         notifyItemInserted(getItemCount());
+    }
+
+    public void clear() {
+        notifyItemRangeRemoved(0, getItemCount());
+        forecasts.clear();
     }
 
     public class ForecastViewHolder extends BaseViewHolder {
@@ -54,12 +62,15 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
         void setWeather(@NonNull Weather weather,
                         @NonNull WeatherType type) {
+
             forecastIcon.setText(context.getString(type.getIconRes()));
             forecastIcon.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
             forecastTemperature.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
-            forecastTemperature.setText(String.valueOf(weather.getTemperature()));
+            forecastTemperature.setText(context.getString(R.string.weather_fragment_temperature,
+                    weather.getTemperature(), tempUnits));
             forecastCard.setCardBackgroundColor(ContextCompat.getColor(context, type.getCardColor()));
             forecastDelimeter.setBackgroundColor(ContextCompat.getColor(context, type.getTextColor()));
+
         }
     }
 

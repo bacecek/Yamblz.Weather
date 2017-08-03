@@ -29,6 +29,13 @@
     <string name="all_weather_pascal">hPa</string>
     <!-- Endregion -->
 
+    <!-- Weather fragment -->
+    <string name="weather_fragment_humidity">%1$.0f %%</string>
+    <string name="weather_fragment_temperature">%1$.1f %2$s</string>
+    <string name="weather_fragment_pressure">%1$.0f %2$s</string>
+    <string name="weather_fragment_wind_speed">%1$.1f %2$s</string>
+    <!-- Endregion -->
+
     <string name="future_functions">Here will be future functions</string>
 
     <string name="version">Version 0.0.2</string>

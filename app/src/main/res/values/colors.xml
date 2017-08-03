@@ -8,6 +8,8 @@
     <color name="colorYandexPrimary">#ffcc00</color>
 
     <!-- Grey Palette -->
+    <color name="colorGreyMd200">#EEEEEE</color>
+    <color name="colorGreyMd300">#E0E0E0</color>
     <color name="colorGreyMd600">#757575</color>
     <color name="colorGreyMd700">#616161</color>
     <color name="colorGreyMd800">#424242</color>

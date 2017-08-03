@@ -28,7 +28,7 @@ public class CurrentWeatherUpdateJob extends Job {
     @NonNull
     protected Result onRunJob(Params params) {
         Log.d("Job", "onRunJob: Job started");
-        repository.updateCurrentWeather();
+        repository.updateWeather();
         return Result.SUCCESS;
     }
 }

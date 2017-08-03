@@ -15,16 +15,21 @@ import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
  */
 
 public interface AppRepository {
+    //constants
+    String UNITS_TEMPERATURE_PREFS_KEY = "app.prefs.temperature.units";
+    String UNITS_PRESSURE_PREFS_KEY = "app.prefs.pressure.units";
+    String UNITS_SPEED_PREFS_KEY = "app.prefs.speed.units";
+    String FREQUENCY_KEY = "keys.frequency";
 
-    Single<City> getCity();
+    Flowable<City> getCity();
     Observable<City> getCities();
     Completable addCity(@NonNull City city);
     Completable markAsActive(@NonNull City city);
 
     Observable<Weather> getForecast();
     Single<Weather> getCurrentWeather();
-    Single<Weather> updateCurrentWeather();
-    Single<Weather> getSavedCurrentWeather();
+    Single<Weather> updateWeather();
+    Flowable<Weather> getCachedWeather();
 
     //network
     Single<CityLocation> obtainCityLocation(@NonNull String cityId);
@@ -34,4 +39,13 @@ public interface AppRepository {
     //preferences
     void setFrequency(int frequency);
     String getFrequency();
+
+    void saveTemperatureUnits(int units);
+    int getTemperatureUnits();
+
+    void savePressureUnits(int units);
+    int getPressureUnits();
+
+    void saveSpeedUnits(int units);
+    int getSpeedUnits();
 }

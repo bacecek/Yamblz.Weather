@@ -7,6 +7,8 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
@@ -27,17 +29,14 @@ public class MainPresenter extends MvpPresenter<MainView> {
                          @NonNull AppRepository appRepository) {
         this.schedulers = schedulers;
         this.appRepository = appRepository;
-    }
 
-    @Override
-    public void attachView(MainView view) {
-        super.attachView(view);
         updateCity();
     }
 
     void updateCity() {
         appRepository.getCity()
-                .compose(schedulers.getIoToMainTransformerSingle())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getViewState()::setCityToHeader, Throwable::printStackTrace);
     }
 

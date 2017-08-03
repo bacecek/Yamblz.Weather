@@ -23,8 +23,8 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 @InjectViewState
 public class FavoritesPresenter extends MvpPresenter<FavoritesView> {
 
-    private AppRepository repository;
     private RxSchedulers schedulers;
+    private AppRepository repository;
 
     @Inject
     public FavoritesPresenter(@NonNull AppRepository repository,
@@ -36,7 +36,6 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView> {
     @Override
     public void attachView(FavoritesView view) {
         super.attachView(view);
-        Log.d("Here", "On Attach");
         updateCities();
     }
 

@@ -90,7 +90,7 @@ public class AppRepositoryImpl implements AppRepository {
     }
 
     @Override
-    public Single<City> getCity() {
+    public Flowable<City> getCity() {
         return database.cityDao()
                 .findActive()
                 .onErrorReturn(t -> CityEntity.DEFAULT)
@@ -117,13 +117,12 @@ public class AppRepositoryImpl implements AppRepository {
     }
 
     @Override
-    public Single<Weather> getSavedCurrentWeather() {
+    public Flowable<Weather> getCachedWeather() {
         return database.cityDao()
                 .findActive()
                 .onErrorReturn(t -> CityEntity.DEFAULT)
-                .flatMap(entity -> {
+                .flatMapSingle(entity -> {
                     this.city = entity;
-                    Log.d("FIND", this.city.toString());
                     return database.weatherDao().findCurrent(entity.getUid());
                 })
                 .map(WeatherEntity::toWeather);
@@ -147,7 +146,7 @@ public class AppRepositoryImpl implements AppRepository {
     }
 
     @Override
-    public Single<Weather> updateCurrentWeather() {
+    public Single<Weather> updateWeather() {
         return weatherApi
                 .getWeatherByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
                 .map(weather -> {
@@ -191,11 +190,41 @@ public class AppRepositoryImpl implements AppRepository {
 
     @Override
     public void setFrequency(int frequency) {
-        prefs.put(PrefsStorage.FREQUENCY_KEY, frequency);
+        prefs.put(FREQUENCY_KEY, frequency);
     }
 
     @Override
     public String getFrequency() {
-        return String.valueOf(prefs.getInteger(PrefsStorage.FREQUENCY_KEY, 60));
+        return String.valueOf(prefs.getInteger(FREQUENCY_KEY, 60));
+    }
+
+    @Override
+    public void saveTemperatureUnits(int units) {
+        prefs.put(UNITS_TEMPERATURE_PREFS_KEY, units);
+    }
+
+    @Override
+    public int getTemperatureUnits() {
+        return prefs.getInteger(UNITS_TEMPERATURE_PREFS_KEY, 0);
+    }
+
+    @Override
+    public void savePressureUnits(int units) {
+        prefs.put(UNITS_PRESSURE_PREFS_KEY, units);
+    }
+
+    @Override
+    public int getPressureUnits() {
+        return prefs.getInteger(UNITS_PRESSURE_PREFS_KEY, 0);
+    }
+
+    @Override
+    public void saveSpeedUnits(int units) {
+        prefs.put(UNITS_SPEED_PREFS_KEY, units);
+    }
+
+    @Override
+    public int getSpeedUnits() {
+        return prefs.getInteger(UNITS_SPEED_PREFS_KEY, 0);
     }
 }

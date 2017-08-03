@@ -1,6 +1,7 @@
 package me.grechka.yamblz.yamblzweatherapp.di;
 
 import dagger.Subcomponent;
+import me.grechka.yamblz.yamblzweatherapp.di.modules.BindsModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.ConvertersModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.WeatherTypesModule;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
@@ -16,7 +17,7 @@ import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherPresenter;
  * Created by alexander on 03/08/2017.
  */
 
-@Subcomponent(modules = {WeatherTypesModule.class, ConvertersModule.class})
+@Subcomponent(modules = {BindsModule.class, WeatherTypesModule.class, ConvertersModule.class})
 @MainScope
 public interface MainComponent {
     void inject(CitySearchFragment fragment);

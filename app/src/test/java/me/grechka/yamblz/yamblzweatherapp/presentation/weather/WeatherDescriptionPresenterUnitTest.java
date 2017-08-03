@@ -38,7 +38,7 @@ public class WeatherDescriptionPresenterUnitTest extends BaseUnitTest {
     public void onMockInit() {
         CurrentWeather item = new CurrentWeather("", "", "", "", "", "");
 
-        when(appRepository.updateCurrentWeather())
+        when(appRepository.updateWeather())
                 .thenReturn(Single.just(item));
 
         when(scheduler.getIoToMainTransformerSingle())
@@ -62,7 +62,7 @@ public class WeatherDescriptionPresenterUnitTest extends BaseUnitTest {
     public void weatherPresenter_getCachedCurrentWeatherWhenWeatherIsInCache_success() {
         CurrentWeather item = new CurrentWeather("12", "", "", "", "", "");
 
-        when(appRepository.getSavedCurrentWeather())
+        when(appRepository.getCachedWeather())
                 .thenReturn(Single.just(item));
 
         presenter.getWeather();
@@ -75,12 +75,12 @@ public class WeatherDescriptionPresenterUnitTest extends BaseUnitTest {
     public void weatherPresenter_getCachedCurrentWeatherWhenWeatherNeedToBeDownloaded_wereCalledUpdateWeatherMethod() {
         CurrentWeather item = new CurrentWeather("-", "", "", "", "", "");
 
-        when(appRepository.getSavedCurrentWeather())
+        when(appRepository.getCachedWeather())
                 .thenReturn(Single.just(item));
 
         presenter.getWeather();
 
-        verify(appRepository).updateCurrentWeather();
+        verify(appRepository).updateWeather();
         verify(view).showCurrentWeather(anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString());
     }
