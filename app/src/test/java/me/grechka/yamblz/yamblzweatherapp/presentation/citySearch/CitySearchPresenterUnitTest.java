@@ -80,6 +80,6 @@ public class CitySearchPresenterUnitTest extends BaseUnitTest {
         presenter.fetchCity(sanJose);
 
         verify(view).closeDialog();
-        verify(appRepository).saveCity(any(City.class));
+        verify(appRepository).addCity(any(City.class));
     }
 }

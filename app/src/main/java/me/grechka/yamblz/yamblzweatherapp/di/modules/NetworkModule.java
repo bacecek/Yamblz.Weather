@@ -24,7 +24,7 @@ public class NetworkModule {
     @Singleton
     public WeatherApi provideWeatherApi() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.openweathermap.org/")
+                .baseUrl("http://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

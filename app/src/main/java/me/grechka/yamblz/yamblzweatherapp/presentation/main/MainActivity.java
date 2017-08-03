@@ -23,13 +23,13 @@ import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseActivity;
 import me.grechka.yamblz.yamblzweatherapp.presentation.citySearch.CitySearchFragment;
+import me.grechka.yamblz.yamblzweatherapp.presentation.favorites.FavoritesFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.settings.SettingsFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherFragment;
 
 public class MainActivity extends BaseActivity
         implements MainView,
         OnDrawerLocked,
-        OnDismissDialogListener,
         NavigationView.OnNavigationItemSelectedListener{
 
     private TextView cityAreaHeaderTextView;
@@ -88,14 +88,10 @@ public class MainActivity extends BaseActivity
     }
 
     private void onHeaderInit(@NonNull View headerView) {
-        View searchView = headerView.findViewById(R.id.fragment_weather_header_cities_search);
+        View searchView = headerView.findViewById(R.id.main_activity_choose_city);
         cityTitleHeaderTextView = (TextView) headerView.findViewById(R.id.fragment_weather_header_city_title);
         cityAreaHeaderTextView = (TextView) headerView.findViewById(R.id.fragment_weather_header_city_area);
-        searchView.setOnClickListener(v -> showCitySearch());
-    }
-
-    public void showCitySearch() {
-        CitySearchFragment.newInstance().show(getSupportFragmentManager(), null);
+        searchView.setOnClickListener(v -> showFavorites());
     }
 
     @Override
@@ -135,6 +131,15 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
+    public void showFavorites() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new FavoritesFragment())
+                .addToBackStack(null)
+                .commit();
+        closeDrawer();
+    }
+
+    @Override
     public void navigate(int screenId) {
         switch (screenId) {
             case R.id.nav_settings:
@@ -144,13 +149,6 @@ public class MainActivity extends BaseActivity
                 presenter.showAbout();
                 break;
         }
-    }
-
-    @Override
-    public void onDialogDismissed() {
-        closeDrawer();
-        presenter.updateCity();
-        weatherFragment.onDialogDismissed();
     }
 
     @Override

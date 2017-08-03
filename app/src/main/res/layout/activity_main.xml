@@ -17,6 +17,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        style="@style/NavigationView"
         app:headerLayout="@layout/activity_main_header_search"
         app:menu="@menu/activity_main_drawer" />
 

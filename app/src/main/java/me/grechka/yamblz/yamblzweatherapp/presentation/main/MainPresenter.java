@@ -8,12 +8,14 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
  * Created by Grechka on 14.07.2017.
  */
 
+@MainScope
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
 

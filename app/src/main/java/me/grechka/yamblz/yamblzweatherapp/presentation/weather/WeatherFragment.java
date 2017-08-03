@@ -6,12 +6,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -23,22 +27,28 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
+import me.grechka.yamblz.yamblzweatherapp.presentation.forecast.ForecastAdapter;
 import sasd97.java_blog.xyz.richtextview.RichTextView;
 
 public class WeatherFragment extends BaseFragment implements WeatherView,
         SwipeRefreshLayout.OnRefreshListener {
+
+    private ForecastAdapter forecastAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @BindView(R.id.content_weather_icon) RichTextView weatherIcon;
     @BindView(R.id.content_weather_temperature_view) TextView temperatureView;
     @BindView(R.id.content_weather_humidity_view) TextView humidityView;
     @BindView(R.id.content_weather_pressure_view) TextView pressureView;
     @BindView(R.id.content_weather_speed_view) TextView speedView;
-
+    @BindView(R.id.content_forecast_recycler_view) RecyclerView forecastRecyclerView;
     @BindView(R.id.swiperefresh) SwipeRefreshLayout swipeRefreshLayout;
 
     @Inject
     @InjectPresenter
     WeatherPresenter presenter;
+
+    @Inject Set<WeatherType> weatherTypes;
 
     @ProvidePresenter
     public WeatherPresenter providePresenter() {
@@ -64,7 +74,17 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
         super.onViewsCreated(savedInstanceState);
         swipeRefreshLayout.setOnRefreshListener(this);
-        presenter.showSavedCurrentWeather();
+
+        forecastAdapter = new ForecastAdapter(weatherTypes);
+        forecastRecyclerView.setAdapter(forecastAdapter);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        forecastRecyclerView.setLayoutManager(linearLayoutManager);
+        forecastRecyclerView.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    public void addForecast(Weather weather) {
+        forecastAdapter.add(weather);
     }
 
     @Override
@@ -85,7 +105,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
 
     public void onDialogDismissed() {
         presenter.updateCity();
-        presenter.updateCurrentWeather();
+        presenter.updateWeather();
     }
 
     @Override
@@ -101,7 +121,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
 
     @Override
     public void onRefresh() {
-        presenter.updateCurrentWeather();
+        presenter.updateWeather();
     }
 
     @Override

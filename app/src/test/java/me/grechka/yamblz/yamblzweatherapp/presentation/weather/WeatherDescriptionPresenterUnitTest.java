@@ -52,7 +52,7 @@ public class WeatherDescriptionPresenterUnitTest extends BaseUnitTest {
 
     @Test
     public void weatherPresenter_updateWeather_weaterWereUpdateAndDisplayedCorrectly() {
-        presenter.updateCurrentWeather();
+        presenter.updateWeather();
 
         verify(view).showCurrentWeather(anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString());
@@ -65,7 +65,7 @@ public class WeatherDescriptionPresenterUnitTest extends BaseUnitTest {
         when(appRepository.getSavedCurrentWeather())
                 .thenReturn(Single.just(item));
 
-        presenter.showSavedCurrentWeather();
+        presenter.getWeather();
 
         verify(view).showCurrentWeather(anyString(), anyString(), anyString(),
                 anyString(), anyString(), anyString());
@@ -78,7 +78,7 @@ public class WeatherDescriptionPresenterUnitTest extends BaseUnitTest {
         when(appRepository.getSavedCurrentWeather())
                 .thenReturn(Single.just(item));
 
-        presenter.showSavedCurrentWeather();
+        presenter.getWeather();
 
         verify(appRepository).updateCurrentWeather();
         verify(view).showCurrentWeather(anyString(), anyString(), anyString(),

@@ -3,6 +3,7 @@ package me.grechka.yamblz.yamblzweatherapp.data;
 import android.support.annotation.NonNull;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
@@ -14,9 +15,13 @@ import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
  */
 
 public interface AppRepository {
-    Single<City> getCity();
-    Completable saveCity(@NonNull City city);
 
+    Single<City> getCity();
+    Observable<City> getCities();
+    Completable addCity(@NonNull City city);
+    Completable markAsActive(@NonNull City city);
+
+    Observable<Weather> getForecast();
     Single<Weather> getCurrentWeather();
     Single<Weather> updateCurrentWeather();
     Single<Weather> getSavedCurrentWeather();

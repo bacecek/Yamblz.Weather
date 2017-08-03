@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorYandexPrimary</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -29,6 +29,17 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="CardView">
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <style name="NavigationView" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="itemIconTint">@color/colorWhite</item>
+        <item name="itemTextColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorGreyMd800</item>
+    </style>
+
     <style name="WeatherLargeIcon" parent="@android:style/TextAppearance.Large">
         <item name="android:textSize">72sp</item>
         <item name="android:textColor">@color/colorGreyMd700</item>
@@ -37,6 +48,12 @@
 
     <style name="WeatherMediumIcon" parent="@android:style/TextAppearance.Large">
         <item name="android:textSize">44sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WeatherSmallIcon" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">34sp</item>
         <item name="android:textColor">@color/colorGreyMd700</item>
         <item name="android:gravity">center</item>
     </style>

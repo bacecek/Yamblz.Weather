@@ -13,11 +13,13 @@ import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.PrefsStorage;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.Storage;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
+import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 
 /**
  * Created by Grechka on 14.07.2017.
  */
 
+@MainScope
 @InjectViewState
 public class SettingsPresenter extends MvpPresenter<SettingsView> {
 

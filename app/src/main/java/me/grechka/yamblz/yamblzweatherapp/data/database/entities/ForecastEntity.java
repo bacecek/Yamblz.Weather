@@ -2,20 +2,17 @@ package me.grechka.yamblz.yamblzweatherapp.data.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Relation;
 import android.support.annotation.NonNull;
-import android.support.v4.util.TimeUtils;
 
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 
 /**
- * Created by alexander on 02/08/2017.
+ * Created by alexander on 03/08/2017.
  */
 
-@Entity(tableName = "weather", indices = @Index(value = {"city"}, unique = true))
-public class WeatherEntity {
+@Entity(tableName = "forecasts")
+public class ForecastEntity {
 
     @PrimaryKey(autoGenerate = true)
     private long uid;
@@ -153,8 +150,8 @@ public class WeatherEntity {
     }
 
     public static WeatherEntity fromWeather(@NonNull Weather weather,
-                                      @NonNull CityEntity city,
-                                      boolean isForecast) {
+                                            @NonNull CityEntity city,
+                                            boolean isForecast) {
         WeatherEntity entity = new WeatherEntity();
         entity.setWeatherId(weather.getWeatherId());
         entity.setCityId(city.getUid());

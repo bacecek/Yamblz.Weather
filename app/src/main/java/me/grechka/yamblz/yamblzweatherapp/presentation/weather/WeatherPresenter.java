@@ -1,7 +1,6 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.weather;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -11,6 +10,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
@@ -19,6 +19,7 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
  * Created by Grechka on 15.07.2017.
  */
 
+@MainScope
 @InjectViewState
 public class WeatherPresenter extends MvpPresenter<WeatherView> {
 
@@ -38,7 +39,9 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
     @Override
     public void attachView(WeatherView view) {
         super.attachView(view);
-        updateCity();
+
+        getWeather();
+       // getForecast();
     }
 
     void updateCity() {
@@ -46,24 +49,29 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                 .subscribe(getViewState()::showCity);
     }
 
-    void updateCurrentWeather() {
+    void updateWeather() {
         appRepository
                 .updateCurrentWeather()
                 .compose(scheduler.getIoToMainTransformerSingle())
                 .subscribe(this::setWeather);
     }
 
-    void showSavedCurrentWeather() {
+    void getWeather() {
         appRepository.getSavedCurrentWeather()
                 .onErrorResumeNext(t -> appRepository.updateCurrentWeather())
                 .compose(scheduler.getIoToMainTransformerSingle())
                 .subscribe(this::setWeather, t -> t.printStackTrace());
     }
 
+    void getForecast() {
+        appRepository.getForecast()
+                .compose(scheduler.getIoToMainTransformer())
+                .subscribe(getViewState()::addForecast);
+    }
+
     private void setWeather(@NonNull Weather weather) {
         for(WeatherType type: weatherTypes) {
             if (!type.isApplicable(weather)) continue;
-            Log.d("Gere", type.toString());
             getViewState().setWeather(weather, type);
             break;
         }

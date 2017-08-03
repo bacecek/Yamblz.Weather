@@ -6,9 +6,9 @@ import android.util.Log;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.data.database.AppDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.CityEntity;
@@ -30,6 +30,8 @@ import static me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi.API_KEY;
 
 public class AppRepositoryImpl implements AppRepository {
 
+    private static final String TAG = AppRepositoryImpl.class.getCanonicalName();
+
     private CityEntity city = CityEntity.DEFAULT;
     private WeatherEntity weather;
 
@@ -50,19 +52,41 @@ public class AppRepositoryImpl implements AppRepository {
     }
 
     @Override
-    public Completable saveCity(@NonNull City city) {
+    public Completable addCity(@NonNull City city) {
+        return Completable
+                .fromAction(() -> this.database.cityDao().insert(CityEntity.fromCity(city, false)))
+            .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<City> getCities() {
+        return database.cityDao()
+                .find()
+                .flatMapObservable(Observable::fromIterable)
+                .map(CityEntity::toCity);
+    }
+
+    @Override
+    public Completable markAsActive(@NonNull City city) {
         CityEntity inactiveCity = this.city;
         inactiveCity.setActive(false);
 
-        this.city = CityEntity.fromCity(city, true);
+        return database.cityDao()
+                .find(city.getPlaceId(),
+                        city.getLocation().getLatitude(),
+                        city.getLocation().getLongitude())
+                .flatMapCompletable(newEntity -> {
+                    newEntity.setActive(true);
+                    this.city = newEntity;
 
-        return Completable
-                .fromAction(() -> {
-                    this.database.cityDao().update(inactiveCity);
-                    long id = this.database.cityDao().insert(this.city);
-                    this.city.setUid(id);
+                    Log.d(TAG, newEntity.toString());
+                    return Completable
+                            .fromAction(() -> {
+                                this.database.cityDao().update(inactiveCity);
+                                this.database.cityDao().update(newEntity);
+                            });
                 })
-            .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -103,6 +127,23 @@ public class AppRepositoryImpl implements AppRepository {
                     return database.weatherDao().findCurrent(entity.getUid());
                 })
                 .map(WeatherEntity::toWeather);
+    }
+
+    @Override
+    public Observable<Weather> getForecast() {
+        return weatherApi.getForecastByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
+                .flatMapObservable(forecast -> Observable.fromIterable(forecast.getForecastList()))
+                .map(weather -> new Weather.Builder()
+                        .weatherId(weather.getWeather().get(0).getId())
+                        .temperature(weather.getMain().getTemp())
+                        .minTemperature(weather.getMain().getTempMin())
+                        .maxTemperature(weather.getMain().getTempMax())
+                        .humidity(weather.getMain().getHumidity())
+                        .pressure(weather.getMain().getPressure())
+                        .windSpeed(weather.getWind().getSpeed())
+                        .sunRiseTime(TimeUnit.SECONDS.toMillis(weather.getSunsetAndSunrise().getSunriseTime()))
+                        .sunSetTime(TimeUnit.SECONDS.toMillis(weather.getSunsetAndSunrise().getSunsetTime()))
+                        .build());
     }
 
     @Override

@@ -6,9 +6,9 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
@@ -17,7 +17,7 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
  * Created by alexander on 22/07/2017.
  */
 
-@Singleton
+@MainScope
 @InjectViewState
 public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
 
@@ -60,7 +60,7 @@ public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
                 .map(location -> new City.Builder(item)
                                 .location(location)
                                 .build())
-                .flatMapCompletable(city -> appAppRepository.saveCity(city))
+                .flatMapCompletable(city -> appAppRepository.addCity(city))
                 .subscribe(getViewState()::closeDialog);
     }
 }

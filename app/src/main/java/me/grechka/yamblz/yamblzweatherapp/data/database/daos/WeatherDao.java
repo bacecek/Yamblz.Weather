@@ -24,7 +24,7 @@ public interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(WeatherEntity... entities);
 
-    @Query("SELECT * FROM weather WHERE city IS :cityId AND forecast IS 0")
+    @Query("SELECT * FROM weather WHERE city IS :cityId")
     Single<WeatherEntity> findCurrent(long cityId);
 
     @Delete

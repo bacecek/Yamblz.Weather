@@ -23,6 +23,7 @@ public interface MainView extends MvpView {
     void showWeather();
     void showSettings();
     void showAbout();
+    void showFavorites();
 
     @StateStrategyType(SkipStrategy.class)
     void navigate(int id);

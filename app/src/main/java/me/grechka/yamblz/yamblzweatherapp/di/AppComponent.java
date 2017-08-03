@@ -22,12 +22,11 @@ import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherPresenter;
  * Created by Grechka on 19.07.2017.
  */
 
-@Component(modules = {AppModule.class, JobModule.class, NetworkModule.class, DataModule.class })
 @Singleton
+@Component(modules = {AppModule.class, JobModule.class, NetworkModule.class, DataModule.class })
 public interface AppComponent {
 
     void inject(WeatherApp weatherApp);
-    void inject(CitySearchFragment fragment);
 
     void inject(CurrentWeatherUpdateJob currentWeatherUpdateJob);
     void inject(WeatherJobUtils weatherJobUtils);

@@ -25,6 +25,7 @@ public class CityEntity {
         DEFAULT.setArea("Moscow");
         DEFAULT.setLatitude(55.755826);
         DEFAULT.setLongitude(37.6173);
+        DEFAULT.setActive(true);
         DEFAULT.setPlaceId("ChIJybDUc_xKtUYRTM9XV8zWRD0");
 
     }
@@ -38,7 +39,7 @@ public class CityEntity {
     @ColumnInfo(name = "area")
     private String area;
 
-    @ColumnInfo(name = "placeId")
+    @ColumnInfo(name = "place_id")
     private String placeId;
 
     @ColumnInfo(name = "location_latitude")
@@ -128,6 +129,7 @@ public class CityEntity {
                 .title(entity.getTitle())
                 .extendedTitle(entity.getArea())
                 .location(location)
+                .isActive(entity.isActive())
                 .build();
     }
 

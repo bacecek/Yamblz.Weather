@@ -18,7 +18,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 
 public interface WeatherView extends MvpView {
 
-    @StateStrategyType(SingleStateStrategy.class)
+    void addForecast(Weather weather);
     void setWeather(Weather weather, WeatherType type);
 
     @StateStrategyType(SkipStrategy.class)
