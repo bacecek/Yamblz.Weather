@@ -55,14 +55,12 @@ public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
     }
 
     public void fetchCity(@NonNull City item) {
-        appAppRepository.obtainCityInfo(item.getPlaceId())
+        appAppRepository.obtainCityLocation(item.getPlaceId())
                 .compose(schedulers.getComputationToMainTransformerSingle())
-                .map(city -> new City.Builder(item)
-                                .location(city.getInfo().getGeometry().getLocation())
+                .map(location -> new City.Builder(item)
+                                .location(location)
                                 .build())
-                .subscribe(city -> {
-                    getViewState().closeDialog();
-                    appAppRepository.saveCity(city);
-                });
+                .flatMapCompletable(city -> appAppRepository.saveCity(city))
+                .subscribe(getViewState()::closeDialog);
     }
 }

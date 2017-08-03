@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v21/notification_action.xml"
+    }
+]

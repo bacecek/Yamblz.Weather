@@ -8,8 +8,8 @@ import me.grechka.yamblz.yamblzweatherapp.di.modules.AppModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.JobModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.NetworkModule;
+import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractorImp;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainPresenter;
-import me.grechka.yamblz.yamblzweatherapp.domain.InteractorImp;
 import me.grechka.yamblz.yamblzweatherapp.presentation.citySearch.CitySearchFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.settings.SettingsFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.settings.SettingsPresenter;
@@ -27,21 +27,12 @@ import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherPresenter;
 public interface AppComponent {
 
     void inject(WeatherApp weatherApp);
-
-    void inject(WeatherFragment weatherFragment);
-    void inject(WeatherPresenter weatherPresenter);
-
-    void inject(SettingsFragment settingsFragment);
-    void inject(SettingsPresenter settingsPresenter);
-
     void inject(CitySearchFragment fragment);
 
     void inject(CurrentWeatherUpdateJob currentWeatherUpdateJob);
     void inject(WeatherJobUtils weatherJobUtils);
 
-    void inject(InteractorImp interactorImp);
+    void inject(WeatherInteractorImp interactorImp);
 
-    MainPresenter getMainPresenter();
-    WeatherPresenter getWeatherPresenter();
-    SettingsPresenter getSettingsPresenter();
+    MainComponent addMainComponent();
 }

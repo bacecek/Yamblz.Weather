@@ -20,19 +20,21 @@ import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
 import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
+import me.grechka.yamblz.yamblzweatherapp.models.Weather;
+import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
+import sasd97.java_blog.xyz.richtextview.RichTextView;
 
 public class WeatherFragment extends BaseFragment implements WeatherView,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener {
 
-//    @BindView(R.id.cur_temp) TextView tempView;
-//    @BindView(R.id.temp_max) TextView maxTempView;
-//    @BindView(R.id.temp_min) TextView minTempView;
-//    @BindView(R.id.description) TextView descView;
-//    @BindView(R.id.wind_value) TextView windView;
-//    @BindView(R.id.humidity_value) TextView humidityView;
-//    @BindView(R.id.city) TextView cityTitleTextView;
-//    @BindView(R.id.swiperefresh) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.content_weather_icon) RichTextView weatherIcon;
+    @BindView(R.id.content_weather_temperature_view) TextView temperatureView;
+    @BindView(R.id.content_weather_humidity_view) TextView humidityView;
+    @BindView(R.id.content_weather_pressure_view) TextView pressureView;
+    @BindView(R.id.content_weather_speed_view) TextView speedView;
+
+    @BindView(R.id.swiperefresh) SwipeRefreshLayout swipeRefreshLayout;
 
     @Inject
     @InjectPresenter
@@ -54,30 +56,26 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
         WeatherApp
                 .get(context)
                 .getAppComponent()
+                .addMainComponent()
                 .inject(this);
     }
 
     @Override
     protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
         super.onViewsCreated(savedInstanceState);
-//        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setOnRefreshListener(this);
         presenter.showSavedCurrentWeather();
     }
 
     @Override
-    public void showCurrentWeather(String temperature,
-                                   String description,
-                                   String humidity,
-                                   String tempMin,
-                                   String tempMax,
-                                   String wind) {
-//        tempView.setText(temperature);
-//        maxTempView.setText(tempMax);
-//        minTempView.setText(tempMin);
-//        descView.setText(description);
-//        windView.setText(wind);
-//        humidityView.setText(humidity);
-//        swipeRefreshLayout.setRefreshing(false);
+    public void setWeather(@NonNull Weather weather,
+                                   @NonNull WeatherType type) {
+        weatherIcon.setText(getString(type.getIconRes()));
+        temperatureView.setText(String.valueOf(weather.getTemperature()));
+        humidityView.setText(String.valueOf(weather.getHumidity()));
+        pressureView.setText(String.valueOf(weather.getPressure()));
+        speedView.setText(String.valueOf(weather.getWindSpeed()));
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -94,7 +92,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     public void showMessage(String message) {
         if (message.equals("Error")) message = getResources().getString(R.string.error);
         else if (message.equals("No network")) message = getResources().getString(R.string.no_network);
-//        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setRefreshing(false);
         Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         if( v != null) v.setGravity(Gravity.CENTER);

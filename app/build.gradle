@@ -75,11 +75,18 @@ dependencies {
     compile libraries.rxadapter
     compile libraries.rxbinding
 
+    compile libraries.room
+    compile libraries.roomrx
+    annotationProcessor libraries.roomCompiler
+
     compile libraries.moxy
     compile libraries.moxyAppCompat
     annotationProcessor libraries.moxyCompiler
 
     compile libraries.circleView
+    compile libraries.richTextView
+
+    compile libraries.stetho
 
     testCompile libraries.junit
     testCompile libraries.mockito

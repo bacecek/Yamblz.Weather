@@ -29,23 +29,21 @@
     <string name="min_60">1 час</string>
     <string name="min_180">3 часа</string>
 
-    <string name="north">С</string>
-    <string name="north_north_east">ССВ</string>
-    <string name="north_east">СВ</string>
-    <string name="east_north_east">ВСВ</string>
-    <string name="east">В</string>
-    <string name="east_south_east">ВЮВ</string>
-    <string name="south_east">ЮВ</string>
-    <string name="south_south_east">ЮЮВ</string>
-    <string name="south">Ю</string>
-    <string name="south_south_west">ЮЮЗ</string>
-    <string name="south_west">ЮЗ</string>
-    <string name="west_south_west">ЗЮЗ</string>
-    <string name="west">З</string>
-    <string name="west_north_west">ЗСЗ</string>
-    <string name="north_west">СЗ</string>
-    <string name="north_north_west">ССЗ</string>
-    <string name="calm">штиль</string>
+    <!-- Weather titles -->
+    <string name="all_weather_sunny_title">Sunny</string>
+    <string name="all_weather_clear_night_title">Clear sky</string>
+    <string name="all_weather_foggy_title">Foggy</string>
+    <string name="all_weather_cloudy_title">Cloudy</string>
+    <string name="all_weather_rainy_title">Rainy</string>
+    <string name="all_weather_snowy_title">Snowy</string>
+    <string name="all_weather_thunder_title">Thunder</string>
+    <string name="all_weather_drizzle_title">Drizzle</string>
+
+    <string name="all_weather_ms">m/s</string>
+    <string name="all_weather_kmh">km/h</string>
+    <string name="all_weather_mmhg">mmHg</string>
+    <string name="all_weather_pascal">hPa</string>
+    <!-- Endregion -->
 
     <string name="default_city">Москва</string>
     <string name="wind_title">Ветер: </string>

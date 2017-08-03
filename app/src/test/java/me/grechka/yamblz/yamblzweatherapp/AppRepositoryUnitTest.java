@@ -9,14 +9,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
-import me.grechka.yamblz.yamblzweatherapp.domain.Interactor;
+import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractor;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
-import me.grechka.yamblz.yamblzweatherapp.models.response.SuggestionResponseModel;
+import me.grechka.yamblz.yamblzweatherapp.models.response.places.SuggestionResponse;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepositoryImp;
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepositoryImpl;
 import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
 import me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi;
-import me.grechka.yamblz.yamblzweatherapp.data.prefs.PreferencesManager;
 import me.grechka.yamblz.yamblzweatherapp.utils.JsonProvider;
 
 import static org.mockito.Matchers.anyString;
@@ -31,8 +30,8 @@ public class AppRepositoryUnitTest extends BaseUnitTest {
 
     @Mock SuggestApi suggestApi;
     @Mock WeatherApi weatherApi;
-    @Mock Interactor interactor;
-    @Mock PreferencesManager prefs;
+    @Mock
+    WeatherInteractor weatherInteractor;
 
     private AppRepository appRepository;
     private City[] cities = new City[2];
@@ -41,7 +40,6 @@ public class AppRepositoryUnitTest extends BaseUnitTest {
     @Override
     public void onInit() {
         super.onInit();
-        appRepository = new AppRepositoryImp(interactor, weatherApi, suggestApi, prefs);
 
         cities[0] = new City.Builder()
                         .placeId("ChIJ9T_5iuTKj4ARe3GfygqMnbk")
@@ -58,13 +56,12 @@ public class AppRepositoryUnitTest extends BaseUnitTest {
 
     @Override
     public void onMockInit() {
-        when(prefs.getCurrentCity()).thenReturn(null);
     }
 
     @Test
     public void repository_obtainSuggestionList_expectedCorrectPlaceModel() {
-        SuggestionResponseModel suggestions =
-                JsonProvider.openFile(SuggestionResponseModel.class, "places-suggestion.json");
+        SuggestionResponse suggestions =
+                JsonProvider.openFile(SuggestionResponse.class, "places-suggestion.json");
 
         when(suggestApi.obtainSuggestedCities(anyString(), anyString(), anyString()))
                 .thenReturn(Single.just(suggestions));
@@ -78,8 +75,8 @@ public class AppRepositoryUnitTest extends BaseUnitTest {
 
     @Test
     public void repository_obtainBrokenSuggestionList_expectedThrowAnException() {
-        SuggestionResponseModel suggestions =
-                JsonProvider.openFile(SuggestionResponseModel.class, "places-suggestion-single-broken.json");
+        SuggestionResponse suggestions =
+                JsonProvider.openFile(SuggestionResponse.class, "places-suggestion-single-broken.json");
 
         when(suggestApi.obtainSuggestedCities(anyString(), anyString(), anyString()))
                 .thenReturn(Single.just(suggestions));

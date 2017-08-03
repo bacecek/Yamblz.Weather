@@ -9,6 +9,8 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import me.grechka.yamblz.yamblzweatherapp.models.City;
+import me.grechka.yamblz.yamblzweatherapp.models.Weather;
+import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 
 /**
  * Created by Grechka on 14.07.2017.
@@ -17,12 +19,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 public interface WeatherView extends MvpView {
 
     @StateStrategyType(SingleStateStrategy.class)
-    void showCurrentWeather(String temperature,
-                            String description,
-                            String humidity,
-                            String tempMin,
-                            String tempMax,
-                            String wind);
+    void setWeather(Weather weather, WeatherType type);
 
     @StateStrategyType(SkipStrategy.class)
     void showMessage(String message);

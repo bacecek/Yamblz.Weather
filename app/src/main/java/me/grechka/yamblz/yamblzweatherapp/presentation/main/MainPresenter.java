@@ -8,6 +8,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
  * Created by Grechka on 14.07.2017.
@@ -16,10 +17,13 @@ import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
 
+    private RxSchedulers schedulers;
     private AppRepository appRepository;
 
     @Inject
-    public MainPresenter(@NonNull AppRepository appRepository) {
+    public MainPresenter(@NonNull RxSchedulers schedulers,
+                         @NonNull AppRepository appRepository) {
+        this.schedulers = schedulers;
         this.appRepository = appRepository;
     }
 
@@ -30,7 +34,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     void updateCity() {
-        getViewState().setCityToHeader(appRepository.getCity());
+        appRepository.getCity()
+                .compose(schedulers.getIoToMainTransformerSingle())
+                .subscribe(getViewState()::setCityToHeader, Throwable::printStackTrace);
     }
 
     public void showWeather() {

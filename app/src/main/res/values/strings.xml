@@ -33,23 +33,21 @@
     <string name="min_60">1 hour</string>
     <string name="min_180">3 hours</string>
 
-    <string name="north">N</string>
-    <string name="north_north_east">NNE</string>
-    <string name="north_east">NE</string>
-    <string name="east_north_east">ENE</string>
-    <string name="east">E</string>
-    <string name="east_south_east">ESE</string>
-    <string name="south_east">SE</string>
-    <string name="south_south_east">SSE</string>
-    <string name="south">S</string>
-    <string name="south_south_west">SSW</string>
-    <string name="south_west">SW</string>
-    <string name="west_south_west">WSW</string>
-    <string name="west">W</string>
-    <string name="west_north_west">WNW</string>
-    <string name="north_west">NW</string>
-    <string name="north_north_west">NNW</string>
-    <string name="calm">calm</string>
+    <!-- Weather titles -->
+    <string name="all_weather_sunny_title">Sunny</string>
+    <string name="all_weather_clear_night_title">Clear sky</string>
+    <string name="all_weather_foggy_title">Foggy</string>
+    <string name="all_weather_cloudy_title">Cloudy</string>
+    <string name="all_weather_rainy_title">Rainy</string>
+    <string name="all_weather_snowy_title">Snowy</string>
+    <string name="all_weather_thunder_title">Thunder</string>
+    <string name="all_weather_drizzle_title">Drizzle</string>
+
+    <string name="all_weather_ms">m/s</string>
+    <string name="all_weather_kmh">km/h</string>
+    <string name="all_weather_mmhg">mmHg</string>
+    <string name="all_weather_pascal">hPa</string>
+    <!-- Endregion -->
 
     <string name="default_city">Moscow</string>
     <string name="celsius" translatable="false">"C</string>

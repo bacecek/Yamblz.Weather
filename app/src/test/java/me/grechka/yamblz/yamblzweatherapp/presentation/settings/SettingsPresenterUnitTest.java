@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
-import me.grechka.yamblz.yamblzweatherapp.data.prefs.PreferencesManager;
 import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
 
 import static org.mockito.Matchers.*;
@@ -21,14 +20,15 @@ public class SettingsPresenterUnitTest extends BaseUnitTest {
 
     @Mock SettingsView view;
     @Mock WeatherJobUtils utils;
-    @Mock PreferencesManager preferencesManager;
+    @Mock
+    PreferencesProvider preferencesProvider;
 
     @Before
     @Override
     public void onInit() {
         super.onInit();
 
-        presenter = new SettingsPresenter(utils, preferencesManager);
+        presenter = new SettingsPresenter(utils, preferencesProvider);
         presenter.attachView(view);
     }
 
@@ -40,7 +40,7 @@ public class SettingsPresenterUnitTest extends BaseUnitTest {
     public void settingsPresenter_updateScheduleInterval_intervalSuccessfullySavedToPrefsAndJobUpdated() {
         presenter.changeUpdateSchedule(anyInt());
 
-        verify(preferencesManager).putUpdateFrequency(anyString());
+        verify(preferencesProvider).putUpdateFrequency(anyString());
         verify(utils).rescheduleWeatherJob(anyInt());
     }
 
@@ -48,6 +48,6 @@ public class SettingsPresenterUnitTest extends BaseUnitTest {
     public void SettingsPresenter_obtainFrequency_getFrequencyFromSavedLocation() {
         presenter.getUpdateFrequency();
 
-        verify(preferencesManager).getUpdateFrequency();
+        verify(preferencesProvider).getUpdateFrequency();
     }
 }

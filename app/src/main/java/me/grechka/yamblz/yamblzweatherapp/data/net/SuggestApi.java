@@ -1,8 +1,8 @@
 package me.grechka.yamblz.yamblzweatherapp.data.net;
 
 import io.reactivex.Single;
-import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.models.response.SuggestionResponseModel;
+import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityResponse;
+import me.grechka.yamblz.yamblzweatherapp.models.response.places.SuggestionResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -16,11 +16,11 @@ public interface SuggestApi {
     String API_KEY = "AIzaSyB93d9Y2I-UWEFEQGLdWUfHCjF7cFmlUm8";
 
     @GET("autocomplete/json")
-    Single<SuggestionResponseModel> obtainSuggestedCities(@Query("input") String input,
-                                                          @Query("types") String types,
-                                                          @Query("key") String apiKey);
+    Single<SuggestionResponse> obtainSuggestedCities(@Query("input") String input,
+                                                     @Query("types") String types,
+                                                     @Query("key") String apiKey);
 
     @GET("details/json")
-    Single<CityResponseModel> obtainCity(@Query("placeid") String placeId,
-                                         @Query("key") String apiKey);
+    Single<CityResponse> obtainCity(@Query("placeid") String placeId,
+                                    @Query("key") String apiKey);
 }

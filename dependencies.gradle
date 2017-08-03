@@ -25,10 +25,14 @@ ext.versions = [
 		retrofit					 : '2.3.0',
 		moxy						 : '1.5.3',
 
+		room						 : '1.0.0-alpha5',
+
 		junit                        : '4.12',
 		mockito					     : '1.10.19',
         espresso                     : '3.0.0',
 		mockwebserver                : '3.8.0',
+
+		stetho						 : '1.5.0'
 ]
 
 ext.gradlePlugins = [
@@ -40,6 +44,8 @@ ext.gradlePlugins = [
 ext.modules = [
 			circleViewCode: 5,
 			circleViewName: '0.1.0',
+			richTextViewCode: 8,
+			richTextViewName: '0.1.5',
 ]
 
 ext.libraries = [
@@ -72,8 +78,13 @@ ext.libraries = [
 		moxyAppCompat			: "com.arello-mobile:moxy-app-compat:$versions.moxy",
 		moxyCompiler			: "com.arello-mobile:moxy-compiler:$versions.moxy",
 
+		room					: "android.arch.persistence.room:runtime:$versions.room",
+		roomrx					: "android.arch.persistence.room:rxjava2:$versions.room",
+		roomCompiler			: "android.arch.persistence.room:compiler:$versions.room",
+
 		//modules
 		circleView				: project(':lib-circleview'),
+		richTextView			: project(':lib-richtextview'),
 
         // Test dependencies
         junit                   : "junit:junit:$versions.junit",
@@ -81,4 +92,6 @@ ext.libraries = [
         espressoCore            : "com.android.support.test.espresso:espresso-core:$versions.espresso",
         espressoContrib         : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
 		mockwebserver           : "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver",
+
+		stetho					: "com.facebook.stetho:stetho:$versions.stetho"
 ]

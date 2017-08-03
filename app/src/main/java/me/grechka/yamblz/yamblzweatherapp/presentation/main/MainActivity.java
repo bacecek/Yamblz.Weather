@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity
         return WeatherApp
                 .get(this)
                 .getAppComponent()
+                .addMainComponent()
                 .getMainPresenter();
     }
 
@@ -90,7 +91,6 @@ public class MainActivity extends BaseActivity
         View searchView = headerView.findViewById(R.id.fragment_weather_header_cities_search);
         cityTitleHeaderTextView = (TextView) headerView.findViewById(R.id.fragment_weather_header_city_title);
         cityAreaHeaderTextView = (TextView) headerView.findViewById(R.id.fragment_weather_header_city_area);
-
         searchView.setOnClickListener(v -> showCitySearch());
     }
 
@@ -147,11 +147,6 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void goBack() {
-        if (!closeDrawer()) super.onBackPressed();
-    }
-
-    @Override
     public void onDialogDismissed() {
         closeDrawer();
         presenter.updateCity();
@@ -191,5 +186,10 @@ public class MainActivity extends BaseActivity
         if (!drawerLayout.isDrawerOpen(GravityCompat.START)) return false;
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void goBack() {
+        if (!closeDrawer()) super.onBackPressed();
     }
 }

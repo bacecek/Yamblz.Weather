@@ -28,4 +28,29 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="WeatherLargeIcon" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">72sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WeatherMediumIcon" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">44sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WeatherLargeText" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/colorGreyMd900</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="WeatherMediumText" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorGreyMd800</item>
+        <item name="android:typeface">sans</item>
+    </style>
 </resources>

@@ -2,7 +2,7 @@ package me.grechka.yamblz.yamblzweatherapp.models;
 
 import android.support.annotation.NonNull;
 
-import me.grechka.yamblz.yamblzweatherapp.models.response.CityLocation;
+import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
 import me.grechka.yamblz.yamblzweatherapp.utils.TextUtils;
 
 /**

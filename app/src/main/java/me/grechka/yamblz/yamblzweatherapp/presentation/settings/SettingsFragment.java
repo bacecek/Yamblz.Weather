@@ -44,6 +44,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
         WeatherApp
                 .get(context)
                 .getAppComponent()
+                .addMainComponent()
                 .inject(this);
 
     }

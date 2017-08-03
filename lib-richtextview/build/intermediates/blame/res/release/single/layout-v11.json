@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v11/notification_media_cancel_action.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v11/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v11/notification_template_big_media_custom.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v11/notification_template_big_media_custom.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v11/notification_media_action.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v11/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v11/notification_template_big_media.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v11/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v11/notification_template_big_media_narrow.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v11/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/alexander/Documents/AndroidStudioProjects/Yamblz.Weather/lib-richtextview/build/intermediates/res/merged/release/layout-v11/notification_template_big_media_narrow_custom.xml",
+        "source": "/Users/alexander/.android/build-cache/2f815fd7b061a7e0fa493156b5b7094a573f0f44/output/res/layout-v11/notification_template_big_media_narrow_custom.xml"
+    }
+]

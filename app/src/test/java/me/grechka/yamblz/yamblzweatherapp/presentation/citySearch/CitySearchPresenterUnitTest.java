@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
-import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
+import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityResponse;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.utils.JsonProvider;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
@@ -44,12 +44,12 @@ public class CitySearchPresenterUnitTest extends BaseUnitTest {
 
     @Override
     public void onMockInit() {
-        CityResponseModel cityResponse = JsonProvider.openFile(CityResponseModel.class, "places-city.json");
+        CityResponse cityResponse = JsonProvider.openFile(CityResponse.class, "places-city.json");
 
         when(appRepository.obtainSuggestedCities(anyString()))
                 .thenReturn(Observable.just(sanJose));
 
-        when(appRepository.obtainCityInfo(anyString()))
+        when(appRepository.obtainCityLocation(anyString()))
                 .thenReturn(Single.just(cityResponse));
 
         when(schedulers.getIoToMainTransformer())
