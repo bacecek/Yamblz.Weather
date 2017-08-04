@@ -38,10 +38,9 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
         implements CitySearchView, OnItemClickListener<City> {
 
     private EditText searchEditText;
-    private RecyclerView suggestRecyclerView;
     private ProgressBar loadingProgressBar;
-
     private OnDismissDialogListener listener;
+    private RecyclerView suggestRecyclerView;
 
     private CitySearchAdapter adapter = new CitySearchAdapter();
     private LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());

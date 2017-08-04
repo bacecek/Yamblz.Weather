@@ -7,10 +7,12 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -35,9 +37,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     void updateCity() {
         appRepository.getCity()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(getViewState()::setCityToHeader, Throwable::printStackTrace);
+                .compose(schedulers.getIoToMainTransformerFlowable())
+                .subscribe(getViewState()::setCityToHeader);
     }
 
     public void showWeather() {
@@ -58,5 +59,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void navigate(int screenId) {
         getViewState().navigate(screenId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

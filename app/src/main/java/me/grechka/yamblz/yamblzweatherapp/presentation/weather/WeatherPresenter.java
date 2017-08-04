@@ -37,19 +37,24 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
         this.scheduler = scheduler;
         this.weatherTypes = weatherTypes;
         this.interactor = interactor;
+
+        updateCity();
     }
 
     @Override
     public void attachView(WeatherView view) {
         super.attachView(view);
 
-        getWeather();
-        getForecast();
+        //getWeather();
+        //getForecast();
     }
 
     void updateCity() {
         interactor.getCity()
-                .subscribe(getViewState()::showCity);
+                .subscribe(city -> {
+                    getViewState().showCity(city);
+                    this.updateWeather();
+                });
     }
 
     void updateWeather() {
@@ -61,7 +66,7 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
 
     void getWeather() {
         interactor.getCachedWeather()
-                //.onErrorResumeNext(t -> interactor.updateWeather())
+//                .onErrorResumeNext(t -> interactor.updateWeather())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setWeather, t -> t.printStackTrace());

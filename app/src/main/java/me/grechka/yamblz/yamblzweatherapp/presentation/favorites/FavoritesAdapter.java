@@ -2,6 +2,7 @@ package me.grechka.yamblz.yamblzweatherapp.presentation.favorites;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,9 +35,17 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         cities = new ArrayList<>();
     }
 
-    public void add(@NonNull City city) {
-        cities.add(city);
-        notifyItemInserted(getItemCount());
+    public void addAll(@NonNull List<City> cities) {
+        FavoritesDiffCallback diffCallback = new FavoritesDiffCallback(this.cities, cities);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.cities.clear();
+        this.cities.addAll(cities);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    public City getCity(int position) {
+        return cities.get(position);
     }
 
     public void clear() {
@@ -65,6 +74,10 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             cityTitle.setText(city.getTitle());
             cityArea.setText(city.getExtendedTitle());
             cityCard.setCardBackgroundColor(city.isActive() ? yandex : white);
+        }
+
+        public boolean isActive() {
+            return cities.get(getAdapterPosition()).isActive();
         }
 
         @OnClick(R.id.row_favorites_clickable)

@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.MvpView;
 
+import java.util.List;
+
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 
 /**
@@ -11,6 +13,6 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
  */
 
 public interface FavoritesView extends MvpView {
-    void addCity(@NonNull City city);
+    void citiesListChanged(@NonNull List<City> cities);
     void clearList();
 }

@@ -2,6 +2,8 @@ package me.grechka.yamblz.yamblzweatherapp.data;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -22,13 +24,14 @@ public interface AppRepository {
     String FREQUENCY_KEY = "keys.frequency";
 
     Flowable<City> getCity();
-    Observable<City> getCities();
+    Flowable<List<City>> getCities();
     Completable addCity(@NonNull City city);
-    Completable markAsActive(@NonNull City city);
+    Completable removeCity(@NonNull City city);
+    Completable markCityAsActive(@NonNull City city);
 
+    Single<Weather> updateWeather();
     Observable<Weather> getForecast();
     Single<Weather> getCurrentWeather();
-    Single<Weather> updateWeather();
     Flowable<Weather> getCachedWeather();
 
     //network

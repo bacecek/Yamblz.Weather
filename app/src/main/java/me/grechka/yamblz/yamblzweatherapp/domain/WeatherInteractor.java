@@ -13,10 +13,10 @@ import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 public interface WeatherInteractor {
     Flowable<City> getCity();
 
+    Observable<Weather> getForecast();
+
     Single<Weather> updateWeather();
     Flowable<Weather> getCachedWeather();
-
-    Observable<Weather> getForecast();
 
     int[] getModes();
 }

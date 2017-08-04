@@ -1,7 +1,6 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.favorites;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -31,27 +30,26 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView> {
                               @NonNull RxSchedulers schedulers) {
         this.repository = repository;
         this.schedulers = schedulers;
-    }
 
-    @Override
-    public void attachView(FavoritesView view) {
-        super.attachView(view);
-        updateCities();
+        repository.getCities()
+                .compose(this.schedulers.getIoToMainTransformerFlowable())
+                .subscribe(getViewState()::citiesListChanged);
     }
 
     public void selectCity(@NonNull City city) {
-        repository.markAsActive(city)
+        repository.markCityAsActive(city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::updateCities);
+    }
+
+    public void removeCity(@NonNull City city) {
+        repository.removeCity(city)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateCities);
     }
 
     public void updateCities() {
-        getViewState().clearList();
-
-        repository.getCities()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(getViewState()::addCity);
     }
 }

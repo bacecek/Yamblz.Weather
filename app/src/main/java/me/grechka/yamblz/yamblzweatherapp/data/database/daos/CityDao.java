@@ -1,12 +1,12 @@
 package me.grechka.yamblz.yamblzweatherapp.data.database.daos;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.List;
 
@@ -27,15 +27,24 @@ public interface CityDao {
     @Update
     void update(CityEntity entity);
 
-    @Insert
-    long[] insertAll(CityEntity... entities);
+    @Query("DELETE FROM cities" +
+            " WHERE location_latitude IS :lat" +
+            " AND location_longitude IS :lon" +
+            " AND place_id IS :placeId")
+    void delete(@NonNull String placeId,
+                double lat, double lon);
+
+    @Query("SELECT * FROM cities ORDER BY active DESC")
+    Flowable<List<CityEntity>> find();
 
     @Query("SELECT * FROM cities WHERE active IS 1")
     Flowable<CityEntity> findActive();
 
-    @Query("SELECT * FROM cities")
-    Single<List<CityEntity>> find();
-
-    @Query("SELECT * FROM cities WHERE location_latitude IS :lat AND location_longitude IS :lon AND place_id IS :placeId")
-    Single<CityEntity> find(@NonNull String placeId, double lat, double lon);
+    @Query("SELECT * FROM cities" +
+            " WHERE location_latitude IS :lat" +
+            " AND location_longitude IS :lon" +
+            " AND place_id IS :placeId" +
+            " ORDER BY active")
+    Single<CityEntity> findByCoordinates(@NonNull String placeId,
+                                         double lat, double lon);
 }

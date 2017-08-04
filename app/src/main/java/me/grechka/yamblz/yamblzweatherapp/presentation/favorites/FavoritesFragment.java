@@ -6,10 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,8 +58,15 @@ public class FavoritesFragment extends BaseFragment
         super.onViewsCreated(savedInstanceState);
         favoritesAdapter = new FavoritesAdapter();
         linearLayoutManager = new LinearLayoutManager(getContext());
+
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new FavoritesItemTouchHelper(
+                position -> presenter.removeCity(favoritesAdapter.getCity(position))
+        ));
+
         citiesRecyclerView.setAdapter(favoritesAdapter);
         citiesRecyclerView.setLayoutManager(linearLayoutManager);
+        touchHelper.attachToRecyclerView(citiesRecyclerView);
+
         favoritesAdapter.setListener(this);
     }
 
@@ -73,8 +83,9 @@ public class FavoritesFragment extends BaseFragment
     }
 
     @Override
-    public void addCity(@NonNull City city) {
-        favoritesAdapter.add(city);
+    public void citiesListChanged(@NonNull List<City> cities) {
+        favoritesAdapter.addAll(cities);
+        for (City city: cities) Log.d("CITIES", city.toString());
     }
 
     @OnClick(R.id.fragment_favorites_add_city)

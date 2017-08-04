@@ -5,9 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.support.annotation.NonNull;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.WeatherEntity;
 
