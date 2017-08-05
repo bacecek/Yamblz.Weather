@@ -1,9 +1,11 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.favorites;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -24,6 +26,7 @@ import me.grechka.yamblz.yamblzweatherapp.events.OnItemClickListener;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.citySearch.CitySearchFragment;
+import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 
 /**
  * Created by alexander on 03/08/2017.
@@ -35,7 +38,7 @@ public class FavoritesFragment extends BaseFragment
         OnDismissDialogListener {
 
     private FavoritesAdapter favoritesAdapter;
-    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView.LayoutManager layoutManager;
 
     @BindView(R.id.fragment_favorites_recycler_view) RecyclerView citiesRecyclerView;
 
@@ -57,14 +60,20 @@ public class FavoritesFragment extends BaseFragment
     protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
         super.onViewsCreated(savedInstanceState);
         favoritesAdapter = new FavoritesAdapter();
-        linearLayoutManager = new LinearLayoutManager(getContext());
+
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager = new LinearLayoutManager(getContext());
+        } else {
+            layoutManager = new GridLayoutManager(getContext(), 2);
+        }
 
         ItemTouchHelper touchHelper = new ItemTouchHelper(new FavoritesItemTouchHelper(
                 position -> presenter.removeCity(favoritesAdapter.getCity(position))
         ));
 
         citiesRecyclerView.setAdapter(favoritesAdapter);
-        citiesRecyclerView.setLayoutManager(linearLayoutManager);
+        citiesRecyclerView.setLayoutManager(layoutManager);
         touchHelper.attachToRecyclerView(citiesRecyclerView);
 
         favoritesAdapter.setListener(this);
@@ -74,12 +83,14 @@ public class FavoritesFragment extends BaseFragment
     public void onResume() {
         super.onResume();
 
-        ((AppCompatActivity) getActivity())
+        MainActivity mainActivity = (MainActivity) getActivity();
+
+        mainActivity
                 .getSupportActionBar()
                 .setTitle(R.string.main_activity_navigation_favorites);
 
-        ((OnDrawerLocked) getActivity())
-                .setDrawerEnabled(false);
+        mainActivity
+                .disableDrawer();
     }
 
     @Override

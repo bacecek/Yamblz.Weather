@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
@@ -13,6 +14,7 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.data.database.AppDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.CityEntity;
+import me.grechka.yamblz.yamblzweatherapp.data.database.entities.ForecastEntity;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.WeatherEntity;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.Storage;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
@@ -114,64 +116,80 @@ public class AppRepositoryImpl implements AppRepository {
     }
 
     @Override
-    public Single<Weather> getCurrentWeather() {
-        return Single.just(WeatherEntity.toWeather(weather));
+    public Single<Weather> getWeather() {
+        return this.getCachedWeather()
+                .onErrorResumeNext(this.getNetworkWeather());
     }
 
     @Override
-    public Flowable<Weather> getCachedWeather() {
+    public Single<Weather> getCachedWeather() {
         return database.cityDao()
                 .findActive()
-                .onErrorReturn(t -> CityEntity.DEFAULT)
-                .flatMapSingle(entity -> {
-                    this.city = entity;
-                    return database.weatherDao().findCurrent(entity.getUid());
+                .onErrorReturn(t -> CityEntity.DEFAULT) //// FIXME: 05/08/2017 create coordinates provided address
+                .flatMapSingle(city -> {
+                    this.city = city;
+                    return database.weatherDao().findWeatherByCity(city.getUid());
                 })
-                .map(WeatherEntity::toWeather);
+                .map(weather -> {
+                    this.weather = weather;
+                    return WeatherEntity.toWeather(weather);
+                })
+                .firstOrError();
     }
 
     @Override
-    public Single<Weather> updateWeather() {
-        return weatherApi
-                .getWeatherByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
-                .map(weather -> {
-                    Weather current = new Weather.Builder()
-                            .weatherId(weather.getWeather().get(0).getId())
-                            .temperature(weather.getMain().getTemp())
-                            .minTemperature(weather.getMain().getTempMin())
-                            .maxTemperature(weather.getMain().getTempMax())
-                            .humidity(weather.getMain().getHumidity())
-                            .pressure(weather.getMain().getPressure())
-                            .windSpeed(weather.getWind().getSpeed())
-                            .sunRiseTime(TimeUnit.SECONDS.toMillis(weather.getSunsetAndSunrise().getSunriseTime()))
-                            .sunSetTime(TimeUnit.SECONDS.toMillis(weather.getSunsetAndSunrise().getSunsetTime()))
-                            .build();
-
-                    this.weather = WeatherEntity.fromWeather(current, city, false);
+    public Single<Weather> getNetworkWeather() {
+        return this
+                .getWeatherByLocation(city.getLatitude(), city.getLongitude())
+                .doOnSuccess(weather -> {
+                    this.weather = WeatherEntity.fromWeather(weather, city, false);
                     database.weatherDao().insert(this.weather);
+                    }
+                );
+    }
 
-                    return current;
+    @Override
+    public Single<List<Weather>> getForecast() {
+        return this.getCachedForecasts()
+                .flatMap(list -> {
+                   if (list.isEmpty()) return this.getNetworkForecasts();
+                   return Single.just(list);
                 });
     }
 
     @Override
-    public Single<Weather> getWeatherByLocation(double latitude, double longitude) {
-        return weatherApi
-                .getWeatherByLocation(latitude, longitude, API_KEY)
-                .map(response -> new Weather.Builder()
-                                    .temperature(response.getMain().getTemp())
-                                    .humidity(response.getMain().getHumidity())
-                                    .minTemperature(response.getMain().getTempMin())
-                                    .maxTemperature(response.getMain().getTempMax())
-                                    .pressure(response.getMain().getPressure())
-                                    .windSpeed(response.getWind().getSpeed())
-                                    .build());
+    public Single<List<Weather>> getCachedForecasts() {
+        return database.forecastDao()
+                .getAll(this.city.getUid())
+                .flatMap(list -> Observable.fromIterable(list)
+                            .map(ForecastEntity::toWeather).toList());
     }
 
     @Override
-    public Observable<Weather> getForecast() {
-        return weatherApi.getForecastByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
+    public Single<List<Weather>> getNetworkForecasts() {
+        return weatherApi
+                .getForecastByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
+                .doOnSuccess(forecasts -> database.forecastDao().delete())
                 .flatMapObservable(forecast -> Observable.fromIterable(forecast.getForecastList()))
+                .map(weather -> new Weather.Builder()
+                        .weatherId(weather.getWeather().get(0).getId())
+                        .temperature(weather.getMain().getTemp())
+                        .updateTime(TimeUnit.SECONDS.toMillis(weather.getUpdateTime()))
+                        .sunRiseTime(this.weather.getSunrise())
+                        .sunSetTime(this.weather.getSunset())
+                        .build())
+                .doOnNext(weather -> {
+                    ForecastEntity entity = ForecastEntity.fromWeather(weather, this.city);
+                    database.forecastDao().insert(entity);
+                })
+                .toList();
+    }
+
+    //network
+    @Override
+    public Single<Weather> getWeatherByLocation(double latitude, double longitude) {
+        return weatherApi
+                .getWeatherByLocation(latitude, longitude, API_KEY)
                 .map(weather -> new Weather.Builder()
                         .weatherId(weather.getWeather().get(0).getId())
                         .temperature(weather.getMain().getTemp())

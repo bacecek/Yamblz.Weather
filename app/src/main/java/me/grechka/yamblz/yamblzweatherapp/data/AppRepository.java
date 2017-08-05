@@ -25,14 +25,18 @@ public interface AppRepository {
 
     Flowable<City> getCity();
     Flowable<List<City>> getCities();
+
     Completable addCity(@NonNull City city);
     Completable removeCity(@NonNull City city);
     Completable markCityAsActive(@NonNull City city);
 
-    Single<Weather> updateWeather();
-    Observable<Weather> getForecast();
-    Single<Weather> getCurrentWeather();
-    Flowable<Weather> getCachedWeather();
+    Single<Weather> getWeather();
+    Single<Weather> getCachedWeather();
+    Single<Weather> getNetworkWeather();
+
+    Single<List<Weather>> getForecast();
+    Single<List<Weather>> getCachedForecasts();
+    Single<List<Weather>> getNetworkForecasts();
 
     //network
     Single<CityLocation> obtainCityLocation(@NonNull String cityId);

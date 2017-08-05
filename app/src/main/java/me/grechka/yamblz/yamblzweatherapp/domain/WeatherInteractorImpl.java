@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.Function;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.Converter;
@@ -47,46 +48,31 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     }
 
     @Override
+    public Single<Weather> getWeather() {
+        return repository.getWeather()
+                .map(convertWeather());
+    }
+
+    @Override
     public Single<Weather> updateWeather() {
-        return convertModel(repository.updateWeather());
+        return repository.getNetworkWeather()
+                .map(convertWeather());
     }
 
     @Override
-    public Flowable<Weather> getCachedWeather() {
-        return repository.getCachedWeather()
-                .map(w -> new Weather.Builder(w)
-                        .temperature(
-                                applyConverter(repository.getTemperatureUnits(),
-                                        w.getTemperature(), temperatureConverters)
-                        )
-                        .minTemperature(
-                                applyConverter(repository.getTemperatureUnits(),
-                                        w.getMinTemperature(), temperatureConverters)
-                        )
-                        .maxTemperature(
-                                applyConverter(repository.getTemperatureUnits(),
-                                        w.getMaxTemperature(), temperatureConverters)
-                        )
-                        .pressure(
-                                (int) applyConverter(repository.getPressureUnits(),
-                                        w.getPressure(), pressuresConverters)
-                        )
-                        .windSpeed(
-                                applyConverter(repository.getSpeedUnits(),
-                                        w.getWindSpeed(), speedConverters)
-                        )
-                        .build());
-    }
-
-    @Override
-    public Observable<Weather> getForecast() {
+    public Single<List<Weather>> getForecast() {
         return repository.getForecast()
-                .map(weather -> new Weather.Builder(weather)
-                                .temperature(
-                                        applyConverter(repository.getTemperatureUnits(),
-                                                weather.getTemperature(), temperatureConverters)
-                                )
-                .build());
+                .flatMapObservable(Observable::fromIterable)
+                .map(convertForecast())
+                .toList();
+    }
+
+    @Override
+    public Single<List<Weather>> updateForecast() {
+        return repository.getNetworkForecasts()
+                .flatMapObservable(Observable::fromIterable)
+                .map(convertForecast())
+                .toList();
     }
 
     @Override
@@ -98,9 +84,8 @@ public class WeatherInteractorImpl implements WeatherInteractor {
         };
     }
 
-    private Single<Weather> convertModel(Single<Weather> weatherObservable) {
-        return weatherObservable
-                .map(w -> new Weather.Builder(w)
+    private Function<Weather, Weather> convertWeather() {
+        return w -> new Weather.Builder(w)
                         .temperature(
                                 applyConverter(repository.getTemperatureUnits(),
                                         w.getTemperature(), temperatureConverters)
@@ -121,7 +106,16 @@ public class WeatherInteractorImpl implements WeatherInteractor {
                                 applyConverter(repository.getSpeedUnits(),
                                         w.getWindSpeed(), speedConverters)
                         )
-                        .build());
+                        .build();
+    }
+
+    private Function<Weather, Weather> convertForecast() {
+        return weather -> new Weather.Builder(weather)
+                .temperature(
+                        applyConverter(repository.getTemperatureUnits(),
+                                weather.getTemperature(), temperatureConverters)
+                )
+                .build();
     }
 
     private float applyConverter(int mode, float value,

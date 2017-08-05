@@ -8,11 +8,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -26,6 +28,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.forecast.ForecastAdapter;
+import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 import sasd97.java_blog.xyz.richtextview.RichTextView;
 
 public class WeatherFragment extends BaseFragment implements WeatherView,
@@ -81,13 +84,9 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     }
 
     @Override
-    public void addForecast(Weather weather) {
-        forecastAdapter.add(weather);
-    }
-
-    @Override
-    public void clearForecast() {
-        forecastAdapter.clear();
+    public void addForecast(List<Weather> forecast) {
+        Log.d("HERe", forecast.toString());
+        forecastAdapter.addAll(forecast);
     }
 
     @Override
@@ -109,12 +108,9 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
 
     @Override
     public void showCity(@NonNull City city) {
-//        cityTitleTextView.setText(city.getTitle());
-    }
-
-    public void onDialogDismissed() {
-        presenter.updateCity();
-        presenter.updateWeather();
+        ((AppCompatActivity) getActivity())
+                .getSupportActionBar()
+                .setTitle(city.getTitle());
     }
 
     @Override
@@ -126,12 +122,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     public void onResume() {
         super.onResume();
 
-        ((AppCompatActivity) getActivity())
-                .getSupportActionBar()
-                .setTitle(R.string.main_activity_navigation_weather);
-
-        ((OnDrawerLocked) getActivity())
-                .setDrawerEnabled(true);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.enableDrawer();
     }
 
     private String getTempUnits() {

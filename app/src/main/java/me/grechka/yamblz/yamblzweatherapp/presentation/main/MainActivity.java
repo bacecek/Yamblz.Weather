@@ -1,5 +1,6 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.main;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -70,7 +72,8 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onInit() {
         super.onInit();
-        presenter.showWeather();
+
+        showWeather();
     }
 
     @Override
@@ -174,20 +177,19 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void setDrawerEnabled(boolean isEnabled) {
-        int lockMode = isEnabled ? DrawerLayout.LOCK_MODE_UNLOCKED :
-                DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
-        drawerLayout.setDrawerLockMode(lockMode);
-        if (isEnabled) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            toggle.setDrawerIndicatorEnabled(true);
-            toggle.setToolbarNavigationClickListener(null);
-        }
-        else {
-            toggle.setDrawerIndicatorEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toggle.setToolbarNavigationClickListener(v -> goBack());
-        }
+    public void enableDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        toggle.setDrawerIndicatorEnabled(true);
+        toggle.setToolbarNavigationClickListener(null);
+    }
+
+    @Override
+    public void disableDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        toggle.setDrawerIndicatorEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toggle.setToolbarNavigationClickListener(v -> goBack());
     }
 
     private boolean closeDrawer() {

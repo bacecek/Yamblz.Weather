@@ -20,7 +20,7 @@ public class CityEntity {
     public static final CityEntity DEFAULT = new CityEntity();
 
     static {
-        DEFAULT.setUid(0);
+        DEFAULT.setUid(1);
         DEFAULT.setTitle("Moscow");
         DEFAULT.setArea("Moscow");
         DEFAULT.setLatitude(55.755826);

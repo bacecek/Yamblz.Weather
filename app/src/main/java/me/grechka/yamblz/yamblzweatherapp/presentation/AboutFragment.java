@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
+import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 
 public class AboutFragment extends Fragment {
 
@@ -23,11 +24,13 @@ public class AboutFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        ((AppCompatActivity) getActivity())
+        MainActivity mainActivity = (MainActivity) getActivity();
+
+        mainActivity
                 .getSupportActionBar()
                 .setTitle(R.string.main_activity_navigation_about);
 
-        ((OnDrawerLocked) getActivity())
-                .setDrawerEnabled(false);
+        mainActivity
+                .disableDrawer();
     }
 }

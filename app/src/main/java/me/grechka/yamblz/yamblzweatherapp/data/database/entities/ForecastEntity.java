@@ -23,26 +23,14 @@ public class ForecastEntity {
     @ColumnInfo(name = "temperature")
     private float temperature;
 
-    @ColumnInfo(name = "min_temperature")
-    private float minTemperature;
-
-    @ColumnInfo(name = "max_temperature")
-    private float maxTemperature;
-
-    @ColumnInfo(name = "humidity")
-    private float humidity;
-
-    @ColumnInfo(name = "wind_speed")
-    private float windSpeed;
-
-    @ColumnInfo(name = "pressure")
-    private float pressure;
-
     @ColumnInfo(name = "sunrise")
     private long sunrise;
 
     @ColumnInfo(name = "sunset")
     private long sunset;
+
+    @ColumnInfo(name = "date")
+    private long date;
 
     @ColumnInfo(name = "city")
     private long cityId;
@@ -71,46 +59,6 @@ public class ForecastEntity {
         this.temperature = temperature;
     }
 
-    public float getMinTemperature() {
-        return minTemperature;
-    }
-
-    public void setMinTemperature(float minTemperature) {
-        this.minTemperature = minTemperature;
-    }
-
-    public float getMaxTemperature() {
-        return maxTemperature;
-    }
-
-    public void setMaxTemperature(float maxTemperature) {
-        this.maxTemperature = maxTemperature;
-    }
-
-    public float getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(float humidity) {
-        this.humidity = humidity;
-    }
-
-    public float getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(float windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    public float getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(float pressure) {
-        this.pressure = pressure;
-    }
-
     public long getSunrise() {
         return sunrise;
     }
@@ -127,6 +75,14 @@ public class ForecastEntity {
         this.sunset = sunset;
     }
 
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
     public long getCityId() {
         return cityId;
     }
@@ -135,34 +91,25 @@ public class ForecastEntity {
         this.cityId = cityId;
     }
 
-    public static Weather toWeather(@NonNull WeatherEntity entity) {
+    public static Weather toWeather(@NonNull ForecastEntity entity) {
         return new Weather.Builder()
                 .weatherId(entity.getWeatherId())
-                .minTemperature(entity.getMinTemperature())
-                .maxTemperature(entity.getMaxTemperature())
                 .temperature(entity.getTemperature())
-                .humidity(entity.getHumidity())
-                .pressure(entity.getPressure())
-                .windSpeed(entity.getWindSpeed())
                 .sunSetTime(entity.getSunset())
                 .sunRiseTime(entity.getSunrise())
+                .updateTime(entity.getDate())
                 .build();
     }
 
-    public static WeatherEntity fromWeather(@NonNull Weather weather,
-                                            @NonNull CityEntity city,
-                                            boolean isForecast) {
-        WeatherEntity entity = new WeatherEntity();
+    public static ForecastEntity fromWeather(@NonNull Weather weather,
+                                            @NonNull CityEntity city) {
+        ForecastEntity entity = new ForecastEntity();
         entity.setWeatherId(weather.getWeatherId());
         entity.setCityId(city.getUid());
-        entity.setHumidity(weather.getHumidity());
-        entity.setMaxTemperature(weather.getMaxTemperature());
-        entity.setMinTemperature(weather.getMinTemperature());
         entity.setTemperature(weather.getTemperature());
-        entity.setPressure(weather.getPressure());
-        entity.setWindSpeed(weather.getWindSpeed());
         entity.setSunrise(weather.getSunRiseTime());
         entity.setSunset(weather.getSunSetTime());
+        entity.setDate(weather.getUpdateTime());
         return entity;
     }
 }

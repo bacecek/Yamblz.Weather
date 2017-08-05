@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="RichTextView"><attr format="string" name="fontAsset"/></declare-styleable>
-    <string name="app_name">RichTextView</string>
-</resources>

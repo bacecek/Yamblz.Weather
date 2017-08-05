@@ -5,5 +5,6 @@ package me.grechka.yamblz.yamblzweatherapp.events;
  */
 
 public interface OnDrawerLocked {
-    void setDrawerEnabled(boolean isEnabled);
+    void enableDrawer();
+    void disableDrawer();
 }

@@ -18,6 +18,7 @@ import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
 import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
+import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 
 public class SettingsFragment extends BaseFragment implements SettingsView,
         RadioGroup.OnCheckedChangeListener {
@@ -76,11 +77,13 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
     public void onResume() {
         super.onResume();
 
-        ((AppCompatActivity) getActivity())
+        MainActivity mainActivity = (MainActivity) getActivity();
+
+        mainActivity
                 .getSupportActionBar()
                 .setTitle(R.string.main_activity_navigation_settings);
 
-        ((OnDrawerLocked) getActivity())
-                .setDrawerEnabled(false);
+        mainActivity
+                .disableDrawer();
     }
 }

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
-import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
@@ -19,13 +18,11 @@ public interface MainView extends MvpView {
 
     void setCityToHeader(@NonNull City city);
 
-    @StateStrategyType(SingleStateStrategy.class)
-    void showWeather();
-    void showSettings();
-    void showAbout();
-    void showFavorites();
+    @StateStrategyType(SkipStrategy.class) void showWeather();
+    @StateStrategyType(SkipStrategy.class) void showSettings();
+    @StateStrategyType(SkipStrategy.class) void showAbout();
+    @StateStrategyType(SkipStrategy.class) void showFavorites();
 
-    @StateStrategyType(SkipStrategy.class)
     void navigate(int id);
     void goBack();
 

@@ -6,6 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.WeatherEntity;
 
@@ -23,7 +24,7 @@ public interface WeatherDao {
     void insertAll(WeatherEntity... entities);
 
     @Query("SELECT * FROM weather WHERE city IS :cityId")
-    Single<WeatherEntity> findCurrent(long cityId);
+    Single<WeatherEntity> findWeatherByCity(long cityId);
 
     @Delete
     void delete(WeatherEntity entity);

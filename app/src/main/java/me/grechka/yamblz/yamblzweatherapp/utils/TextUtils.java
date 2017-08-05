@@ -4,7 +4,7 @@ package me.grechka.yamblz.yamblzweatherapp.utils;
  * Created by alexander on 28/07/2017.
  */
 
-public class TextUtils {
+public final class TextUtils {
 
     private TextUtils() {
     }

@@ -1,6 +1,7 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.weather;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -14,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractor;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersConfig;
+import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
@@ -38,23 +40,20 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
         this.weatherTypes = weatherTypes;
         this.interactor = interactor;
 
-        updateCity();
-    }
-
-    @Override
-    public void attachView(WeatherView view) {
-        super.attachView(view);
-
-        //getWeather();
-        //getForecast();
-    }
-
-    void updateCity() {
         interactor.getCity()
-                .subscribe(city -> {
-                    getViewState().showCity(city);
-                    this.updateWeather();
-                });
+                .compose(scheduler.getIoToMainTransformerFlowable())
+                .subscribe(this::cityChanged);
+    }
+
+    void cityChanged(@NonNull City city) {
+        getViewState().showCity(city);
+        this.getWeather();
+    }
+
+    void getWeather() {
+        interactor.getWeather()
+                .compose(scheduler.getIoToMainTransformerSingle())
+                .subscribe(this::setWeather);
     }
 
     void updateWeather() {
@@ -64,19 +63,9 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                 .subscribe(this::setWeather);
     }
 
-    void getWeather() {
-        interactor.getCachedWeather()
-//                .onErrorResumeNext(t -> interactor.updateWeather())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::setWeather, t -> t.printStackTrace());
-    }
-
     void getForecast() {
-        getViewState().clearForecast();
-
         interactor.getForecast()
-                .compose(scheduler.getIoToMainTransformer())
+                .compose(scheduler.getIoToMainTransformerSingle())
                 .subscribe(getViewState()::addForecast);
     }
 
@@ -98,5 +87,6 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
             getViewState().setWeather(weather, type);
             break;
         }
+        this.getForecast();
     }
 }
