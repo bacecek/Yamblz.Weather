@@ -73,6 +73,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         void setCity(@NonNull City city) {
             cityTitle.setText(city.getTitle());
             cityArea.setText(city.getExtendedTitle());
+
             cityCard.setCardBackgroundColor(city.isActive() ? yandex : white);
         }
 

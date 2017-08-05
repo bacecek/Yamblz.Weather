@@ -22,8 +22,6 @@ public interface MainView extends MvpView {
     @StateStrategyType(SkipStrategy.class) void showSettings();
     @StateStrategyType(SkipStrategy.class) void showAbout();
     @StateStrategyType(SkipStrategy.class) void showFavorites();
-
-    void navigate(int id);
-    void goBack();
-
+    @StateStrategyType(SkipStrategy.class) void navigate(int id);
+    @StateStrategyType(SkipStrategy.class) void goBack();
 }

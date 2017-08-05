@@ -23,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
@@ -37,11 +40,11 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 public class CitySearchFragment extends MvpAppCompatDialogFragment
         implements CitySearchView, OnItemClickListener<City> {
 
-    private EditText searchEditText;
-    private ProgressBar loadingProgressBar;
-    private OnDismissDialogListener listener;
-    private RecyclerView suggestRecyclerView;
+    @BindView(R.id.fragment_city_search_edittext) EditText searchEditText;
+    @BindView(R.id.fragment_city_search_progress_bar) ProgressBar loadingProgressBar;
+    @BindView(R.id.fragment_city_search_recycler_view) RecyclerView suggestRecyclerView;
 
+    private OnDismissDialogListener listener;
     private CitySearchAdapter adapter = new CitySearchAdapter();
     private LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
@@ -93,10 +96,7 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        searchEditText = (EditText) view.findViewById(R.id.fragment_city_search_edittext);
-        suggestRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_city_search_recycler_view);
-        loadingProgressBar = (ProgressBar) view.findViewById(R.id.fragment_city_search_progress_bar);
+        ButterKnife.bind(this, view);
 
         adapter.setListener(this);
         suggestRecyclerView.setLayoutManager(layoutManager);
@@ -126,11 +126,13 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
 
     @Override
     public void showLoading() {
+        suggestRecyclerView.setVisibility(View.INVISIBLE);
         loadingProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
+        suggestRecyclerView.setVisibility(View.VISIBLE);
         loadingProgressBar.setVisibility(View.GONE);
     }
 

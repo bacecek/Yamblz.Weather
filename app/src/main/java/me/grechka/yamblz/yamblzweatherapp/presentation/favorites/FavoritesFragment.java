@@ -96,7 +96,7 @@ public class FavoritesFragment extends BaseFragment
     @Override
     public void citiesListChanged(@NonNull List<City> cities) {
         favoritesAdapter.addAll(cities);
-        for (City city: cities) Log.d("CITIES", city.toString());
+        citiesRecyclerView.smoothScrollToPosition(0);
     }
 
     @OnClick(R.id.fragment_favorites_add_city)

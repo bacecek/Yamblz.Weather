@@ -67,6 +67,12 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="WeatherTinyIcon" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="WeatherLargeText" parent="@android:style/TextAppearance.Large">
         <item name="android:textSize">36sp</item>
         <item name="android:textColor">@color/colorGreyMd900</item>
@@ -76,6 +82,12 @@
 
     <style name="WeatherMediumText" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorGreyMd800</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="WeatherSmallText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/colorGreyMd800</item>
         <item name="android:typeface">sans</item>
     </style>

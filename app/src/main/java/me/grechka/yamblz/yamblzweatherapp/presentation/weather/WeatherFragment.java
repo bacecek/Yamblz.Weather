@@ -4,11 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
-import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
@@ -32,11 +31,13 @@ import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 import sasd97.java_blog.xyz.richtextview.RichTextView;
 
 public class WeatherFragment extends BaseFragment implements WeatherView,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener,
+        AppBarLayout.OnOffsetChangedListener {
 
     private ForecastAdapter forecastAdapter;
     private LinearLayoutManager linearLayoutManager;
 
+    @Nullable @BindView(R.id.fragment_weather_app_bar) AppBarLayout weatherAppBar;
     @BindView(R.id.content_weather_icon) RichTextView weatherIcon;
     @BindView(R.id.content_weather_temperature_view) TextView temperatureView;
     @BindView(R.id.content_weather_humidity_view) TextView humidityView;
@@ -74,18 +75,22 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     @Override
     protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
         super.onViewsCreated(savedInstanceState);
+        if (weatherAppBar != null) weatherAppBar.addOnOffsetChangedListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         forecastAdapter = new ForecastAdapter(getTempUnits(), weatherTypes);
         forecastRecyclerView.setAdapter(forecastAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         forecastRecyclerView.setLayoutManager(linearLayoutManager);
-        forecastRecyclerView.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        swipeRefreshLayout.setEnabled(verticalOffset == 0);
     }
 
     @Override
     public void addForecast(List<Weather> forecast) {
-        Log.d("HERe", forecast.toString());
         forecastAdapter.addAll(forecast);
     }
 
