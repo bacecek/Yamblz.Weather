@@ -1,7 +1,6 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.weather;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -10,10 +9,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
-import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractor;
+import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractor;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersConfig;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;

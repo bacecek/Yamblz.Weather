@@ -5,13 +5,17 @@ import android.support.annotation.NonNull;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
+import me.grechka.yamblz.yamblzweatherapp.presentation.base.BasePresenter;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -20,7 +24,7 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 @MainScope
 @InjectViewState
-public class FavoritesPresenter extends MvpPresenter<FavoritesView> {
+public class FavoritesPresenter extends BasePresenter<FavoritesView> {
 
     private RxSchedulers schedulers;
     private AppRepository repository;
@@ -31,25 +35,25 @@ public class FavoritesPresenter extends MvpPresenter<FavoritesView> {
         this.repository = repository;
         this.schedulers = schedulers;
 
-        repository.getCities()
+        addSubscription(repository.getCities()
                 .compose(this.schedulers.getIoToMainTransformerFlowable())
-                .subscribe(getViewState()::citiesListChanged);
+                .subscribe(this::updateCities));
     }
 
     public void selectCity(@NonNull City city) {
-        repository.markCityAsActive(city)
+        addSubscription(repository.markCityAsActive(city)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::updateCities);
+                .subscribe());
     }
 
     public void removeCity(@NonNull City city) {
-        repository.removeCity(city)
+        addSubscription(repository.removeCity(city)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::updateCities);
+                .subscribe());
     }
 
-    public void updateCities() {
+    public void updateCities(@NonNull List<City> cities) {
+        if (cities.isEmpty()) getViewState().showEmptyView();
+        else getViewState().citiesListChanged(cities);
     }
 }

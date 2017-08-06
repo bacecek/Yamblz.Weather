@@ -8,7 +8,7 @@ import me.grechka.yamblz.yamblzweatherapp.di.modules.AppModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.JobModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.NetworkModule;
-import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractorImpl;
+import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractorImpl;
 import me.grechka.yamblz.yamblzweatherapp.background.CurrentWeatherUpdateJob;
 import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
 

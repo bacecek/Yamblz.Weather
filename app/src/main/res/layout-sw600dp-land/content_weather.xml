@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/horizaontal_delimeter"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vertical_delimeter_one"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="127dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vertical_delimeter_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66"
+        tools:layout_editor_absoluteX="254dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <LinearLayout
+        android:id="@+id/left_column"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_delimeter_two"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/horizaontal_delimeter"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <sasd97.java_blog.xyz.richtextview.RichTextView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:fontAsset="weather_icons.ttf"
+            style="@style/WeatherMediumIcon"
+            android:text="@string/all_weather_barometer"
+            tools:text="H"
+            />
+
+        <TextView
+            android:id="@+id/content_weather_pressure_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_weather_text_margin"
+            android:gravity="center"
+            android:textSize="18sp"
+            style="@style/WeatherMediumText"
+            tools:text="1015 hPa"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/center_column"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_delimeter_one"
+        app:layout_constraintRight_toLeftOf="@+id/vertical_delimeter_two"
+        app:layout_constraintTop_toTopOf="@+id/horizaontal_delimeter"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <sasd97.java_blog.xyz.richtextview.RichTextView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:fontAsset="weather_icons.ttf"
+            style="@style/WeatherMediumIcon"
+            android:text="@string/all_weather_wind_speed"
+            tools:text="H"
+            />
+
+        <TextView
+            android:id="@+id/content_weather_speed_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_weather_text_margin"
+            android:gravity="center"
+            style="@style/WeatherMediumText"
+            tools:text="5 m/s"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right_column"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/vertical_delimeter_one"
+        app:layout_constraintTop_toTopOf="@+id/horizaontal_delimeter"
+        android:layout_marginEnd="8dp">
+
+        <sasd97.java_blog.xyz.richtextview.RichTextView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:fontAsset="weather_icons.ttf"
+            style="@style/WeatherMediumIcon"
+            android:text="@string/all_weather_humidity"
+            tools:text="H"
+            />
+
+        <TextView
+            android:id="@+id/content_weather_humidity_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_weather_text_margin"
+            android:gravity="center"
+            style="@style/WeatherMediumText"
+            tools:text="15%"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_weather_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/horizaontal_delimeter"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <sasd97.java_blog.xyz.richtextview.RichTextView
+            android:id="@+id/content_weather_icon"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            style="@style/WeatherLargeIcon"
+            app:fontAsset="weather_icons.ttf"
+            tools:text="W"
+            />
+
+        <TextView
+            android:id="@+id/content_weather_temperature_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/content_weather_text_margin"
+            style="@style/WeatherLargeText"
+            tools:text="22 °С"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizaontal_delimeter"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>

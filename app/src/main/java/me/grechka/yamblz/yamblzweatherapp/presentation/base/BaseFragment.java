@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by alexander on 31/07/2017.
@@ -19,12 +20,13 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends MvpAppCompatFragment {
 
     private View rootView;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.rootView = inflater.inflate(obtainLayoutView(), container, false);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         onViewsCreated(savedInstanceState);
         return rootView;
     }
@@ -38,5 +40,11 @@ public abstract class BaseFragment extends MvpAppCompatFragment {
     protected abstract int obtainLayoutView();
 
     protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (unbinder != null) unbinder.unbind();
     }
 }

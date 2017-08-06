@@ -21,7 +21,7 @@ public interface ForecastDao {
     @Insert
     void insert(ForecastEntity forecast);
 
-    @Query("SELECT * FROM forecasts WHERE city IS :cityId")
+    @Query("SELECT * FROM forecasts WHERE city IS :cityId ORDER BY date")
     Single<List<ForecastEntity>> getAll(long cityId);
 
     @Query("DELETE FROM forecasts")

@@ -12,8 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.io.IOException;
 
 import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
-import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractor;
-import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractorImpl;
+import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractor;
+import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractorImpl;
 import me.grechka.yamblz.yamblzweatherapp.utils.JsonProvider;
 
 import static org.mockito.Matchers.anyInt;

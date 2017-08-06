@@ -12,7 +12,6 @@ import dagger.Provides;
 import me.grechka.yamblz.yamblzweatherapp.data.database.AppDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.PrefsStorage;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.Storage;
-import me.grechka.yamblz.yamblzweatherapp.domain.WeatherInteractor;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepositoryImpl;

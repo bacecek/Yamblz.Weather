@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.View;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -24,6 +25,7 @@ import me.grechka.yamblz.yamblzweatherapp.events.OnDismissDialogListener;
 import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
 import me.grechka.yamblz.yamblzweatherapp.events.OnItemClickListener;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
+import me.grechka.yamblz.yamblzweatherapp.presentation.base.AdaptiveFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.citySearch.CitySearchFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
@@ -32,7 +34,7 @@ import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
  * Created by alexander on 03/08/2017.
  */
 
-public class FavoritesFragment extends BaseFragment
+public class FavoritesFragment extends AdaptiveFragment
         implements FavoritesView,
         OnItemClickListener<City>,
         OnDismissDialogListener {
@@ -40,6 +42,7 @@ public class FavoritesFragment extends BaseFragment
     private FavoritesAdapter favoritesAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    @BindView(R.id.fragment_favorites_empty_view) View emptyView;
     @BindView(R.id.fragment_favorites_recycler_view) RecyclerView citiesRecyclerView;
 
     @InjectPresenter FavoritesPresenter presenter;
@@ -57,16 +60,21 @@ public class FavoritesFragment extends BaseFragment
     }
 
     @Override
+    protected void onPortrait() {
+        super.onPortrait();
+        layoutManager = new LinearLayoutManager(getContext());
+    }
+
+    @Override
+    protected void onLandscape() {
+        super.onLandscape();
+        layoutManager = new GridLayoutManager(getContext(), 2);
+    }
+
+    @Override
     protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
         super.onViewsCreated(savedInstanceState);
         favoritesAdapter = new FavoritesAdapter();
-
-
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutManager = new LinearLayoutManager(getContext());
-        } else {
-            layoutManager = new GridLayoutManager(getContext(), 2);
-        }
 
         ItemTouchHelper touchHelper = new ItemTouchHelper(new FavoritesItemTouchHelper(
                 position -> presenter.removeCity(favoritesAdapter.getCity(position))
@@ -95,6 +103,7 @@ public class FavoritesFragment extends BaseFragment
 
     @Override
     public void citiesListChanged(@NonNull List<City> cities) {
+        setEmptyViewEnable(false);
         favoritesAdapter.addAll(cities);
         citiesRecyclerView.smoothScrollToPosition(0);
     }
@@ -106,7 +115,6 @@ public class FavoritesFragment extends BaseFragment
 
     @Override
     public void onDialogDismissed() {
-        presenter.updateCities();
     }
 
     @Override
@@ -115,11 +123,16 @@ public class FavoritesFragment extends BaseFragment
     }
 
     @Override
-    public void clearList() {
-        favoritesAdapter.clear();
+    public void showEmptyView() {
+        setEmptyViewEnable(true);
     }
 
     private void showCitySearch() {
         CitySearchFragment.newInstance().show(getChildFragmentManager(), null);
+    }
+
+    private void setEmptyViewEnable(boolean isEnabled) {
+        emptyView.setVisibility(isEnabled ? View.VISIBLE : View.INVISIBLE);
+        citiesRecyclerView.setVisibility(isEnabled ? View.INVISIBLE : View.VISIBLE);
     }
 }

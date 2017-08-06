@@ -1,4 +1,4 @@
-package me.grechka.yamblz.yamblzweatherapp.domain;
+package me.grechka.yamblz.yamblzweatherapp.domain.weather;
 
 import java.util.List;
 

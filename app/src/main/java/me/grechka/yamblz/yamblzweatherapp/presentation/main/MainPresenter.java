@@ -49,6 +49,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
         getViewState().showSettings();
     }
 
+    public void showFavorites() {
+        getViewState().showFavorites();
+    }
+
     public void showAbout() {
         getViewState().showAbout();
     }
