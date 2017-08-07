@@ -35,7 +35,6 @@ public class AppRepositoryImpl implements AppRepository {
     private static final String TAG = AppRepositoryImpl.class.getCanonicalName();
 
     private CityEntity city = CityEntity.DEFAULT;
-
     private WeatherEntity weather;
 
     private AppDatabase database;
@@ -57,7 +56,6 @@ public class AppRepositoryImpl implements AppRepository {
                 .cityDao()
                 .findActive()
                 .subscribe(city -> {
-                    Log.d("HERE", city.toString());
                     this.city = city;
                 });
     }
@@ -229,8 +227,8 @@ public class AppRepositoryImpl implements AppRepository {
     }
 
     @Override
-    public String getFrequency() {
-        return String.valueOf(prefs.getInteger(FREQUENCY_KEY, 60));
+    public int getFrequency() {
+        return prefs.getInteger(FREQUENCY_KEY, 60);
     }
 
     @Override

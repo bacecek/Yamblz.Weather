@@ -3,6 +3,8 @@ package me.grechka.yamblz.yamblzweatherapp.di.modules;
 import dagger.Binds;
 import dagger.Module;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.domain.settings.SettingsInteractor;
+import me.grechka.yamblz.yamblzweatherapp.domain.settings.SettingsInteractorImpl;
 import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractor;
 import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractorImpl;
 
@@ -15,5 +17,9 @@ public abstract class BindsModule {
 
     @Binds
     @MainScope
-    public abstract WeatherInteractor providerWeatherInteractor(WeatherInteractorImpl impl);
+    public abstract WeatherInteractor provideWeatherInteractor(WeatherInteractorImpl impl);
+
+    @Binds
+    @MainScope
+    public abstract SettingsInteractor provideSettingsInteractor(SettingsInteractorImpl impl);
 }

@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.presentation.base.BasePresenter;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -19,7 +20,7 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 @MainScope
 @InjectViewState
-public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
+public class CitySearchPresenter extends BasePresenter<CitySearchView> {
 
     private RxSchedulers schedulers;
     private AppRepository appAppRepository;
@@ -34,33 +35,34 @@ public class CitySearchPresenter extends MvpPresenter<CitySearchView> {
     @Override
     public void attachView(CitySearchView view) {
         super.attachView(view);
+
         view.hideLoading();
         view.clearSuggestions();
     }
 
     public void setObservable(@NonNull Observable<CharSequence> observable) {
-        observable.subscribe(this::fetchSuggestions);
+        addSubscription(observable.subscribe(this::fetchSuggestions));
     }
 
     public void fetchSuggestions(@NonNull CharSequence input) {
         getViewState().clearSuggestions();
         getViewState().showLoading();
 
-        this.appAppRepository.obtainSuggestedCities(input.toString())
+        addSubscription(appAppRepository.obtainSuggestedCities(input.toString())
                 .compose(schedulers.getIoToMainTransformer())
                 .subscribe(city -> {
                     getViewState().hideLoading();
                     getViewState().addSuggestion(city);
-                });
+                }));
     }
 
     public void fetchCity(@NonNull City item) {
-        appAppRepository.obtainCityLocation(item.getPlaceId())
+        addSubscription(appAppRepository.obtainCityLocation(item.getPlaceId())
                 .compose(schedulers.getComputationToMainTransformerSingle())
                 .map(location -> new City.Builder(item)
                                 .location(location)
                                 .build())
                 .flatMapCompletable(city -> appAppRepository.addCity(city))
-                .subscribe(getViewState()::closeDialog);
+                .subscribe(getViewState()::closeDialog));
     }
 }

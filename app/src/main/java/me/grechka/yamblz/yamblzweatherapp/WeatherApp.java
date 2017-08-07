@@ -8,6 +8,7 @@ import com.facebook.stetho.Stetho;
 
 import javax.inject.Inject;
 
+import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.AppComponent;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.AppModule;
 import me.grechka.yamblz.yamblzweatherapp.di.DaggerAppComponent;
@@ -22,6 +23,7 @@ import sasd97.java_blog.xyz.richtextview.FontProvider;
  */
 public class WeatherApp extends Application {
 
+    @Inject AppRepository appRepository;
     @Inject WeatherJobUtils weatherJobUtils;
 
     private AppComponent appComponent;
@@ -60,7 +62,6 @@ public class WeatherApp extends Application {
     }
 
     void onSchedule() {
-        //int minutes = Integer.parseInt(preferencesProvider.getUpdateFrequency());
-        //weatherJobUtils.scheduleWeatherJob(minutes);
+        weatherJobUtils.scheduleWeatherJob(appRepository.getFrequency());
     }
 }

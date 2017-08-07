@@ -45,7 +45,7 @@ public interface AppRepository {
 
     //preferences
     void setFrequency(int frequency);
-    String getFrequency();
+    int getFrequency();
 
     void saveTemperatureUnits(int units);
     int getTemperatureUnits();

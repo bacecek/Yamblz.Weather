@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
@@ -26,7 +28,7 @@ public class WeatherJobUtils {
         if ((minutes > 0) && (jobManager.getAllJobRequestsForTag(CurrentWeatherUpdateJob.TAG).isEmpty()))
             jobManager.schedule(new JobRequest.Builder(CurrentWeatherUpdateJob.TAG)
                     .setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
-                    .setPeriodic(minutes * 1000 * 60)
+                    .setPeriodic(TimeUnit.MINUTES.toMillis(minutes))
                     .build());
     }
 

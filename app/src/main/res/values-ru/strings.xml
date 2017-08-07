@@ -22,7 +22,7 @@
     <string name="logo_description">Логотип Яндекс.Мобилизации</string>
     <string name="service_description">Обновление прогноза погоды</string>
 
-    <string name="updating">Обновление данных</string>
+    <string name="settings_fragment_update_frequency">Обновление данных</string>
     <string name="manually">Вручную</string>
     <string name="min_15">Раз в 15 минут</string>
     <string name="min_30">30 минут</string>

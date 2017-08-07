@@ -3,6 +3,8 @@
     <color name="colorPrimary">@color/colorGreyMd800</color>
     <color name="colorPrimaryDark">@color/colorDeepGrey</color>
     <color name="colorAccent">#ff6940</color>
+    <color name="colorTextPrimary">#424242</color>
+    <color name="colorTextSecondary">#FAFAF7</color>
 
     <!-- Yandex Palette -->
     <color name="colorYandexPrimary">#ffcc00</color>

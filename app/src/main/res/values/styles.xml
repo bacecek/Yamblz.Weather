@@ -80,15 +80,38 @@
         <item name="android:typeface">sans</item>
     </style>
 
-    <style name="WeatherMediumText" parent="@android:style/TextAppearance.Medium">
+    <style name="MediumText" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/colorGreyMd800</item>
         <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="WeatherMediumText" parent="@style/MediumText">
+        <item name="android:textColor">@color/colorGreyMd800</item>
+    </style>
+
+    <style name="WeatherMediumTextOverlay" parent="@style/MediumText">
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
     <style name="WeatherSmallText" parent="@android:style/TextAppearance.Small">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/colorGreyMd800</item>
         <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="WeatherMenuTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+    
+    <style name="WeatherMenuItem">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="WeatherMenuListItem">
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">2dp</item>
     </style>
 </resources>

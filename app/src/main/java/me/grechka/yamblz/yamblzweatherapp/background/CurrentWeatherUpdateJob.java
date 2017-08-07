@@ -28,7 +28,13 @@ public class CurrentWeatherUpdateJob extends Job {
     @NonNull
     protected Result onRunJob(Params params) {
         Log.d("Job", "onRunJob: Job started");
-        repository.getNetworkWeather();
+
+        repository
+                .getNetworkWeather()
+                .subscribe(weather -> {
+            Log.d("Job", "Job completed: " + weather.toString());
+        });
+
         return Result.SUCCESS;
     }
 }
