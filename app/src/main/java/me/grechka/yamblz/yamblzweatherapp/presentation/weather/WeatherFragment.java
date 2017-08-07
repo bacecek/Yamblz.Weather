@@ -78,7 +78,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
         if (weatherAppBar != null) weatherAppBar.addOnOffsetChangedListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        forecastAdapter = new ForecastAdapter(getTempUnits(), weatherTypes);
+        forecastAdapter = new ForecastAdapter(weatherTypes);
         forecastRecyclerView.setAdapter(forecastAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         forecastRecyclerView.setLayoutManager(linearLayoutManager);
@@ -96,7 +96,8 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
 
     @Override
     public void setWeather(@NonNull Weather weather,
-                                   @NonNull WeatherType type) {
+                           @NonNull WeatherType type) {
+        forecastAdapter.setTempUnits(getTempUnits());
         weatherIcon.setText(getString(type.getIconRes()));
 
         temperatureView.setText(getString(R.string.weather_fragment_temperature,

@@ -3,16 +3,13 @@ package me.grechka.yamblz.yamblzweatherapp.presentation.favorites;
 import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BasePresenter;
@@ -27,10 +24,10 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 public class FavoritesPresenter extends BasePresenter<FavoritesView> {
 
     private RxSchedulers schedulers;
-    private AppRepository repository;
+    private DatabaseRepository repository;
 
     @Inject
-    public FavoritesPresenter(@NonNull AppRepository repository,
+    public FavoritesPresenter(@NonNull DatabaseRepository repository,
                               @NonNull RxSchedulers schedulers) {
         this.repository = repository;
         this.schedulers = schedulers;

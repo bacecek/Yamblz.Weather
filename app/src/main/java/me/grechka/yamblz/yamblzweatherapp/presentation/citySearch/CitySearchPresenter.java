@@ -8,9 +8,10 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.NetworkRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BasePresenter;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
@@ -23,13 +24,16 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 public class CitySearchPresenter extends BasePresenter<CitySearchView> {
 
     private RxSchedulers schedulers;
-    private AppRepository appAppRepository;
+    private NetworkRepository networkRepository;
+    private DatabaseRepository databaseRepository;
 
     @Inject
-    public CitySearchPresenter(@NonNull AppRepository appAppRepository,
+    public CitySearchPresenter(@NonNull NetworkRepository networkRepository,
+                               @NonNull DatabaseRepository databaseRepository,
                                @NonNull RxSchedulers schedulers) {
         this.schedulers = schedulers;
-        this.appAppRepository = appAppRepository;
+        this.networkRepository = networkRepository;
+        this.databaseRepository = databaseRepository;
     }
 
     @Override
@@ -48,7 +52,7 @@ public class CitySearchPresenter extends BasePresenter<CitySearchView> {
         getViewState().clearSuggestions();
         getViewState().showLoading();
 
-        addSubscription(appAppRepository.obtainSuggestedCities(input.toString())
+        addSubscription(networkRepository.obtainSuggestedCities(input.toString())
                 .compose(schedulers.getIoToMainTransformer())
                 .subscribe(city -> {
                     getViewState().hideLoading();
@@ -57,12 +61,12 @@ public class CitySearchPresenter extends BasePresenter<CitySearchView> {
     }
 
     public void fetchCity(@NonNull City item) {
-        addSubscription(appAppRepository.obtainCityLocation(item.getPlaceId())
+        addSubscription(networkRepository.obtainCityLocation(item.getPlaceId())
                 .compose(schedulers.getComputationToMainTransformerSingle())
                 .map(location -> new City.Builder(item)
                                 .location(location)
                                 .build())
-                .flatMapCompletable(city -> appAppRepository.addCity(city))
+                .flatMapCompletable(city -> databaseRepository.addCity(city))
                 .subscribe(getViewState()::closeDialog));
     }
 }

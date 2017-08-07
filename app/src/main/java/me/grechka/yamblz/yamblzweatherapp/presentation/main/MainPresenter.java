@@ -7,12 +7,8 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
-import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -24,11 +20,11 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 public class MainPresenter extends MvpPresenter<MainView> {
 
     private RxSchedulers schedulers;
-    private AppRepository appRepository;
+    private DatabaseRepository appRepository;
 
     @Inject
     public MainPresenter(@NonNull RxSchedulers schedulers,
-                         @NonNull AppRepository appRepository) {
+                         @NonNull DatabaseRepository appRepository) {
         this.schedulers = schedulers;
         this.appRepository = appRepository;
 

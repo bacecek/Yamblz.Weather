@@ -2,7 +2,7 @@ package me.grechka.yamblz.yamblzweatherapp.domain.settings;
 
 import javax.inject.Inject;
 
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.PreferencesRepository;
 
 /**
  * Created by alexander on 07/08/2017.
@@ -10,7 +10,12 @@ import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 
 public class SettingsInteractorImpl implements SettingsInteractor {
 
-    private AppRepository repository;
+    private PreferencesRepository repository;
+
+    @Inject
+    public SettingsInteractorImpl(PreferencesRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public int getUpdateFrequency() {
@@ -20,11 +25,6 @@ public class SettingsInteractorImpl implements SettingsInteractor {
     @Override
     public void setUpdateFrequency(int frequency) {
         repository.setFrequency(frequency);
-    }
-
-    @Inject
-    public SettingsInteractorImpl(AppRepository repository) {
-        this.repository = repository;
     }
 
     @Override

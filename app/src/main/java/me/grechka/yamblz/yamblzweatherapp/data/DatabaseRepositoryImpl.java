@@ -1,10 +1,8 @@
 package me.grechka.yamblz.yamblzweatherapp.data;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
@@ -16,41 +14,28 @@ import me.grechka.yamblz.yamblzweatherapp.data.database.AppDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.CityEntity;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.ForecastEntity;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.WeatherEntity;
-import me.grechka.yamblz.yamblzweatherapp.data.storages.Storage;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
-import me.grechka.yamblz.yamblzweatherapp.models.response.places.SuggestionResponse;
-import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
-import me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi;
 
 import static me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi.API_KEY;
 
 /**
- * Created by Grechka on 16.07.2017.
+ * Created by alexander on 08/08/2017.
  */
 
-public class AppRepositoryImpl implements AppRepository {
-
-    private static final String TAG = AppRepositoryImpl.class.getCanonicalName();
-
-    private CityEntity city = CityEntity.DEFAULT;
-    private WeatherEntity weather;
+public class DatabaseRepositoryImpl implements DatabaseRepository {
 
     private AppDatabase database;
-    private Storage<String> prefs;
+    private NetworkRepository networkRepository;
 
-    private WeatherApi weatherApi;
-    private SuggestApi suggestApi;
+    private WeatherEntity weather;
+    private CityEntity city = CityEntity.DEFAULT;
 
-    public AppRepositoryImpl(@NonNull AppDatabase database,
-                             @NonNull Storage<String> prefs,
-                             @NonNull WeatherApi weatherApi,
-                             @NonNull SuggestApi suggestApi) {
-        this.prefs = prefs;
+    public DatabaseRepositoryImpl(@NonNull AppDatabase database,
+                                  @NonNull NetworkRepository networkRepository) {
         this.database = database;
-        this.weatherApi = weatherApi;
-        this.suggestApi = suggestApi;
+        this.networkRepository = networkRepository;
 
         this.database
                 .cityDao()
@@ -66,7 +51,7 @@ public class AppRepositoryImpl implements AppRepository {
                 .fromAction(() -> this.database
                         .cityDao()
                         .insert(CityEntity.fromCity(city, false)))
-            .subscribeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -79,15 +64,15 @@ public class AppRepositoryImpl implements AppRepository {
     public Flowable<List<City>> getCities() {
         return database.cityDao().find()
                 .flatMapSingle(cities -> Flowable.fromIterable(cities)
-                .map(CityEntity::toCity)
-                .toList());
+                        .map(CityEntity::toCity)
+                        .toList());
     }
 
     @Override
     public Completable removeCity(@NonNull City city) {
         return Completable.fromAction(() ->
-        database.cityDao().delete(city.getPlaceId(),
-                city.getLocation().getLatitude(), city.getLocation().getLongitude()));
+                database.cityDao().delete(city.getPlaceId(),
+                        city.getLocation().getLatitude(), city.getLocation().getLongitude()));
     }
 
     @Override
@@ -137,12 +122,12 @@ public class AppRepositoryImpl implements AppRepository {
 
     @Override
     public Single<Weather> getNetworkWeather() {
-        return this
+        return this.networkRepository
                 .getWeatherByLocation(city.getLatitude(), city.getLongitude())
                 .doOnSuccess(weather -> {
-                    this.weather = WeatherEntity.fromWeather(weather, city, false);
-                    database.weatherDao().insert(this.weather);
-                    }
+                            this.weather = WeatherEntity.fromWeather(weather, city, false);
+                            database.weatherDao().insert(this.weather);
+                        }
                 );
     }
 
@@ -150,8 +135,8 @@ public class AppRepositoryImpl implements AppRepository {
     public Single<List<Weather>> getForecast() {
         return this.getCachedForecasts()
                 .flatMap(list -> {
-                   if (list.isEmpty()) return this.getNetworkForecasts();
-                   return Single.just(list);
+                    if (list.isEmpty()) return this.getNetworkForecasts();
+                    return Single.just(list);
                 });
     }
 
@@ -160,12 +145,12 @@ public class AppRepositoryImpl implements AppRepository {
         return database.forecastDao()
                 .getAll(this.city.getUid())
                 .flatMap(list -> Observable.fromIterable(list)
-                            .map(ForecastEntity::toWeather).toList());
+                        .map(ForecastEntity::toWeather).toList());
     }
 
     @Override
     public Single<List<Weather>> getNetworkForecasts() {
-        return weatherApi
+        return this.networkRepository
                 .getForecastByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
                 .doOnSuccess(forecasts -> database.forecastDao().delete())
                 .flatMapObservable(forecast -> Observable.fromIterable(forecast.getForecastList()))
@@ -181,83 +166,5 @@ public class AppRepositoryImpl implements AppRepository {
                     database.forecastDao().insert(entity);
                 })
                 .toList();
-    }
-
-    //network
-    @Override
-    public Single<Weather> getWeatherByLocation(double latitude, double longitude) {
-        return weatherApi
-                .getWeatherByLocation(latitude, longitude, API_KEY)
-                .map(weather -> new Weather.Builder()
-                        .weatherId(weather.getWeather().get(0).getId())
-                        .temperature(weather.getMain().getTemp())
-                        .minTemperature(weather.getMain().getTempMin())
-                        .maxTemperature(weather.getMain().getTempMax())
-                        .humidity(weather.getMain().getHumidity())
-                        .pressure(weather.getMain().getPressure())
-                        .windSpeed(weather.getWind().getSpeed())
-                        .sunRiseTime(TimeUnit.SECONDS.toMillis(weather.getSunsetAndSunrise().getSunriseTime()))
-                        .sunSetTime(TimeUnit.SECONDS.toMillis(weather.getSunsetAndSunrise().getSunsetTime()))
-                        .build());
-    }
-
-    @Override
-    public Single<CityLocation> obtainCityLocation(@NonNull String cityId) {
-        return suggestApi.obtainCity(cityId, SuggestApi.API_KEY)
-                .map(response -> response.getInfo().getGeometry().getLocation());
-    }
-
-    @Override
-    public Observable<City> obtainSuggestedCities(@NonNull String input) {
-        return suggestApi
-                .obtainSuggestedCities(input, SuggestApi.API_TYPES, SuggestApi.API_KEY)
-                .map(SuggestionResponse::getPredictions)
-                .flatMapObservable(Observable::fromIterable)
-                .map(place -> new City.Builder()
-                        .placeId(place.getPlaceId())
-                        .title(place.getPlaceInfo().getMainText())
-                        .extendedTitle(place.getDescription())
-                        .build());
-    }
-
-    //prefs
-    @Override
-    public void setFrequency(int frequency) {
-        prefs.put(FREQUENCY_KEY, frequency);
-    }
-
-    @Override
-    public int getFrequency() {
-        return prefs.getInteger(FREQUENCY_KEY, 60);
-    }
-
-    @Override
-    public void saveTemperatureUnits(int units) {
-        prefs.put(UNITS_TEMPERATURE_PREFS_KEY, units);
-    }
-
-    @Override
-    public int getTemperatureUnits() {
-        return prefs.getInteger(UNITS_TEMPERATURE_PREFS_KEY, 0);
-    }
-
-    @Override
-    public void savePressureUnits(int units) {
-        prefs.put(UNITS_PRESSURE_PREFS_KEY, units);
-    }
-
-    @Override
-    public int getPressureUnits() {
-        return prefs.getInteger(UNITS_PRESSURE_PREFS_KEY, 0);
-    }
-
-    @Override
-    public void saveSpeedUnits(int units) {
-        prefs.put(UNITS_SPEED_PREFS_KEY, units);
-    }
-
-    @Override
-    public int getSpeedUnits() {
-        return prefs.getInteger(UNITS_SPEED_PREFS_KEY, 0);
     }
 }

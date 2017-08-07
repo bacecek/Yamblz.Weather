@@ -1,10 +1,12 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.weather;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -15,6 +17,7 @@ import me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersConfig;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
+import me.grechka.yamblz.yamblzweatherapp.presentation.base.BasePresenter;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -23,11 +26,13 @@ import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 @MainScope
 @InjectViewState
-public class WeatherPresenter extends MvpPresenter<WeatherView> {
+public class WeatherPresenter extends BasePresenter<WeatherView> {
 
     private RxSchedulers scheduler;
-    private Set<WeatherType> weatherTypes;
+    private List<Integer> unitMods;
     private WeatherInteractor interactor;
+    private Set<WeatherType> weatherTypes;
+
 
     @Inject
     public WeatherPresenter(@NonNull RxSchedulers scheduler,
@@ -37,18 +42,21 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
         this.weatherTypes = weatherTypes;
         this.interactor = interactor;
 
-        interactor.getCity()
+        addSubscription(interactor.getUnitsMods()
+                .compose(scheduler.getIoToMainTransformer())
+                .subscribe(this::setUnitMods));
+
+        addSubscription(interactor.getCity()
                 .compose(scheduler.getIoToMainTransformerFlowable())
-                .subscribe(this::cityChanged);
+                .subscribe(this::cityChanged));
     }
 
-    @Override
-    public void attachView(WeatherView view) {
-        super.attachView(view);
-        if (interactor.isUnitChanged()) this.getWeather();
+    private void setUnitMods(@NonNull List<Integer> unitMods) {
+        this.unitMods = unitMods;
+        this.getWeather();
     }
 
-    void cityChanged(@NonNull City city) {
+    private void cityChanged(@NonNull City city) {
         getViewState().showCity(city);
         this.getWeather();
     }
@@ -73,15 +81,15 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
     }
 
     boolean isCelsius() {
-        return interactor.getModes()[0] == ConvertersConfig.TEMPERATURE_CELSIUS;
+        return unitMods.get(0) == ConvertersConfig.TEMPERATURE_CELSIUS;
     }
 
     boolean isMmHg() {
-        return interactor.getModes()[1] == ConvertersConfig.PRESSURE_MMHG;
+        return unitMods.get(1) == ConvertersConfig.PRESSURE_MMHG;
     }
 
     boolean isMs() {
-        return interactor.getModes()[2] == ConvertersConfig.SPEED_MS;
+        return unitMods.get(2) == ConvertersConfig.SPEED_MS;
     }
 
     private void setWeather(@NonNull Weather weather) {

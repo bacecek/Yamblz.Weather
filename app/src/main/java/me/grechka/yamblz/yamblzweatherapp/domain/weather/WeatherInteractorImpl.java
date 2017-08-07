@@ -11,7 +11,8 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.PreferencesRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.Converter;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
@@ -28,7 +29,9 @@ import static me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersCon
 @MainScope
 public class WeatherInteractorImpl implements WeatherInteractor {
 
-    private AppRepository repository;
+    private DatabaseRepository databaseRepository;
+    private PreferencesRepository preferencesRepository;
+
     private List<Converter<Integer, Float>> speedConverters;
     private List<Converter<Integer, Float>> pressuresConverters;
     private List<Converter<Integer, Float>> temperatureConverters;
@@ -36,9 +39,12 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     private int[] unitModes;
 
     @Inject
-    public WeatherInteractorImpl(@NonNull AppRepository repository,
+    public WeatherInteractorImpl(@NonNull DatabaseRepository databaseRepository,
+                                 @NonNull PreferencesRepository preferencesRepository,
                                  @NonNull Map<String, List<Converter<Integer, Float>>> converters) {
-        this.repository = repository;
+        this.databaseRepository = databaseRepository;
+        this.preferencesRepository = preferencesRepository;
+
         this.speedConverters = converters.get(SPEED_CONVERTERS_KEY);
         this.pressuresConverters = converters.get(PRESSURE_CONVERTERS_KEY);
         this.temperatureConverters = converters.get(TEMPERATURE_CONVERTERS_KEY);
@@ -46,24 +52,24 @@ public class WeatherInteractorImpl implements WeatherInteractor {
 
     @Override
     public Flowable<City> getCity() {
-        return repository.getCity();
+        return databaseRepository.getCity();
     }
 
     @Override
     public Single<Weather> getWeather() {
-        return repository.getWeather()
+        return databaseRepository.getWeather()
                 .map(convertWeather());
     }
 
     @Override
     public Single<Weather> updateWeather() {
-        return repository.getNetworkWeather()
+        return databaseRepository.getNetworkWeather()
                 .map(convertWeather());
     }
 
     @Override
     public Single<List<Weather>> getForecast() {
-        return repository.getForecast()
+        return databaseRepository.getForecast()
                 .flatMapObservable(Observable::fromIterable)
                 .map(convertForecast())
                 .toList();
@@ -71,67 +77,37 @@ public class WeatherInteractorImpl implements WeatherInteractor {
 
     @Override
     public Single<List<Weather>> updateForecast() {
-        return repository.getNetworkForecasts()
+        return databaseRepository.getNetworkForecasts()
                 .flatMapObservable(Observable::fromIterable)
                 .map(convertForecast())
                 .toList();
     }
 
     @Override
-    public boolean isUnitChanged() {
-        int[] mode = new int[] {
-                repository.getTemperatureUnits(),
-                repository.getPressureUnits(),
-                repository.getSpeedUnits()
-        };
-
-        if (unitModes == null) {
-            unitModes = mode;
-            return false;
-        }
-
-        boolean flag = false;
-        for(int i = 0; i < 3; i++) {
-            if(unitModes[i] != mode[i]) {
-                flag = true;
-            }
-        }
-        unitModes = mode;
-        return flag;
-    }
-
-    @Override
-    public int[] getModes() {
-        if (unitModes == null) {
-            unitModes = new int[] {
-                    repository.getTemperatureUnits(),
-                    repository.getPressureUnits(),
-                    repository.getSpeedUnits()
-            };
-        }
-        return unitModes;
+    public Observable<List<Integer>> getUnitsMods() {
+        return preferencesRepository.getUnits();
     }
 
     private Function<Weather, Weather> convertWeather() {
         return w -> new Weather.Builder(w)
                         .temperature(
-                                applyConverter(repository.getTemperatureUnits(),
+                                applyConverter(preferencesRepository.getTemperatureUnits(),
                                         w.getTemperature(), temperatureConverters)
                         )
                         .minTemperature(
-                                applyConverter(repository.getTemperatureUnits(),
+                                applyConverter(preferencesRepository.getTemperatureUnits(),
                                         w.getMinTemperature(), temperatureConverters)
                         )
                         .maxTemperature(
-                                applyConverter(repository.getTemperatureUnits(),
+                                applyConverter(preferencesRepository.getTemperatureUnits(),
                                         w.getMaxTemperature(), temperatureConverters)
                         )
                         .pressure(
-                                (int) applyConverter(repository.getPressureUnits(),
+                                (int) applyConverter(preferencesRepository.getPressureUnits(),
                                         w.getPressure(), pressuresConverters)
                         )
                         .windSpeed(
-                                applyConverter(repository.getSpeedUnits(),
+                                applyConverter(preferencesRepository.getSpeedUnits(),
                                         w.getWindSpeed(), speedConverters)
                         )
                         .build();
@@ -140,7 +116,7 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     private Function<Weather, Weather> convertForecast() {
         return weather -> new Weather.Builder(weather)
                 .temperature(
-                        applyConverter(repository.getTemperatureUnits(),
+                        applyConverter(preferencesRepository.getTemperatureUnits(),
                                 weather.getTemperature(), temperatureConverters)
                 )
                 .build();

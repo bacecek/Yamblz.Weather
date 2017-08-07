@@ -8,7 +8,7 @@ import com.evernote.android.job.JobCreator;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
 
 /**
  * Created by Grechka on 14.07.2017.
@@ -17,10 +17,10 @@ import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 @Singleton
 public class WeatherJobCreator implements JobCreator {
 
-    private AppRepository repository;
+    private DatabaseRepository repository;
 
     @Inject
-    public WeatherJobCreator(@NonNull AppRepository repository) {
+    public WeatherJobCreator(@NonNull DatabaseRepository repository) {
         this.repository = repository;
     }
 

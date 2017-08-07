@@ -3,6 +3,7 @@ package me.grechka.yamblz.yamblzweatherapp.domain.weather;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
@@ -20,6 +21,5 @@ public interface WeatherInteractor {
     Single<Weather> getWeather();
     Single<Weather> updateWeather();
 
-    boolean isUnitChanged();
-    int[] getModes();
+    Observable<List<Integer>> getUnitsMods();
 }

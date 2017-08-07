@@ -6,14 +6,9 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
-import me.grechka.yamblz.yamblzweatherapp.data.storages.PrefsStorage;
-import me.grechka.yamblz.yamblzweatherapp.data.storages.Storage;
-import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersConfig;
 import me.grechka.yamblz.yamblzweatherapp.domain.settings.SettingsInteractor;

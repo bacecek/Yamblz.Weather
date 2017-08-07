@@ -9,12 +9,16 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepositoryImpl;
+import me.grechka.yamblz.yamblzweatherapp.data.NetworkRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.NetworkRepositoryImpl;
+import me.grechka.yamblz.yamblzweatherapp.data.PreferencesRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.PreferencesRepositoryImpl;
 import me.grechka.yamblz.yamblzweatherapp.data.database.AppDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.PrefsStorage;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.Storage;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepository;
 import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
-import me.grechka.yamblz.yamblzweatherapp.data.AppRepositoryImpl;
 import me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi;
 
 /**
@@ -30,11 +34,24 @@ public class DataModule {
     @Provides
     @NonNull
     @Singleton
-    public AppRepository provideRepository(AppDatabase database,
-                                           @Named(DataModule.PREFS_STORAGE_KEY) Storage<String> preferences,
-                                           WeatherApi weatherApi,
-                                           SuggestApi suggestApi) {
-        return new AppRepositoryImpl(database, preferences, weatherApi, suggestApi);
+    public NetworkRepository provideNetworkRepository(WeatherApi weatherApi,
+                                                      SuggestApi suggestApi) {
+        return new NetworkRepositoryImpl(weatherApi, suggestApi);
+    }
+
+    @Provides
+    @NonNull
+    @Singleton
+    public PreferencesRepository providePreferencesRepository(@Named(DataModule.PREFS_STORAGE_KEY) Storage<String> preferences) {
+        return new PreferencesRepositoryImpl(preferences);
+    }
+
+    @Provides
+    @NonNull
+    @Singleton
+    public DatabaseRepository provideDatabaseRepository(AppDatabase appDatabase,
+                                                        NetworkRepository networkRepository) {
+        return new DatabaseRepositoryImpl(appDatabase, networkRepository);
     }
 
     @Provides

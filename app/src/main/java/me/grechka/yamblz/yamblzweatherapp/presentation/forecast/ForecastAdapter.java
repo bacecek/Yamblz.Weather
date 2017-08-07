@@ -33,15 +33,17 @@ import sasd97.java_blog.xyz.richtextview.RichTextView;
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
 
     private Context context;
-    private String tempUnits;
+    private String tempUnits = "";
     private List<Weather> forecast;
     private Set<WeatherType> weatherTypes;
 
-    public ForecastAdapter(@NonNull String tempUnits,
-                           @NonNull Set<WeatherType> weatherTypes) {
-        this.tempUnits = tempUnits;
+    public ForecastAdapter(@NonNull Set<WeatherType> weatherTypes) {
         forecast = new ArrayList<>();
         this.weatherTypes = weatherTypes;
+    }
+
+    public void setTempUnits(String tempUnits) {
+        this.tempUnits = tempUnits;
     }
 
     public void addAll(@NonNull List<Weather> forecast) {
