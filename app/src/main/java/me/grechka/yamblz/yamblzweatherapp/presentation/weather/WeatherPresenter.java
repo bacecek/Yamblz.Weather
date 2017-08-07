@@ -42,6 +42,12 @@ public class WeatherPresenter extends MvpPresenter<WeatherView> {
                 .subscribe(this::cityChanged);
     }
 
+    @Override
+    public void attachView(WeatherView view) {
+        super.attachView(view);
+        if (interactor.isUnitChanged()) this.getWeather();
+    }
+
     void cityChanged(@NonNull City city) {
         getViewState().showCity(city);
         this.getWeather();

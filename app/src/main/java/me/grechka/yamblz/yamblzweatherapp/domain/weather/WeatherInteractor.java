@@ -20,5 +20,6 @@ public interface WeatherInteractor {
     Single<Weather> getWeather();
     Single<Weather> updateWeather();
 
+    boolean isUnitChanged();
     int[] getModes();
 }

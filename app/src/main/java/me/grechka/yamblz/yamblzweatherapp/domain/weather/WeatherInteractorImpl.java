@@ -33,6 +33,8 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     private List<Converter<Integer, Float>> pressuresConverters;
     private List<Converter<Integer, Float>> temperatureConverters;
 
+    private int[] unitModes;
+
     @Inject
     public WeatherInteractorImpl(@NonNull AppRepository repository,
                                  @NonNull Map<String, List<Converter<Integer, Float>>> converters) {
@@ -76,12 +78,38 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     }
 
     @Override
-    public int[] getModes() {
-        return new int[]{
+    public boolean isUnitChanged() {
+        int[] mode = new int[] {
                 repository.getTemperatureUnits(),
                 repository.getPressureUnits(),
                 repository.getSpeedUnits()
         };
+
+        if (unitModes == null) {
+            unitModes = mode;
+            return false;
+        }
+
+        boolean flag = false;
+        for(int i = 0; i < 3; i++) {
+            if(unitModes[i] != mode[i]) {
+                flag = true;
+            }
+        }
+        unitModes = mode;
+        return flag;
+    }
+
+    @Override
+    public int[] getModes() {
+        if (unitModes == null) {
+            unitModes = new int[] {
+                    repository.getTemperatureUnits(),
+                    repository.getPressureUnits(),
+                    repository.getSpeedUnits()
+            };
+        }
+        return unitModes;
     }
 
     private Function<Weather, Weather> convertWeather() {
