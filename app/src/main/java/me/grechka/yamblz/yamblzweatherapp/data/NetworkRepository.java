@@ -15,6 +15,8 @@ import retrofit2.http.Query;
  */
 
 public interface NetworkRepository {
+    int FORECAST_COUNTER = 7;
+
     Single<CityLocation> obtainCityLocation(@NonNull String cityId);
     Observable<City> obtainSuggestedCities(@NonNull String input);
     Single<Weather> getWeatherByLocation(double latitude, double longitude);

@@ -35,10 +35,6 @@ public class WeatherResponse {
     @Expose
     private Wind wind;
 
-    @SerializedName("clouds")
-    @Expose
-    private Clouds clouds;
-
     @SerializedName("dt")
     @Expose
     private int updateTime;
@@ -79,10 +75,6 @@ public class WeatherResponse {
         return wind;
     }
 
-    public Clouds getClouds() {
-        return clouds;
-    }
-
     public int getUpdateTime() {
         return updateTime;
     }
@@ -113,7 +105,6 @@ public class WeatherResponse {
         sb.append(", main=").append(main);
         sb.append(", visibility=").append(visibility);
         sb.append(", wind=").append(wind);
-        sb.append(", clouds=").append(clouds);
         sb.append(", dt=").append(updateTime);
         sb.append(", sunsetAndSunrise=").append(sunsetAndSunrise);
         sb.append(", name='").append(name).append('\'');

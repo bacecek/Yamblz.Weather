@@ -49,8 +49,8 @@ public class NetworkRepositoryImpl implements NetworkRepository {
     }
 
     @Override
-    public Single<ForecastResponse> getForecastByLocation(double latitude, double lon, String apiKey) {
-        return weatherApi.getForecastByLocation(latitude, lon, apiKey);
+    public Single<ForecastResponse> getForecastByLocation(double latitude, double longitude, String apiKey) {
+        return weatherApi.getForecastByLocation(latitude, longitude, FORECAST_COUNTER, apiKey);
     }
 
     @Override

@@ -19,8 +19,9 @@ public interface WeatherApi {
                                                  @Query("lon") double lon,
                                                  @Query("appid") String apiKey);
 
-    @GET("forecast")
+    @GET("forecast/daily")
     Single<ForecastResponse> getForecastByLocation(@Query("lat") double latitude,
-                                                  @Query("lon") double lon,
-                                                  @Query("appid") String apiKey);
+                                                   @Query("lon") double longitude,
+                                                   @Query("cnt") int counter,
+                                                   @Query("appid") String apiKey);
 }

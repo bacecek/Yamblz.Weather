@@ -19,13 +19,13 @@ public class ForecastResponse {
 
     @SerializedName("list")
     @Expose
-    private List<WeatherResponse> forecastList;
+    private List<Forecast> forecastList;
 
     public int getCount() {
         return count;
     }
 
-    public List<WeatherResponse> getForecastList() {
+    public List<Forecast> getForecastList() {
         return forecastList;
     }
 
