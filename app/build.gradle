@@ -20,6 +20,13 @@ android {
 
         archivesBaseName = "app-${versions.name}-${versions.code}"
         vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     compileOptions {
