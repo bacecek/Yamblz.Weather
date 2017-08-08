@@ -1,4 +1,5 @@
 apply from: 'dependencies.gradle'
+apply from: 'jacoco.gradle'
 
 buildscript {
     apply from: 'dependencies.gradle'
