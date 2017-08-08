@@ -11,11 +11,11 @@ import java.net.URLEncoder;
 
 import io.reactivex.observers.TestObserver;
 import me.grechka.yamblz.yamblzweatherapp.base.BaseApiUnitTest;
-import me.grechka.yamblz.yamblzweatherapp.models.response.CityLocation;
-import me.grechka.yamblz.yamblzweatherapp.models.response.CityResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.models.response.Place;
-import me.grechka.yamblz.yamblzweatherapp.models.response.SuggestionResponseModel;
-import me.grechka.yamblz.yamblzweatherapp.repository.net.SuggestApi;
+import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
+import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityResponse;
+import me.grechka.yamblz.yamblzweatherapp.models.response.places.Place;
+import me.grechka.yamblz.yamblzweatherapp.models.response.places.SuggestionResponse;
+import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
@@ -51,14 +51,14 @@ public class SuggestApiUnitTest extends BaseApiUnitTest {
         String type = SuggestApi.API_TYPES;
         String apiKey = "123456";
 
-        TestObserver<SuggestionResponseModel> observer = api.obtainSuggestedCities(input, type, apiKey).test();
+        TestObserver<SuggestionResponse> observer = api.obtainSuggestedCities(input, type, apiKey).test();
 
         observer
                 .assertNoErrors()
                 .assertValueCount(1)
-                .assertValue(check((SuggestionResponseModel s) ->
+                .assertValue(check((SuggestionResponse s) ->
                     assertThat(s.getPredictions().size(), is(2))))
-                .assertValue(check((SuggestionResponseModel s) -> {
+                .assertValue(check((SuggestionResponse s) -> {
                     Place sanJoseUs = s.getPredictions().get(0);
 
                     assertEquals("ChIJ9T_5iuTKj4ARe3GfygqMnbk", sanJoseUs.getPlaceId());
@@ -89,11 +89,11 @@ public class SuggestApiUnitTest extends BaseApiUnitTest {
         double expectedLatitude = 9.9280694;
         double expectedLongitude = -84.0907246;
 
-        TestObserver<CityResponseModel> observer = api.obtainCity(placeId, apiKey).test();
+        TestObserver<CityResponse> observer = api.obtainCity(placeId, apiKey).test();
 
         observer
                 .assertNoErrors()
-                .assertValue((CityResponseModel city) -> {
+                .assertValue((CityResponse city) -> {
                     CityLocation location = city.getInfo().getGeometry().getLocation();
                     return Math.abs(location.getLatitude() - expectedLatitude) < EPS &&
                     Math.abs(location.getLongitude() - expectedLongitude) < EPS;

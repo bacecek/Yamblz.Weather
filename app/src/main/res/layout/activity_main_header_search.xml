@@ -4,47 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:background="@color/colorPrimaryDark">
+    android:layout_height="150dp">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/fragment_weather_header_cities_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        android:padding="4dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:srcCompat="@drawable/ic_search_white_24dp" />
-
-
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        style="@style/CardView">
 
-        <TextView
-            android:id="@+id/fragment_weather_header_city_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            tools:text="Kaluga"/>
+        <RelativeLayout
+            android:id="@+id/main_activity_choose_city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground">
 
-        <TextView
-            android:id="@+id/fragment_weather_header_city_area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            tools:text="Russia"/>
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fragment_weather_header_city_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/WeatherMediumText"
+                    tools:text="Kaluga"/>
+
+                <TextView
+                    android:id="@+id/fragment_weather_header_city_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    style="@style/WeatherMediumText"
+                    android:textSize="18sp"
+                    tools:text="Russia"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

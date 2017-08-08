@@ -5,60 +5,74 @@
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
+    <string name="error">Failed to update data</string>
+    <string name="no_network">Check your Internet connection</string>
+
+    <!-- Weather titles -->
+    <string name="all_weather_sunny_title">Sunny</string>
+    <string name="all_weather_clear_night_title">Clear sky</string>
+    <string name="all_weather_foggy_title">Foggy</string>
+    <string name="all_weather_cloudy_title">Cloudy</string>
+    <string name="all_weather_rainy_title">Rainy</string>
+    <string name="all_weather_snowy_title">Snowy</string>
+    <string name="all_weather_thunder_title">Thunder</string>
+    <string name="all_weather_drizzle_title">Drizzle</string>
+
+    <string name="all_weather_ms">m/s</string>
+    <string name="all_weather_kmh">km/h</string>
+    <string name="all_weather_mmhg">mmHg</string>
+    <string name="all_weather_pascal">hPa</string>
+    <!-- Endregion -->
+
     <!--MainActivity region -->
     <string name="main_activity_navigation_weather">Weather</string>
+    <string name="main_activity_navigation_favorite">Favorite</string>
     <string name="main_activity_navigation_common">Common</string>
     <string name="main_activity_navigation_settings">Settings</string>
     <string name="main_activity_navigation_about">About</string>
+    <string name="main_activity_navigation_favorites">Favorites</string>
     <!--Endregion -->
 
-    <string name="future_functions">Here will be future functions</string>
+    <!-- Weather fragment -->
+    <string name="weather_fragment_humidity">%1$.0f %%</string>
+    <string name="weather_fragment_temperature">%1$.1f %2$s</string>
+    <string name="weather_fragment_pressure">%1$.0f %2$s</string>
+    <string name="weather_fragment_wind_speed">%1$.1f %2$s</string>
+    <!-- Endregion -->
 
-    <string name="version">Version 0.0.2</string>
-    <string name="date">16.07.2017</string>
-    <string name="author">Author: Irina Kravtsova</string>
-    <string name="changes">Changes:</string>
-    <string-array name="change_array">
-        <item>1. Base of application is created: an empty weatherInfo screen with navigation drawer, in which there are settings and "About". The application icon has been changed, the localization for the Russian language has been added (for other languages English is used).</item>
-        <item>2. Updating of current weather was implemented. There is an opportunity to update manually and on schedule. The opportunity to change the updating interval in the application settings.</item>
-    </string-array>
+    <!-- About fragment -->
+    <string name="fragment_about_message">
+        Hi,
+        \nI hope you download this application not driven by mistake.
+        \nI believe that it will really help to solve your problems, for example, choosing a wear before going to the street.
+        \nIf you have any problems, you can always write me a mail, clicking the button below.
+        \nEnjoy!
+        \nYandex Mobilization student,
+        \n<b>Alexander Dadukin</b></string>
+    <!-- Endregion -->
 
-    <string name="logo_description">Logo of Yandex.Mobilization</string>
+    <!-- Settings fragment -->
     <string name="service_description">Updating weather forecast</string>
 
-    <string name="updating">Updating data</string>
+    <string name="settings_fragment_common_group">Common settings</string>
+    <string name="settings_fragment_update_frequency">Update frequency</string>
+    <string name="settings_fragment_common_temperature">Temperature</string>
+    <string name="settings_fragment_common_pressure">Pressure</string>
+    <string name="settings_fragment_common_speed">Speed</string>
+
     <string name="manually">Manually</string>
     <string name="min_15">Every 15 minutes</string>
     <string name="min_30">30 minutes</string>
     <string name="min_60">1 hour</string>
     <string name="min_180">3 hours</string>
-
-    <string name="north">N</string>
-    <string name="north_north_east">NNE</string>
-    <string name="north_east">NE</string>
-    <string name="east_north_east">ENE</string>
-    <string name="east">E</string>
-    <string name="east_south_east">ESE</string>
-    <string name="south_east">SE</string>
-    <string name="south_south_east">SSE</string>
-    <string name="south">S</string>
-    <string name="south_south_west">SSW</string>
-    <string name="south_west">SW</string>
-    <string name="west_south_west">WSW</string>
-    <string name="west">W</string>
-    <string name="west_north_west">WNW</string>
-    <string name="north_west">NW</string>
-    <string name="north_north_west">NNW</string>
-    <string name="calm">calm</string>
-
     <string name="default_city">Moscow</string>
-    <string name="celsius" translatable="false">"C</string>
-    <string name="wind_title">Wind: </string>
-    <string name="humidity_title">Humidity: </string>
-    <string name="wind_units">mps</string>
+    <!-- Endregion -->
 
-    <string name="error">Failed to update data</string>
-    <string name="no_network">Check your Internet connection</string>
-
+    <!-- Search city fragment -->
     <string name="fragment_city_search_hint">Choose city&#8230;</string>
+    <!-- Endregion -->
+
+    <!-- Favorites fragment -->
+    <string name="fragment_favorites_empty">There is nothing city added.\nTo add new city click + button.</string>
+    <!-- Endregion -->
 </resources>

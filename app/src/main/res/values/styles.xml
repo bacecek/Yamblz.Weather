@@ -1,21 +1,24 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorYandexPrimary</item>
+        <item name="android:listDivider">@color/colorGreyMd200</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 
     <style name="SearchCityDialog" parent="AppTheme.NoActionBar" >
         <item name="android:windowNoTitle">true</item>
@@ -25,5 +28,90 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="CardView">
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <style name="NavigationView" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="itemIconTint">@color/colorWhite</item>
+        <item name="itemTextColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorGreyMd800</item>
+    </style>
+
+    <style name="TextInputLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">@color/colorGreyMd600</item>
+        <item name="colorAccent">@color/colorGreyMd900</item>
+        <item name="colorControlNormal">@color/colorGreyMd900</item>
+        <item name="colorControlActivated">@color/colorGreyMd900</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="WeatherLargeIcon" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">96sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WeatherMediumIcon" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WeatherSmallIcon" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WeatherTinyIcon" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorGreyMd700</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WeatherLargeText" parent="@android:style/TextAppearance.Large">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/colorGreyMd900</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="MediumText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="WeatherMediumText" parent="@style/MediumText">
+        <item name="android:textColor">@color/colorGreyMd800</item>
+    </style>
+
+    <style name="WeatherMediumTextOverlay" parent="@style/MediumText">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="WeatherSmallText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/colorGreyMd800</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="WeatherMenuTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+    
+    <style name="WeatherMenuItem">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="WeatherMenuListItem">
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">2dp</item>
     </style>
 </resources>

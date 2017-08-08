@@ -7,30 +7,34 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import javax.inject.Inject;
 
-import me.grechka.yamblz.yamblzweatherapp.repository.AppRepository;
+import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
+import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
  * Created by Grechka on 14.07.2017.
  */
 
+@MainScope
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
 
-    private AppRepository appRepository;
+    private RxSchedulers schedulers;
+    private DatabaseRepository appRepository;
 
     @Inject
-    public MainPresenter(@NonNull AppRepository appRepository) {
+    public MainPresenter(@NonNull RxSchedulers schedulers,
+                         @NonNull DatabaseRepository appRepository) {
+        this.schedulers = schedulers;
         this.appRepository = appRepository;
-    }
 
-    @Override
-    public void attachView(MainView view) {
-        super.attachView(view);
         updateCity();
     }
 
     void updateCity() {
-        getViewState().setCityToHeader(appRepository.getCity());
+        appRepository.getCity()
+                .compose(schedulers.getIoToMainTransformerFlowable())
+                .subscribe(getViewState()::setCityToHeader);
     }
 
     public void showWeather() {
@@ -39,6 +43,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void showSettings() {
         getViewState().showSettings();
+    }
+
+    public void showFavorites() {
+        getViewState().showFavorites();
     }
 
     public void showAbout() {
@@ -51,5 +59,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void navigate(int screenId) {
         getViewState().navigate(screenId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

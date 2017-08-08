@@ -9,8 +9,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobCreator;
-import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobUtils;
+import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobCreator;
+import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
 
 /**
  * Created by Grechka on 19.07.2017.
@@ -26,19 +26,5 @@ public class JobModule {
         JobManager jobManager = JobManager.create(context);
         jobManager.addJobCreator(creator);
         return jobManager;
-    }
-
-    @Provides
-    @NonNull
-    @Singleton
-    WeatherJobCreator provideWeatherJobCreator() {
-        return new WeatherJobCreator();
-    }
-
-    @Provides
-    @NonNull
-    @Singleton
-    WeatherJobUtils provideWeatherJobUtils() {
-        return new WeatherJobUtils();
     }
 }

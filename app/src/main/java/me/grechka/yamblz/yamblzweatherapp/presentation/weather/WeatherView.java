@@ -8,24 +8,19 @@ import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
+import java.util.List;
+
 import me.grechka.yamblz.yamblzweatherapp.models.City;
+import me.grechka.yamblz.yamblzweatherapp.models.Weather;
+import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 
 /**
  * Created by Grechka on 14.07.2017.
  */
 
 public interface WeatherView extends MvpView {
+    void addForecast(List<Weather> forecast);
 
-    @StateStrategyType(SingleStateStrategy.class)
-    void showCurrentWeather(String temperature,
-                            String description,
-                            String humidity,
-                            String tempMin,
-                            String tempMax,
-                            String wind);
-
-    @StateStrategyType(SkipStrategy.class)
-    void showMessage(String message);
-
+    void setWeather(Weather weather, WeatherType type);
     void showCity(@NonNull City city);
 }

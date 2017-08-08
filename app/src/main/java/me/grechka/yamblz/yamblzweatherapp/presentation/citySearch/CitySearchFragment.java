@@ -23,7 +23,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
 import me.grechka.yamblz.yamblzweatherapp.events.OnDismissDialogListener;
@@ -37,12 +40,11 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 public class CitySearchFragment extends MvpAppCompatDialogFragment
         implements CitySearchView, OnItemClickListener<City> {
 
-    private EditText searchEditText;
-    private RecyclerView suggestRecyclerView;
-    private ProgressBar loadingProgressBar;
+    @BindView(R.id.fragment_city_search_edittext) EditText searchEditText;
+    @BindView(R.id.fragment_city_search_progress_bar) ProgressBar loadingProgressBar;
+    @BindView(R.id.fragment_city_search_recycler_view) RecyclerView suggestRecyclerView;
 
     private OnDismissDialogListener listener;
-
     private CitySearchAdapter adapter = new CitySearchAdapter();
     private LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
@@ -62,9 +64,13 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        WeatherApp
+                .get(context)
+                .getAppComponent()
+                .addMainComponent()
+                .inject(this);
 
-        WeatherApp.getComponent().inject(this);
-        listener = (OnDismissDialogListener) getActivity();
+        listener = (OnDismissDialogListener) getParentFragment();
     }
 
     @Override
@@ -90,10 +96,7 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        searchEditText = (EditText) view.findViewById(R.id.fragment_city_search_edittext);
-        suggestRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_city_search_recycler_view);
-        loadingProgressBar = (ProgressBar) view.findViewById(R.id.fragment_city_search_progress_bar);
+        ButterKnife.bind(this, view);
 
         adapter.setListener(this);
         suggestRecyclerView.setLayoutManager(layoutManager);
@@ -123,11 +126,13 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
 
     @Override
     public void showLoading() {
+        suggestRecyclerView.setVisibility(View.INVISIBLE);
         loadingProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
+        suggestRecyclerView.setVisibility(View.VISIBLE);
         loadingProgressBar.setVisibility(View.GONE);
     }
 

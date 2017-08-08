@@ -4,97 +4,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".presentation.main.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        app:contentInsetStartWithNavigation="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
-        android:id="@+id/title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-    <ImageView
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/logo_description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        android:id="@+id/logo"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/version"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        android:id="@+id/version"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/date"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        android:id="@+id/date"
-        app:layout_constraintTop_toBottomOf="@+id/version" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/author"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        android:id="@+id/author"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
-
-    <TextView
-        android:id="@+id/changes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/changes"
-        android:textColor="?attr/editTextColor"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toEndOf="@+id/guideline"/>
-
-    <ListView
-        android:id="@+id/list_changes"
+    <android.support.v7.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changes"
-        app:layout_constraintStart_toEndOf="@+id/guideline">
-    </ListView>
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="32dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_about_send_email">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="186dp"
+                android:layout_height="186dp"
+                android:layout_gravity="center_vertical"
+                app:srcCompat="@drawable/cat_logo"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/fragment_about_message"
+                style="@style/WeatherMediumText"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_about_send_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        android:clickable="true"
+        app:fabSize="normal"
+        app:backgroundTint="@color/colorAccent"
+        app:srcCompat="@drawable/ic_send_white_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 </android.support.constraint.ConstraintLayout>

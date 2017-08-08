@@ -10,3 +10,6 @@
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
 }
+
+-dontwarn android.arch.util.paging.CountedDataSource
+-dontwarn android.arch.persistence.room.paging.LimitOffsetDataSource

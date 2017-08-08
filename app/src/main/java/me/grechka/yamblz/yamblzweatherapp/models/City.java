@@ -2,7 +2,7 @@ package me.grechka.yamblz.yamblzweatherapp.models;
 
 import android.support.annotation.NonNull;
 
-import me.grechka.yamblz.yamblzweatherapp.models.response.CityLocation;
+import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
 import me.grechka.yamblz.yamblzweatherapp.utils.TextUtils;
 
 /**
@@ -16,10 +16,13 @@ public class City {
     private String extendedTitle;
     private CityLocation location;
 
+    private boolean isActive = false;
+
     private City(@NonNull Builder builder) {
         this.title = builder.title;
         this.placeId = builder.placeId;
         this.location = builder.location;
+        this.isActive = builder.isActive;
         this.extendedTitle = builder.extendedTitle;
     }
 
@@ -37,6 +40,10 @@ public class City {
 
     public CityLocation getLocation() {
         return location;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 
     @Override
@@ -80,6 +87,8 @@ public class City {
         private String extendedTitle;
         private CityLocation location;
 
+        private boolean isActive;
+
         public Builder() {
         }
 
@@ -88,6 +97,7 @@ public class City {
             title = city.getTitle();
             extendedTitle = city.getExtendedTitle();
             location = city.getLocation();
+            isActive = city.isActive();
         }
 
         public Builder title(String title) {
@@ -113,6 +123,11 @@ public class City {
 
         public Builder location(@NonNull CityLocation location) {
             this.location = location;
+            return this;
+        }
+
+        public Builder isActive(boolean isActive) {
+            this.isActive = isActive;
             return this;
         }
 

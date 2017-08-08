@@ -16,6 +16,7 @@ ext.versions = [
 		rxjava                       : '2.0.6',
 		rxandroid                    : '2.0.1',
 		rxbinding					 : '2.0.0',
+		rxlocation					 : '1.0.3',
 
         supportLibs                  : '25.3.1',
 		constraint			 		 : '1.0.2',
@@ -25,10 +26,14 @@ ext.versions = [
 		retrofit					 : '2.3.0',
 		moxy						 : '1.5.3',
 
+		room						 : '1.0.0-alpha5',
+
 		junit                        : '4.12',
 		mockito					     : '1.10.19',
         espresso                     : '3.0.0',
 		mockwebserver                : '3.8.0',
+
+		stetho						 : '1.5.0'
 ]
 
 ext.gradlePlugins = [
@@ -40,6 +45,8 @@ ext.gradlePlugins = [
 ext.modules = [
 			circleViewCode: 5,
 			circleViewName: '0.1.0',
+			richTextViewCode: 8,
+			richTextViewName: '0.1.5',
 ]
 
 ext.libraries = [
@@ -66,14 +73,20 @@ ext.libraries = [
 		rxjava                  : "io.reactivex.rxjava2:rxjava:$versions.rxjava",
 		rxandroid               : "io.reactivex.rxjava2:rxandroid:$versions.rxandroid",
 		rxbinding				: "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$versions.rxbinding",
+		rxlocation				: "com.patloew.rxlocation:rxlocation:$versions.rxlocation",
 
 		androidJob				: "com.evernote:android-job:$versions.androidJob",
 		moxy					: "com.arello-mobile:moxy:$versions.moxy",
 		moxyAppCompat			: "com.arello-mobile:moxy-app-compat:$versions.moxy",
 		moxyCompiler			: "com.arello-mobile:moxy-compiler:$versions.moxy",
 
+		room					: "android.arch.persistence.room:runtime:$versions.room",
+		roomrx					: "android.arch.persistence.room:rxjava2:$versions.room",
+		roomCompiler			: "android.arch.persistence.room:compiler:$versions.room",
+
 		//modules
 		circleView				: project(':lib-circleview'),
+		richTextView			: project(':lib-richtextview'),
 
         // Test dependencies
         junit                   : "junit:junit:$versions.junit",
@@ -81,4 +94,6 @@ ext.libraries = [
         espressoCore            : "com.android.support.test.espresso:espresso-core:$versions.espresso",
         espressoContrib         : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
 		mockwebserver           : "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver",
+
+		stetho					: "com.facebook.stetho:stetho:$versions.stetho"
 ]

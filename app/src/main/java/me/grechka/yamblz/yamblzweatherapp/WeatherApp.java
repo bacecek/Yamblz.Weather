@@ -1,46 +1,52 @@
 package me.grechka.yamblz.yamblzweatherapp;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.annotation.NonNull;
 
-import com.arellomobile.mvp.MvpFacade;
+import com.facebook.stetho.Stetho;
 
 import javax.inject.Inject;
 
+import me.grechka.yamblz.yamblzweatherapp.data.PreferencesRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.AppComponent;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.AppModule;
 import me.grechka.yamblz.yamblzweatherapp.di.DaggerAppComponent;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.DataModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.JobModule;
 import me.grechka.yamblz.yamblzweatherapp.di.modules.NetworkModule;
-import me.grechka.yamblz.yamblzweatherapp.repository.prefs.PreferencesManager;
-import me.grechka.yamblz.yamblzweatherapp.schedule.WeatherJobUtils;
+import me.grechka.yamblz.yamblzweatherapp.background.WeatherJobUtils;
+import sasd97.java_blog.xyz.richtextview.FontProvider;
 
 /**
  * Created by Grechka on 14.07.2017.
  */
-
 public class WeatherApp extends Application {
-    private static AppComponent component;
 
     @Inject
-    PreferencesManager preferencesManager;
-    @Inject
-    WeatherJobUtils weatherJobUtils;
+    PreferencesRepository preferencesRepository;
+    @Inject WeatherJobUtils weatherJobUtils;
 
-    public static AppComponent getComponent() {
-        return component;
+    private AppComponent appComponent;
+
+    public static WeatherApp get(@NonNull Context context) {
+        return (WeatherApp) context.getApplicationContext();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        component = buildComponent();
-        component.inject(this);
-        MvpFacade.init();
-        setUpdateSchedule();
+        appComponent = buildDi();
+        appComponent.inject(this);
+
+        onInit();
     }
 
-    protected AppComponent buildComponent() {
+    public AppComponent getAppComponent() {
+        return appComponent;
+    }
+
+    protected AppComponent buildDi() {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .jobModule(new JobModule())
@@ -49,8 +55,14 @@ public class WeatherApp extends Application {
                 .build();
     }
 
-    void setUpdateSchedule() {
-        int minutes = Integer.parseInt(preferencesManager.getUpdateFrequency());
-        weatherJobUtils.scheduleWeatherJob(minutes);
+    void onInit() {
+        onSchedule();
+        FontProvider.init(getAssets());
+
+        if (BuildConfig.DEBUG) Stetho.initializeWithDefaults(this);
+    }
+
+    void onSchedule() {
+        weatherJobUtils.scheduleWeatherJob(preferencesRepository.getFrequency());
     }
 }

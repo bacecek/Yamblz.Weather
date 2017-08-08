@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        style="@style/WeatherMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <sasd97.java_blog.xyz.richtextview.RichTextView
+            android:id="@+id/content_common_settings_temperature_icon"
+            style="@style/WeatherTinyIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/all_weather_thermometer"
+            app:fontAsset="weather_icons.ttf"
+            tools:text="T" />
+
+        <TextView
+            style="@style/WeatherMediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/settings_fragment_common_temperature"
+            android:layout_toEndOf="@+id/content_common_settings_temperature_icon"
+            android:layout_toRightOf="@+id/content_common_settings_temperature_icon"
+            android:layout_toLeftOf="@+id/content_common_settings_fahrenheit"
+            android:layout_toStartOf="@+id/content_common_settings_fahrenheit"
+            android:layout_centerVertical="true"
+            tools:text="Set preferences" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/content_common_settings_fahrenheit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/content_common_settings_celsius"
+            android:layout_toStartOf="@+id/content_common_settings_celsius"
+            android:text="@string/all_weather_fahrenheit" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/content_common_settings_celsius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:text="@string/all_weather_celsius" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/WeatherMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <sasd97.java_blog.xyz.richtextview.RichTextView
+            android:id="@+id/content_common_settings_pressure_icon"
+            style="@style/WeatherTinyIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/all_weather_barometer"
+            app:fontAsset="weather_icons.ttf"
+            tools:text="P" />
+
+        <TextView
+            style="@style/WeatherMediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:text="@string/settings_fragment_common_pressure"
+            android:layout_toEndOf="@+id/content_common_settings_pressure_icon"
+            android:layout_toRightOf="@+id/content_common_settings_pressure_icon"
+            android:layout_toLeftOf="@+id/content_common_settings_mmhg"
+            android:layout_toStartOf="@+id/content_common_settings_mmhg"
+            tools:text="Set preferences" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/content_common_settings_mmhg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/content_common_settings_pascal"
+            android:layout_toStartOf="@+id/content_common_settings_pascal"
+            android:text="@string/all_weather_mmhg" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/content_common_settings_pascal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:text="@string/all_weather_pascal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/WeatherMenuItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <sasd97.java_blog.xyz.richtextview.RichTextView
+            android:id="@+id/content_common_settings_speed_icon"
+            style="@style/WeatherTinyIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/all_weather_wind_speed"
+            app:fontAsset="weather_icons.ttf"
+            tools:text="S" />
+
+        <TextView
+            style="@style/WeatherMediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:text="@string/settings_fragment_common_speed"
+            android:layout_toEndOf="@+id/content_common_settings_speed_icon"
+            android:layout_toRightOf="@+id/content_common_settings_speed_icon"
+            android:layout_toLeftOf="@+id/content_common_settings_ms"
+            android:layout_toStartOf="@+id/content_common_settings_ms"
+            tools:text="Set preferences" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/content_common_settings_ms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_toLeftOf="@+id/content_common_settings_kmh"
+            android:layout_toStartOf="@+id/content_common_settings_kmh"
+            android:text="@string/all_weather_ms" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/content_common_settings_kmh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:text="@string/all_weather_kmh" />
+    </RelativeLayout>
+</LinearLayout>

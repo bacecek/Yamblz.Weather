@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/row_favorites_card"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    style="@style/CardView">
+
+
+    <RelativeLayout
+        android:id="@+id/row_favorites_clickable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/row_favorites_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/WeatherMediumText"
+                tools:text="Kaluga"/>
+
+            <TextView
+                android:id="@+id/row_favorites_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                style="@style/WeatherMediumText"
+                android:textSize="18sp"
+                tools:text="Russia"/>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

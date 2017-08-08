@@ -1,5 +1,7 @@
 package me.grechka.yamblz.yamblzweatherapp.utils;
 
+import io.reactivex.CompletableTransformer;
+import io.reactivex.FlowableTransformer;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Scheduler;
 import io.reactivex.SingleTransformer;
@@ -21,6 +23,12 @@ public abstract class RxSchedulers {
     }
 
     public <T> SingleTransformer<T, T> getIoToMainTransformerSingle()  {
+        return objectObservable -> objectObservable
+                .subscribeOn(getIoScheduler())
+                .observeOn(getMainThreadScheduler());
+    }
+
+    public <T> FlowableTransformer<T, T> getIoToMainTransformerFlowable() {
         return objectObservable -> objectObservable
                 .subscribeOn(getIoScheduler())
                 .observeOn(getMainThreadScheduler());

@@ -29,31 +29,4 @@ public class MainActivityUnitTestInstrumentedTest {
                 .check(matches(isDisplayed()))
                 .perform(click());
     }
-
-    @Test
-    public void mainActivity_navigateToSettings_settingsFragmentOpenedSuccessfully() {
-        onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
-
-        onView(withText(R.string.main_activity_navigation_settings))
-                .check(matches(isDisplayed()))
-                .perform(click());
-
-        onView(withId(R.id.update_frequency_group))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.frequency_manual))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.frequency_15))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.frequency_30))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.frequency_60))
-                .check(matches(isDisplayed()));
-
-        onView(withId(R.id.frequency_180))
-                .check(matches(isDisplayed()));
-    }
 }

@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.grechka.yamblz.yamblzweatherapp.utils.MetricsUtils;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulersImpl;
 
@@ -35,5 +36,12 @@ public class AppModule {
     @Singleton
     RxSchedulers provideRxSchedulers() {
         return new RxSchedulersImpl();
+    }
+
+    @Provides
+    @NonNull
+    @Singleton
+    MetricsUtils provideMetricsUtils(Context context) {
+        return new MetricsUtils(context);
     }
 }

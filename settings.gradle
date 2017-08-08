@@ -1,1 +1,1 @@
-include ':app', ':lib-circleview'
+include ':app', ':lib-circleview', ':lib-richtextview'
