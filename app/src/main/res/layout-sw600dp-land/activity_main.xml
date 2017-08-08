@@ -14,7 +14,7 @@
         style="@style/NavigationView"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:layout_gravity="left|start"
+        android:layout_gravity="start"
         app:elevation="0dp"
         app:menu="@menu/activity_main_drawer" />
 

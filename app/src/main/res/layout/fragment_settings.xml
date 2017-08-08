@@ -1,7 +1,6 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,103 +13,102 @@
 
         <TextView
             android:id="@+id/update_common_title"
+            style="@style/WeatherMenuTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_fragment_common_group"
-            style="@style/WeatherMenuTitle"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/settings_fragment_common_group" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="0dp"
-            app:cardBackgroundColor="@color/colorWhite">
+            app:cardBackgroundColor="@color/colorWhite"
+            app:cardCornerRadius="0dp">
 
-            <include
-                layout="@layout/content_common_settings"
-                />
+            <include layout="@layout/content_common_settings" />
 
         </android.support.v7.widget.CardView>
 
         <TextView
             android:id="@+id/update_frequency_title"
+            style="@style/WeatherMenuTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_fragment_update_frequency"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            style="@style/WeatherMenuTitle"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/settings_fragment_update_frequency" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="8dp"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="0dp">
+            app:cardCornerRadius="0dp"
+            app:cardElevation="8dp">
 
             <RadioGroup
+                android:id="@+id/update_frequency_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:id="@+id/update_frequency_group"
+                android:layoutDirection="rtl"
                 android:theme="@style/WeatherMenuListItem"
-                android:layoutDirection="rtl">
+                tools:ignore="UnusedAttribute">
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/frequency_manual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
-                    android:text="@string/manually"
-                    android:tag="0"/>
+                    android:tag="0"
+                    android:text="@string/manually" />
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/frequency_30"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
-                    android:text="@string/min_15"
-                    android:tag="15"/>
+                    android:tag="15"
+                    android:text="@string/min_15" />
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/frequency_15"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
-                    android:text="@string/min_30"
-                    android:tag="30"/>
+                    android:tag="30"
+                    android:text="@string/min_30" />
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/frequency_60"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
-                    android:text="@string/min_60"
+                    android:checked="true"
                     android:tag="60"
-                    android:checked="true"/>
+                    android:text="@string/min_60" />
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/frequency_180"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
-                    android:text="@string/min_180"
-                    android:tag="180" />
+                    android:tag="180"
+                    android:text="@string/min_180" />
             </RadioGroup>
         </android.support.v7.widget.CardView>
     </LinearLayout>

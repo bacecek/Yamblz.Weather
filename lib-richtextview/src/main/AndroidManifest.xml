@@ -2,7 +2,7 @@
     package="sasd97.java_blog.xyz.richtextview">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:label="@string/app_name"
         android:supportsRtl="true">
     </application>

@@ -16,6 +16,7 @@ task jacocoTestReport(type: JacocoReport) {
             '**/*_MembersInjector*.*',
             '**/*_Provide*.*',
             '**/Dagger*.*',
+            '**/di/*'
     ]
 
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)

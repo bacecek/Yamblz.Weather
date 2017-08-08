@@ -6,6 +6,8 @@ import android.view.View;
 
 import org.hamcrest.Matcher;
 
+import java.util.Locale;
+
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
 /**
@@ -26,7 +28,7 @@ public class WaitActions {
 
             @Override
             public String getDescription() {
-                return String.format("wait for a root view during %1$d millis", millis);
+                return String.format(Locale.US, "wait for a root view during %1$d millis", millis);
             }
 
             @Override
