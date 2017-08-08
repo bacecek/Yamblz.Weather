@@ -34,6 +34,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions {
+        disable 'RuleToDisable', 'SecondRuleToDisable'
+        enable 'FirstRuleToCheck', 'LastRuleToCheck'
+    }
+
     signingConfigs {
         release {
             storeFile file(keystoreProperties['releaseFile'])
