@@ -11,7 +11,7 @@
     <string name="all_weather_barometer" translatable="false">&#xf079;</string>
     <string name="all_weather_humidity" translatable="false">&#xf04e;</string>
     <string name="all_weather_wind_speed" translatable="false">&#xf082;</string>
-    <string name="all_weather_thermometer">&#xf055;</string>
+    <string name="all_weather_thermometer" translatable="false">&#xf055;</string>
     <string name="all_weather_celsius" translatable="false">°C</string>
     <string name="all_weather_fahrenheit" translatable="false">°F</string>
 </resources>
