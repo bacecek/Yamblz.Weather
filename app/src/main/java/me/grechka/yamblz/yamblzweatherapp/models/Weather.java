@@ -110,6 +110,45 @@ public class Weather {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Weather weather = (Weather) o;
+
+        if (weatherId != weather.weatherId) return false;
+        if (Float.compare(weather.humidity, humidity) != 0) return false;
+        if (Float.compare(weather.pressure, pressure) != 0) return false;
+        if (Float.compare(weather.temperature, temperature) != 0) return false;
+        if (Float.compare(weather.minTemperature, minTemperature) != 0) return false;
+        if (Float.compare(weather.maxTemperature, maxTemperature) != 0) return false;
+        if (Float.compare(weather.windDegree, windDegree) != 0) return false;
+        if (Float.compare(weather.windSpeed, windSpeed) != 0) return false;
+        if (clouds != weather.clouds) return false;
+        if (sunRiseTime != weather.sunRiseTime) return false;
+        if (sunSetTime != weather.sunSetTime) return false;
+        return updateTime == weather.updateTime;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = weatherId;
+        result = 31 * result + (humidity != +0.0f ? Float.floatToIntBits(humidity) : 0);
+        result = 31 * result + (pressure != +0.0f ? Float.floatToIntBits(pressure) : 0);
+        result = 31 * result + (temperature != +0.0f ? Float.floatToIntBits(temperature) : 0);
+        result = 31 * result + (minTemperature != +0.0f ? Float.floatToIntBits(minTemperature) : 0);
+        result = 31 * result + (maxTemperature != +0.0f ? Float.floatToIntBits(maxTemperature) : 0);
+        result = 31 * result + (windDegree != +0.0f ? Float.floatToIntBits(windDegree) : 0);
+        result = 31 * result + (windSpeed != +0.0f ? Float.floatToIntBits(windSpeed) : 0);
+        result = 31 * result + clouds;
+        result = 31 * result + (int) (sunRiseTime ^ (sunRiseTime >>> 32));
+        result = 31 * result + (int) (sunSetTime ^ (sunSetTime >>> 32));
+        result = 31 * result + (int) (updateTime ^ (updateTime >>> 32));
+        return result;
+    }
+
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Weather{");
         sb.append(", humidity='").append(humidity).append('\'');

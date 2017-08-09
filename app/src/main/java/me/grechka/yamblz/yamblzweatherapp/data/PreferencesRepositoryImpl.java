@@ -2,6 +2,7 @@ package me.grechka.yamblz.yamblzweatherapp.data;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +26,19 @@ public class PreferencesRepositoryImpl implements PreferencesRepository {
 
     public PreferencesRepositoryImpl(@NonNull Storage<String> prefs) {
         this.prefs = prefs;
+        observable = getPrefsObservable();
+    }
 
-        observable = Observable.create(e -> {
-                final OnPrefsChanged listener = () -> {
-                    e.onNext(getMods());
-                };
+    private Observable<List<Integer>> getPrefsObservable() {
+        return  Observable.create(e -> {
+            final OnPrefsChanged listener = () -> {
+                e.onNext(getMods());
+            };
 
-                setListener(listener);
+            setListener(listener);
 
-                e.setCancellable(this::removeListener);
-            });
+            e.setCancellable(this::removeListener);
+        });
     }
 
     private void setListener(@NonNull OnPrefsChanged listener) {

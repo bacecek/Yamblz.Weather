@@ -32,9 +32,9 @@ public class SettingsPresenter extends MvpPresenter<SettingsView> {
     }
 
     @Override
-    public void attachView(SettingsView view) {
-        super.attachView(view);
-        view.highlightSettings();
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
+        getViewState().highlightSettings();
     }
 
     void changeUpdateSchedule(int minutes) {

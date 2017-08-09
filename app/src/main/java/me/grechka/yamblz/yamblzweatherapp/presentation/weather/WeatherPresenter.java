@@ -41,6 +41,11 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
         this.scheduler = scheduler;
         this.weatherTypes = weatherTypes;
         this.interactor = interactor;
+    }
+
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
 
         addSubscription(interactor.getUnitsMods()
                 .compose(scheduler.getIoToMainTransformer())

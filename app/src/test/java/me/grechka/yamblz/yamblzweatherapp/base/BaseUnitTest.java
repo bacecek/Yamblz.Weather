@@ -13,5 +13,6 @@ public abstract class BaseUnitTest {
         onMockInit();
     }
 
-    public abstract void onMockInit();
+    public void onMockInit() {
+    }
 }
