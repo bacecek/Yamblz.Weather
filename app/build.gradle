@@ -38,6 +38,10 @@ android {
         lintConfig file('lint.xml')
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     signingConfigs {
         release {
             storeFile file(keystoreProperties['releaseFile'])
