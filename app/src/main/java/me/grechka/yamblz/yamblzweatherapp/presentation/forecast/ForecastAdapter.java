@@ -79,7 +79,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
             forecastDelimiter.setBackgroundColor(ContextCompat.getColor(context, type.getTextColor()));
             forecastDate.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM\nHH:mm");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
             String format = formatter.format(new Date(weather.getUpdateTime()));
             forecastDate.setText(format);
         }

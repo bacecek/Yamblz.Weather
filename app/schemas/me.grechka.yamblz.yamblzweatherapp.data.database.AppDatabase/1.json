@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3d3c34e6bbdeb4494ff561cf848ddb18",
+    "identityHash": "3526fa0930d8278d6b120c50df5e863a",
     "entities": [
       {
         "tableName": "weather",
@@ -130,15 +130,12 @@
         },
         "indices": [
           {
-            "name": "index_cities_title_area_location_latitude_location_longitude",
+            "name": "index_cities_place_id",
             "unique": true,
             "columnNames": [
-              "title",
-              "area",
-              "location_latitude",
-              "location_longitude"
+              "place_id"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_cities_title_area_location_latitude_location_longitude` ON `${TABLE_NAME}` (`title`, `area`, `location_latitude`, `location_longitude`)"
+            "createSql": "CREATE UNIQUE INDEX `index_cities_place_id` ON `${TABLE_NAME}` (`place_id`)"
           }
         ],
         "foreignKeys": []
@@ -195,7 +192,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3d3c34e6bbdeb4494ff561cf848ddb18\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"3526fa0930d8278d6b120c50df5e863a\")"
     ]
   }
 }

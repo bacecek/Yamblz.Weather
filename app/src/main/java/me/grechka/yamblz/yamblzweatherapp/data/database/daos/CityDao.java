@@ -21,7 +21,7 @@ import me.grechka.yamblz.yamblzweatherapp.data.database.entities.CityEntity;
 @Dao
 public interface CityDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert(CityEntity entity);
 
     @Update

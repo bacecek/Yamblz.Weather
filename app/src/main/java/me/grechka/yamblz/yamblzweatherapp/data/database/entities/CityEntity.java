@@ -14,7 +14,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
  */
 
 @Entity(tableName = "cities", indices =
-@Index(value = {"title", "area", "location_latitude", "location_longitude"}, unique = true))
+@Index(value = {"place_id"}, unique = true))
 public class CityEntity {
 
     public static final CityEntity DEFAULT = new CityEntity();
