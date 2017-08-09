@@ -50,8 +50,7 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
         return Completable
                 .fromAction(() -> this.database
                         .cityDao()
-                        .insert(CityEntity.fromCity(city, false)))
-                .subscribeOn(Schedulers.io());
+                        .insert(CityEntity.fromCity(city, false)));
     }
 
     @Override
