@@ -179,9 +179,6 @@ public class MainActivity extends AdaptiveActivity
     @Override
     public void navigate(int screenId) {
         switch (screenId) {
-            case R.id.nav_weather:
-                presenter.showWeather();
-                break;
             case R.id.nav_favorites:
                 presenter.showFavorites();
                 break;
