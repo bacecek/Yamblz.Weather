@@ -10,6 +10,7 @@ ext.versions = [
 		retrolambdaGradlePlugin      : '3.6.1',
 		androidGradlePlugin          : '2.3.3',
 		jacocoGradlePlugin			 : '0.1.1',
+		dexcounterGradlePlugin	     : '0.7.3',
 
 		butterknife					 : '8.7.0',
 
@@ -40,6 +41,7 @@ ext.gradlePlugins = [
 		android          : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
 		retrolambda      : "me.tatarka:gradle-retrolambda:$versions.retrolambdaGradlePlugin",
 		jacoco    		 : "com.dicedmelon.gradle:jacoco-android:$versions.jacocoGradlePlugin",
+		dexcounter 		 : "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$versions.dexcounterGradlePlugin",
 ]
 
 ext.modules = [

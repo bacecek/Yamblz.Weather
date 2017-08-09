@@ -1,4 +1,4 @@
-package me.grechka.yamblz.yamblzweatherapp.utils;
+package me.grechka.yamblz.yamblzweatherapp.helpers;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
