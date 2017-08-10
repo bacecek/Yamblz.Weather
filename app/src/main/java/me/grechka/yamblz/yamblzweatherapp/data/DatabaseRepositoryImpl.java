@@ -15,6 +15,7 @@ import me.grechka.yamblz.yamblzweatherapp.data.database.AppDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.CityEntity;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.ForecastEntity;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.WeatherEntity;
+import me.grechka.yamblz.yamblzweatherapp.domain.errors.MissingCityException;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
@@ -30,17 +31,20 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
     private AppDatabase database;
     private NetworkRepository networkRepository;
 
+    private CityEntity city;
     private WeatherEntity weather;
-    private CityEntity city = CityEntity.DEFAULT;
 
     public DatabaseRepositoryImpl(@NonNull AppDatabase database,
                                   @NonNull NetworkRepository networkRepository) {
         this.database = database;
         this.networkRepository = networkRepository;
 
-        this.database
-                .cityDao()
-                .findActive()
+        onInit();
+    }
+
+    private void onInit() {
+        this.database.cityDao().findActive()
+                .subscribeOn(Schedulers.io())
                 .subscribe(city -> this.city = city);
     }
 
@@ -77,7 +81,7 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
     public Completable markCityAsActive(@NonNull City city) {
         CityLocation location = city.getLocation();
 
-        CityEntity inactiveCity = this.city;
+        CityEntity inactiveCity = this.city == null ? CityEntity.DEFAULT : this.city;
         inactiveCity.setActive(false);
 
         return database.cityDao()
@@ -106,7 +110,6 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
     public Single<Weather> getCachedWeather() {
         return database.cityDao()
                 .findActive()
-                .onErrorReturn(t -> CityEntity.DEFAULT) //// FIXME: 05/08/2017 create coordinates provided address
                 .flatMapSingle(city -> {
                     this.city = city;
                     return database.weatherDao().findWeatherByCity(city.getUid());
@@ -120,13 +123,15 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
 
     @Override
     public Single<Weather> getNetworkWeather() {
-        return this.networkRepository
-                .getWeatherByLocation(city.getLatitude(), city.getLongitude())
+        return Single.fromCallable(() -> {
+                    if (city == null) throw new MissingCityException();
+                    return city;
+                })
+                .flatMap(city -> this.networkRepository.getWeatherByLocation(city.getLatitude(), city.getLongitude()))
                 .doOnSuccess(weather -> {
-                            this.weather = WeatherEntity.fromWeather(weather, city, false);
-                            database.weatherDao().insert(this.weather);
-                        }
-                );
+                    this.weather = WeatherEntity.fromWeather(weather, city, false);
+                    database.weatherDao().insert(this.weather);
+                });
     }
 
     @Override
@@ -140,28 +145,34 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
 
     @Override
     public Single<List<Weather>> getCachedForecasts() {
-        return database.forecastDao()
-                .getAll(this.city.getUid())
+        return Single.fromCallable(() -> {
+                    if (city == null) throw new MissingCityException();
+                    return city;
+                })
+                .flatMap(city -> database.forecastDao().getAll(this.city.getUid()))
                 .flatMap(list -> Observable.fromIterable(list)
                         .map(ForecastEntity::toWeather).toList());
     }
 
     @Override
     public Single<List<Weather>> getNetworkForecasts() {
-        return this.networkRepository
-                .getForecastByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
+        return Single.fromCallable(() -> {
+                    if (city == null) throw new MissingCityException();
+                    return city;
+                })
+                .flatMap(city -> this.networkRepository.getForecastByLocation(city.getLatitude(), city.getLongitude(), API_KEY))
                 .doOnSuccess(forecasts -> database.forecastDao().delete())
                 .flatMap(forecast -> Observable.fromIterable(forecast.getForecastList())
-                            .map(weather -> new Weather.Builder()
-                                    .weatherId(weather.getWeather().get(0).getId())
-                                    .temperature(weather.getTemp().getDay())
-                                    .updateTime(TimeUnit.SECONDS.toMillis(weather.getDt()))
-                                    .build())
-                            .toList())
+                        .map(weather -> new Weather.Builder()
+                                .weatherId(weather.getWeather().get(0).getId())
+                                .temperature(weather.getTemp().getDay())
+                                .updateTime(TimeUnit.SECONDS.toMillis(weather.getDt()))
+                                .build())
+                        .toList())
                 .doOnSuccess(forecast -> Observable.fromIterable(forecast)
-                            .map(weather -> ForecastEntity.fromWeather(weather, this.city))
-                            .toList()
-                            .doOnSuccess(database.forecastDao()::insertAll)
-                            .subscribe());
+                        .map(weather -> ForecastEntity.fromWeather(weather, this.city))
+                        .toList()
+                        .doOnSuccess(database.forecastDao()::insertAll)
+                        .subscribe());
     }
 }

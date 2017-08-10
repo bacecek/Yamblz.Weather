@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.domain.errors.MissingCityException;
 import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractor;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersConfig;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
@@ -71,26 +72,32 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
     void getWeather() {
         interactor.getWeather()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(this::setWeather);
+                .subscribe(this::setWeather, this::onError);
     }
 
     void updateWeather() {
         interactor
                 .updateWeather()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(this::setWeather);
+                .subscribe(this::setWeather, this::onError);
     }
 
     void getForecast() {
         interactor.getForecast()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(getViewState()::addForecast);
+                .subscribe(getViewState()::addForecast, this::onError);
     }
 
     void updateForecast() {
         interactor.updateForecast()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(getViewState()::addForecast);
+                .subscribe(getViewState()::addForecast, this::onError);
+    }
+
+    void onError(Throwable t) {
+        t.printStackTrace();
+        if (t instanceof MissingCityException) getViewState().onMissingCityError();
+        else getViewState().onNetworkError();
     }
 
     boolean isCelsius() {

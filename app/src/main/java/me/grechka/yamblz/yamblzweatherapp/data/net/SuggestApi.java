@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 
 public interface SuggestApi {
 
-    String API_TYPES = "geocode";
+    String API_TYPES = "(cities)";
     String API_KEY = "AIzaSyB93d9Y2I-UWEFEQGLdWUfHCjF7cFmlUm8";
 
     @GET("autocomplete/json")

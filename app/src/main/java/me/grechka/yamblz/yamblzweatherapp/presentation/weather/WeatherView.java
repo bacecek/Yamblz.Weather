@@ -21,6 +21,9 @@ import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 public interface WeatherView extends MvpView {
     void addForecast(List<Weather> forecast);
 
+    @StateStrategyType(SkipStrategy.class) void onMissingCityError();
+    @StateStrategyType(SkipStrategy.class) void onNetworkError();
+
     void setWeather(Weather weather, WeatherType type);
     void showCity(@NonNull City city);
 }

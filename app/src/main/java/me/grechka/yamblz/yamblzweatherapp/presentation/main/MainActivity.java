@@ -21,6 +21,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import butterknife.BindColor;
 import butterknife.BindView;
 import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
+import me.grechka.yamblz.yamblzweatherapp.events.OnErrorListener;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.presentation.AboutFragment;
 import me.grechka.yamblz.yamblzweatherapp.R;
@@ -32,6 +33,7 @@ import me.grechka.yamblz.yamblzweatherapp.presentation.weather.WeatherFragment;
 
 public class MainActivity extends AdaptiveActivity
         implements MainView, OnDrawerLocked,
+        OnErrorListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     @BindColor(R.color.colorWhite) int colorWhite;
@@ -120,21 +122,24 @@ public class MainActivity extends AdaptiveActivity
         super.onTabletViewsCreated(savedInstanceState);
     }
 
-    private void paintNavigationGroupTitle(@IdRes int groupId, @ColorInt int color) {
-        MenuItem groupItem = navigationView.getMenu().findItem(groupId);
-        SpannableString groupTitle = new SpannableString(groupItem.getTitle());
-        groupTitle.setSpan(new ForegroundColorSpan(color), 0, groupTitle.length(), 0);
-        groupItem.setTitle(groupTitle);
-    }
-
     private void onHeaderInit(@Nullable View headerView) {
         if (headerView  == null) return;
 
         View searchView = headerView.findViewById(R.id.main_activity_choose_city);
-        cityTitleHeaderTextView = (TextView) headerView.findViewById(R.id.fragment_weather_header_city_title);
-        cityAreaHeaderTextView = (TextView) headerView.findViewById(R.id.fragment_weather_header_city_area);
+        cityTitleHeaderTextView = headerView.findViewById(R.id.fragment_weather_header_city_title);
+        cityAreaHeaderTextView = headerView.findViewById(R.id.fragment_weather_header_city_area);
 
         searchView.setOnClickListener(v -> showFavorites());
+    }
+
+    @Override
+    public void onMissingCity() {
+
+    }
+
+    @Override
+    public void onNetworkError() {
+
     }
 
     @Override

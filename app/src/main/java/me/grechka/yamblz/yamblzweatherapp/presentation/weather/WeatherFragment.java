@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
+import me.grechka.yamblz.yamblzweatherapp.events.OnErrorListener;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
@@ -34,6 +35,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
         SwipeRefreshLayout.OnRefreshListener,
         AppBarLayout.OnOffsetChangedListener {
 
+    private OnErrorListener onErrorListener;
     private ForecastAdapter forecastAdapter;
     private LinearLayoutManager linearLayoutManager;
 
@@ -126,11 +128,25 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     }
 
     @Override
+    public void onMissingCityError() {
+        if (onErrorListener == null) return;
+        onErrorListener.onMissingCity();
+    }
+
+    @Override
+    public void onNetworkError() {
+        if (onErrorListener == null) return;
+        onErrorListener.onNetworkError();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.enableDrawer();
+
+        onErrorListener = mainActivity;
     }
 
     private String getTempUnits() {

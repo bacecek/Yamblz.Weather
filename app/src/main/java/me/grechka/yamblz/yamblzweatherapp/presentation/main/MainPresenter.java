@@ -27,7 +27,11 @@ public class MainPresenter extends MvpPresenter<MainView> {
                          @NonNull DatabaseRepository appRepository) {
         this.schedulers = schedulers;
         this.appRepository = appRepository;
+    }
 
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
         updateCity();
     }
 
