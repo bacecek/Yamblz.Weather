@@ -167,6 +167,6 @@ public class DatabaseRepositoryUnitTests extends BaseUnitTest {
 
         verify(repository).getForecastByLocation(anyDouble(), anyDouble(), anyString());
         verify(forecastDao).delete();
-        verify(forecastDao, atLeastOnce()).insert(any(ForecastEntity.class));
+        verify(forecastDao, atLeastOnce()).insertAll(any());
     }
 }

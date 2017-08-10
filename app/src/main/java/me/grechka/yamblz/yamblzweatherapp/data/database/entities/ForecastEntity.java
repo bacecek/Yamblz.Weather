@@ -23,12 +23,6 @@ public class ForecastEntity {
     @ColumnInfo(name = "temperature")
     private float temperature;
 
-    @ColumnInfo(name = "sunrise")
-    private long sunrise;
-
-    @ColumnInfo(name = "sunset")
-    private long sunset;
-
     @ColumnInfo(name = "date")
     private long date;
 
@@ -59,22 +53,6 @@ public class ForecastEntity {
         this.temperature = temperature;
     }
 
-    public long getSunrise() {
-        return sunrise;
-    }
-
-    public void setSunrise(long sunrise) {
-        this.sunrise = sunrise;
-    }
-
-    public long getSunset() {
-        return sunset;
-    }
-
-    public void setSunset(long sunset) {
-        this.sunset = sunset;
-    }
-
     public long getDate() {
         return date;
     }
@@ -95,8 +73,6 @@ public class ForecastEntity {
         return new Weather.Builder()
                 .weatherId(entity.getWeatherId())
                 .temperature(entity.getTemperature())
-                .sunSetTime(entity.getSunset())
-                .sunRiseTime(entity.getSunrise())
                 .updateTime(entity.getDate())
                 .build();
     }
@@ -107,8 +83,6 @@ public class ForecastEntity {
         entity.setWeatherId(weather.getWeatherId());
         entity.setCityId(city.getUid());
         entity.setTemperature(weather.getTemperature());
-        entity.setSunrise(weather.getSunRiseTime());
-        entity.setSunset(weather.getSunSetTime());
         entity.setDate(weather.getUpdateTime());
         return entity;
     }

@@ -44,6 +44,16 @@ public class WeatherTypesClearSkyUnitTests {
     }
 
     @Test
+    public void WeatherTypes_clearSkyNotApplicable_whenWeatherIdIs800AndScheduleIsTurnedOff() {
+        Weather weather = new Weather.Builder()
+                .weatherId(800)
+                .build();
+
+        WeatherType clearSky = new ClearSky();
+        assertFalse(clearSky.isApplicable(weather));
+    }
+
+    @Test
     public void WeatherTypes_clearSkyNotApplicable_whenWeatherIdIs805() {
         Weather weather = new Weather.Builder()
                 .weatherId(805)

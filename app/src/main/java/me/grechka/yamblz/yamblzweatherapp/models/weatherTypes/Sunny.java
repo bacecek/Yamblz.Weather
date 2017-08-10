@@ -1,5 +1,7 @@
 package me.grechka.yamblz.yamblzweatherapp.models.weatherTypes;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
@@ -13,12 +15,15 @@ public class Sunny implements WeatherType {
 
     @Override
     public boolean isApplicable(Weather weather) {
+        if (weather.getWeatherId() != 800) return false;
+        if (!isScheduled(weather)) return true;
+
         long currentTime = new Date().getTime();
 
         boolean timeCondition =
                 currentTime >= weather.getSunRiseTime() && currentTime < weather.getSunSetTime();
 
-        return timeCondition && weather.getWeatherId() == 800;
+        return timeCondition;
     }
 
     @Override
@@ -39,5 +44,10 @@ public class Sunny implements WeatherType {
     @Override
     public int getTextColor() {
         return R.color.colorSunnyText;
+    }
+
+    private boolean isScheduled(@NonNull Weather weather) {
+        return !(weather.getSunRiseTime() == Weather.NO_SUN_PERIODIC ||
+                weather.getSunSetTime() == Weather.NO_SUN_PERIODIC);
     }
 }

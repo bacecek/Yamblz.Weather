@@ -1,5 +1,8 @@
 package me.grechka.yamblz.yamblzweatherapp.models.weatherTypes;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import java.util.Date;
 
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
@@ -13,6 +16,8 @@ public class ClearSky implements WeatherType {
 
     @Override
     public boolean isApplicable(Weather weather) {
+        if (!isScheduled(weather)) return false;
+
         long currentTime = new Date().getTime();
         boolean timeCondition =
                 currentTime < weather.getSunRiseTime() || currentTime >= weather.getSunSetTime();
@@ -37,5 +42,10 @@ public class ClearSky implements WeatherType {
     @Override
     public int getTextColor() {
         return R.color.colorClearNightText;
+    }
+
+    private boolean isScheduled(@NonNull Weather weather) {
+        return !(weather.getSunRiseTime() == Weather.NO_SUN_PERIODIC ||
+                weather.getSunSetTime() == Weather.NO_SUN_PERIODIC);
     }
 }

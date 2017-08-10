@@ -122,6 +122,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     @Override
     public void onRefresh() {
         presenter.updateWeather();
+        presenter.updateForecast();
     }
 
     @Override

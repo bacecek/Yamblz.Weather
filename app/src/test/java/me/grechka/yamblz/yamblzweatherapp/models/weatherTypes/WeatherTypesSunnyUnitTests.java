@@ -42,6 +42,16 @@ public class WeatherTypesSunnyUnitTests {
     }
 
     @Test
+    public void WeatherTypes_sunnyApplicable_whenWeatherIdIs800AndScheduleIsTurnOff() {
+        Weather weather = new Weather.Builder()
+                .weatherId(800)
+                .build();
+
+        WeatherType sunny = new Sunny();
+        assertTrue(sunny.isApplicable(weather));
+    }
+
+    @Test
     public void WeatherTypes_sunnyNotApplicable_whenWeatherIdIs805() {
         Weather weather = new Weather.Builder()
                 .weatherId(805)

@@ -1,6 +1,7 @@
 package me.grechka.yamblz.yamblzweatherapp.data;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -40,9 +41,7 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
         this.database
                 .cityDao()
                 .findActive()
-                .subscribe(city -> {
-                    this.city = city;
-                });
+                .subscribe(city -> this.city = city);
     }
 
     @Override
@@ -152,18 +151,17 @@ public class DatabaseRepositoryImpl implements DatabaseRepository {
         return this.networkRepository
                 .getForecastByLocation(city.getLatitude(), city.getLongitude(), API_KEY)
                 .doOnSuccess(forecasts -> database.forecastDao().delete())
-                .flatMapObservable(forecast -> Observable.fromIterable(forecast.getForecastList()))
-                .map(weather -> new Weather.Builder()
-                        .weatherId(weather.getWeather().get(0).getId())
-                        .temperature(weather.getTemp().getDay())
-                        .updateTime(TimeUnit.SECONDS.toMillis(weather.getDt()))
-                        .sunRiseTime(this.weather.getSunrise())
-                        .sunSetTime(this.weather.getSunset())
-                        .build())
-                .doOnNext(weather -> {
-                    ForecastEntity entity = ForecastEntity.fromWeather(weather, this.city);
-                    database.forecastDao().insert(entity);
-                })
-                .toList();
+                .flatMap(forecast -> Observable.fromIterable(forecast.getForecastList())
+                            .map(weather -> new Weather.Builder()
+                                    .weatherId(weather.getWeather().get(0).getId())
+                                    .temperature(weather.getTemp().getDay())
+                                    .updateTime(TimeUnit.SECONDS.toMillis(weather.getDt()))
+                                    .build())
+                            .toList())
+                .doOnSuccess(forecast -> Observable.fromIterable(forecast)
+                            .map(weather -> ForecastEntity.fromWeather(weather, this.city))
+                            .toList()
+                            .doOnSuccess(database.forecastDao()::insertAll)
+                            .subscribe());
     }
 }

@@ -10,6 +10,8 @@ import com.google.gson.annotations.Expose;
 
 public class Weather {
 
+    public static final long NO_SUN_PERIODIC = -1;
+
     @Expose
     private int weatherId;
 
@@ -173,8 +175,8 @@ public class Weather {
         private float windDegree;
         private float windSpeed;
         private int clouds;
-        private long sunRiseTime;
-        private long sunSetTime;
+        private long sunRiseTime = NO_SUN_PERIODIC;
+        private long sunSetTime = NO_SUN_PERIODIC;
         private long updateTime;
 
         public Builder() {

@@ -59,11 +59,13 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
     private void setUnitMods(@NonNull List<Integer> unitMods) {
         this.unitMods = unitMods;
         this.getWeather();
+        this.getForecast();
     }
 
     private void cityChanged(@NonNull City city) {
         getViewState().showCity(city);
         this.getWeather();
+        this.getForecast();
     }
 
     void getWeather() {
@@ -81,6 +83,12 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
 
     void getForecast() {
         interactor.getForecast()
+                .compose(scheduler.getIoToMainTransformerSingle())
+                .subscribe(getViewState()::addForecast);
+    }
+
+    void updateForecast() {
+        interactor.updateForecast()
                 .compose(scheduler.getIoToMainTransformerSingle())
                 .subscribe(getViewState()::addForecast);
     }
@@ -103,6 +111,5 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
             getViewState().setWeather(weather, type);
             break;
         }
-        this.getForecast();
     }
 }
