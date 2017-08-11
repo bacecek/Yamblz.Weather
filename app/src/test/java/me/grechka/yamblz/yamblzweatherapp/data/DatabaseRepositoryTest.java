@@ -1,9 +1,5 @@
 package me.grechka.yamblz.yamblzweatherapp.data;
 
-import android.database.Cursor;
-
-import com.google.gson.reflect.TypeToken;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,7 +12,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subscribers.TestSubscriber;
-import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
+import me.grechka.yamblz.yamblzweatherapp.base.BaseTest;
 import me.grechka.yamblz.yamblzweatherapp.data.database.AppDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.database.TestDatabase;
 import me.grechka.yamblz.yamblzweatherapp.data.database.daos.CityDao;
@@ -28,7 +24,6 @@ import me.grechka.yamblz.yamblzweatherapp.data.database.entities.WeatherEntity;
 import me.grechka.yamblz.yamblzweatherapp.helpers.JsonProvider;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
-import me.grechka.yamblz.yamblzweatherapp.models.response.forecast.Forecast;
 import me.grechka.yamblz.yamblzweatherapp.models.response.forecast.ForecastResponse;
 
 import static org.mockito.Matchers.any;
@@ -43,7 +38,7 @@ import static org.mockito.Mockito.when;
  * Created by alexander on 09/08/2017.
  */
 
-public class DatabaseRepositoryUnitTests extends BaseUnitTest {
+public class DatabaseRepositoryTest extends BaseTest {
 
     @Mock NetworkRepository repository;
 

@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertTrue;
  * Created by alexander on 09/08/2017.
  */
 
-public class WeatherTypesClearSkyUnitTests {
+public class WeatherTypesClearSkyTest {
 
     @Test
     public void WeatherTypes_clearSkyIsApplicable_whenWeatherIdIs800AndTimeIsRight() {

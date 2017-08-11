@@ -6,7 +6,7 @@ import org.mockito.Mock;
 
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
-import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
+import me.grechka.yamblz.yamblzweatherapp.base.BaseTest;
 import me.grechka.yamblz.yamblzweatherapp.data.net.SuggestApi;
 import me.grechka.yamblz.yamblzweatherapp.data.net.WeatherApi;
 import me.grechka.yamblz.yamblzweatherapp.helpers.JsonProvider;
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
  * Created by alexander on 09/08/2017.
  */
 
-public class NetworkRepositoryUnitTests extends BaseUnitTest {
+public class NetworkRepositoryTest extends BaseTest {
 
     private NetworkRepository repository;
 

@@ -11,7 +11,7 @@ import java.util.Map;
 
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
-import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
+import me.grechka.yamblz.yamblzweatherapp.base.BaseTest;
 import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
 import me.grechka.yamblz.yamblzweatherapp.data.PreferencesRepository;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.Converter;
@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
  * Created by alexander on 08/08/2017.
  */
 
-public class WeatherInteractorUnitTests extends BaseUnitTest {
+public class WeatherInteractorTest extends BaseTest {
 
     private WeatherInteractor weatherInteractor;
 

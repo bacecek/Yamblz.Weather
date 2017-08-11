@@ -11,7 +11,7 @@ import static junit.framework.Assert.*;
  * Created by alexander on 09/08/2017.
  */
 
-public class WeatherTypesSunnyUnitTests {
+public class WeatherTypesSunnyTest {
 
     @Test
     public void WeatherTypes_sunnyIsApplicable_whenWeatherIdIs800AndTimeIsRight() {

@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by alexander on 28/07/2017.
  */
 
-public abstract class BaseApiUnitTest {
+public abstract class BaseApiTest {
 
     private MockWebServer mockWebServer;
     private GsonBuilder builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation();

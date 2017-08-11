@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 import io.reactivex.observers.TestObserver;
-import me.grechka.yamblz.yamblzweatherapp.base.BaseApiUnitTest;
+import me.grechka.yamblz.yamblzweatherapp.base.BaseApiTest;
 import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
 import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityResponse;
 import me.grechka.yamblz.yamblzweatherapp.models.response.places.Place;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertThat;
  */
 
 @RunWith(JUnit4.class)
-public class SuggestApiUnitTest extends BaseApiUnitTest {
+public class SuggestApiTest extends BaseApiTest {
 
     private static final double EPS = 0.00000001;
 

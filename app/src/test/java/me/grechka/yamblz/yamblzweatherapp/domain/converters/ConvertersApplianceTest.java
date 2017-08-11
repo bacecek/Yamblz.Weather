@@ -9,7 +9,7 @@ import static junit.framework.Assert.*;
  * Created by alexander on 08/08/2017.
  */
 
-public class ConvertersApplianceUnitTests {
+public class ConvertersApplianceTest {
 
     private Converter<Integer, Float> kelvinToCelsius;
     private Converter<Integer, Float> kelvinToFahrenheit;

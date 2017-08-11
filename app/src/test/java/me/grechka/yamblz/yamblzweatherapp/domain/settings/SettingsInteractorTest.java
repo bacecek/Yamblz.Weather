@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
+import me.grechka.yamblz.yamblzweatherapp.base.BaseTest;
 import me.grechka.yamblz.yamblzweatherapp.data.PreferencesRepository;
 
 import static org.mockito.Mockito.*;
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
  * Created by alexander on 08/08/2017.
  */
 
-public class SettingsInteractorUnitTests extends BaseUnitTest {
+public class SettingsInteractorTest extends BaseTest {
 
     private SettingsInteractor settingsInteractor;
 

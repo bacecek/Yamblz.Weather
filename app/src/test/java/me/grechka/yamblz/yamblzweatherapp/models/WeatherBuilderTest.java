@@ -8,7 +8,7 @@ import static junit.framework.Assert.assertEquals;
  * Created by alexander on 09/08/2017.
  */
 
-public class WeatherBuilderUnitTests {
+public class WeatherBuilderTest {
 
     @Test
     public void WeatherBuilder_createWeatherWithBuilder_success() {

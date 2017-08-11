@@ -11,7 +11,7 @@ import static junit.framework.Assert.assertTrue;
  * Created by alexander on 09/08/2017.
  */
 
-public class WeatherTypesThunderUnitTests {
+public class WeatherTypesThunderTest {
 
     @Test
     public void WeatherTypes_thunderIsApplicable_whenWeatherIdIs200() {

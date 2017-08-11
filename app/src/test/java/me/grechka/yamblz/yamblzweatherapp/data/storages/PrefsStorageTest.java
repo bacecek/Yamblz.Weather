@@ -9,9 +9,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
+import me.grechka.yamblz.yamblzweatherapp.base.BaseTest;
 
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyFloat;
@@ -25,7 +24,7 @@ import static org.mockito.Mockito.when;
  * Created by alexander on 09/08/2017.
  */
 
-public class PrefsStorageUnitTests extends BaseUnitTest {
+public class PrefsStorageTest extends BaseTest {
 
     private Storage<String> prefs;
 

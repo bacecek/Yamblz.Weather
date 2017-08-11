@@ -8,7 +8,7 @@ import static junit.framework.Assert.*;
  * Created by alexander on 09/08/2017.
  */
 
-public class TextUtilsUnitTests {
+public class TextUtilsTest {
 
     @Test
     public void TextUtils_stringIsNull_returnTrue() {

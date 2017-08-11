@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.observers.TestObserver;
-import me.grechka.yamblz.yamblzweatherapp.base.BaseUnitTest;
+import me.grechka.yamblz.yamblzweatherapp.base.BaseTest;
 import me.grechka.yamblz.yamblzweatherapp.data.storages.Storage;
 
 import static junit.framework.Assert.assertEquals;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
  * Created by alexander on 09/08/2017.
  */
 
-public class PreferencesRepositoryUnitTests extends BaseUnitTest {
+public class PreferencesRepositoryTest extends BaseTest {
 
     private PreferencesRepository repository;
 
