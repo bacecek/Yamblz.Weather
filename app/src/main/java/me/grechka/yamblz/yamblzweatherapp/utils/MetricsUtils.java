@@ -11,6 +11,8 @@ import android.view.WindowManager;
 
 public final class MetricsUtils {
 
+    private static final int TABLET_SMALLEST_WIDTH = 600;
+
     private float scaleFactor;
     private DisplayMetrics displayMetrics;
 

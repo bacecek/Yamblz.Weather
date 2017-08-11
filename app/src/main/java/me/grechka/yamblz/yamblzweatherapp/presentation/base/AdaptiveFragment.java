@@ -27,6 +27,10 @@ public abstract class AdaptiveFragment extends BaseFragment {
         }
     }
 
+    protected int getOrientation() {
+        return currentOrientation;
+    }
+
     protected void onPortrait(){
     }
 

@@ -1,5 +1,6 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.favorites;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.grechka.yamblz.yamblzweatherapp.R;
@@ -25,6 +28,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.AdaptiveFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.citySearch.CitySearchFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
+import me.grechka.yamblz.yamblzweatherapp.utils.MetricsUtils;
 
 /**
  * Created by alexander on 03/08/2017.
@@ -42,13 +46,24 @@ public class FavoritesFragment extends AdaptiveFragment
     @BindView(R.id.fragment_favorites_empty_view) View emptyView;
     @BindView(R.id.fragment_favorites_recycler_view) RecyclerView citiesRecyclerView;
 
+    @Inject
+    MetricsUtils metricsUtils;
+
+    @Inject
     @InjectPresenter FavoritesPresenter presenter;
 
     @ProvidePresenter FavoritesPresenter providePresenter() {
-        return WeatherApp.get(getContext())
+        return presenter;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        WeatherApp
+                .get(context)
                 .getAppComponent()
                 .addMainComponent()
-                .getFavoritesPresenter();
+                .inject(this);
     }
 
     @Override
@@ -59,7 +74,8 @@ public class FavoritesFragment extends AdaptiveFragment
     @Override
     protected void onPortrait() {
         super.onPortrait();
-        layoutManager = new LinearLayoutManager(getContext());
+        if (metricsUtils.getSmallestWidth() < 600) layoutManager = new LinearLayoutManager(getContext());
+        else layoutManager = new GridLayoutManager(getContext(), 2);
     }
 
     @Override

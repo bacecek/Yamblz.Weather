@@ -7,8 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,18 +30,20 @@ import me.grechka.yamblz.yamblzweatherapp.events.OnErrorListener;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
+import me.grechka.yamblz.yamblzweatherapp.presentation.base.AdaptiveFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.forecast.ForecastAdapter;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
+import me.grechka.yamblz.yamblzweatherapp.utils.MetricsUtils;
 import sasd97.java_blog.xyz.richtextview.RichTextView;
 
-public class WeatherFragment extends BaseFragment implements WeatherView,
+public class WeatherFragment extends AdaptiveFragment implements WeatherView,
         SwipeRefreshLayout.OnRefreshListener,
         AppBarLayout.OnOffsetChangedListener {
 
     private OnErrorListener onErrorListener;
     private ForecastAdapter forecastAdapter;
-    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Nullable @BindView(R.id.fragment_weather_app_bar) AppBarLayout weatherAppBar;
 
@@ -56,6 +61,9 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     @Inject
     @InjectPresenter
     WeatherPresenter presenter;
+
+    @Inject
+    MetricsUtils metricsUtils;
 
     @Inject Set<WeatherType> weatherTypes;
 
@@ -80,6 +88,19 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     }
 
     @Override
+    protected void onPortrait() {
+        super.onPortrait();
+        if (metricsUtils.getSmallestWidth() < 600) layoutManager = new LinearLayoutManager(getContext());
+        else layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
+    }
+
+    @Override
+    protected void onLandscape() {
+        super.onLandscape();
+        layoutManager = new LinearLayoutManager(getContext());
+    }
+
+    @Override
     protected void onViewsCreated(@Nullable Bundle savedInstanceState) {
         super.onViewsCreated(savedInstanceState);
         if (weatherAppBar != null) weatherAppBar.addOnOffsetChangedListener(this);
@@ -87,8 +108,7 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
 
         forecastAdapter = new ForecastAdapter(weatherTypes);
         forecastRecyclerView.setAdapter(forecastAdapter);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        forecastRecyclerView.setLayoutManager(linearLayoutManager);
+        forecastRecyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
