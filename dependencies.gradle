@@ -9,7 +9,6 @@ ext.versions = [
 
 		retrolambdaGradlePlugin      : '3.6.1',
 		androidGradlePlugin          : '2.3.3',
-		jacocoGradlePlugin			 : '0.1.1',
 		dexcounterGradlePlugin	     : '0.7.3',
 
 		butterknife					 : '8.7.0',
@@ -17,7 +16,6 @@ ext.versions = [
 		rxjava                       : '2.0.6',
 		rxandroid                    : '2.0.1',
 		rxbinding					 : '2.0.0',
-		rxlocation					 : '1.0.3',
 
         supportLibs                  : '25.4.0',
 		constraint			 		 : '1.0.2',
@@ -40,7 +38,6 @@ ext.versions = [
 ext.gradlePlugins = [
 		android          : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
 		retrolambda      : "me.tatarka:gradle-retrolambda:$versions.retrolambdaGradlePlugin",
-		jacoco    		 : "com.dicedmelon.gradle:jacoco-android:$versions.jacocoGradlePlugin",
 		dexcounter 		 : "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$versions.dexcounterGradlePlugin",
 ]
 
@@ -75,7 +72,6 @@ ext.libraries = [
 		rxjava                  : "io.reactivex.rxjava2:rxjava:$versions.rxjava",
 		rxandroid               : "io.reactivex.rxjava2:rxandroid:$versions.rxandroid",
 		rxbinding				: "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$versions.rxbinding",
-		rxlocation				: "com.patloew.rxlocation:rxlocation:$versions.rxlocation",
 
 		androidJob				: "com.evernote:android-job:$versions.androidJob",
 		moxy					: "com.arello-mobile:moxy:$versions.moxy",
