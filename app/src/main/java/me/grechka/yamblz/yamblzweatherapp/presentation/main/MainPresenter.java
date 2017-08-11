@@ -69,9 +69,4 @@ public class MainPresenter extends MvpPresenter<MainView> {
     public void navigate(int screenId) {
         getViewState().navigate(screenId);
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }
