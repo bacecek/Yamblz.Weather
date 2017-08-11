@@ -21,11 +21,4 @@ public class MainActivityUnitTestInstrumentedTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivity = new ActivityTestRule<>(MainActivity.class);
-
-    @Test
-    public void mainActivity_navigateToAbout_aboutFragmentOpenedSuccessfully() {
-        onView(withText(R.string.fragment_favorites_empty))
-                .check(matches(isDisplayed()))
-                .perform(click());
-    }
 }
