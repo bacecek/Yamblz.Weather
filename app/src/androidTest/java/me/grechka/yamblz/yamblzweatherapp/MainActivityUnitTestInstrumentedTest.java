@@ -24,9 +24,7 @@ public class MainActivityUnitTestInstrumentedTest {
 
     @Test
     public void mainActivity_navigateToAbout_aboutFragmentOpenedSuccessfully() {
-        onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
-
-        onView(withText(R.string.main_activity_navigation_about))
+        onView(withText(R.string.fragment_favorites_empty))
                 .check(matches(isDisplayed()))
                 .perform(click());
     }
