@@ -1,16 +1,12 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.main;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -35,6 +31,8 @@ public class MainActivity extends AdaptiveActivity
         implements MainView, OnDrawerLocked,
         OnErrorListener,
         NavigationView.OnNavigationItemSelectedListener {
+
+    private boolean isDrawerHidden = false;
 
     @BindColor(R.color.colorWhite) int colorWhite;
 
@@ -87,7 +85,9 @@ public class MainActivity extends AdaptiveActivity
     protected void onTabletInit() {
         super.onTabletInit();
 
-        showFavorites();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new FavoritesFragment())
+                .commit();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -134,12 +134,7 @@ public class MainActivity extends AdaptiveActivity
 
     @Override
     public void onMissingCity() {
-
-    }
-
-    @Override
-    public void onNetworkError() {
-
+        presenter.showMissedCity();
     }
 
     @Override
@@ -182,7 +177,14 @@ public class MainActivity extends AdaptiveActivity
     }
 
     @Override
+    public void showMissedCity() {
+        showFavorites();
+    }
+
+    @Override
     public void navigate(int screenId) {
+        if (isDrawerHidden) return;
+
         switch (screenId) {
             case R.id.nav_favorites:
                 presenter.showFavorites();
@@ -205,7 +207,8 @@ public class MainActivity extends AdaptiveActivity
     }
 
     @Override
-    public void enableDrawer() {
+    public void selectBackButtonNavigation() {
+        isDrawerHidden = false;
         if (!isPhone()) return;
 
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -215,7 +218,8 @@ public class MainActivity extends AdaptiveActivity
     }
 
     @Override
-    public void disableDrawer() {
+    public void selectBurgerButtonNavigation() {
+        isDrawerHidden = false;
         if (!isPhone()) return;
 
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
@@ -233,6 +237,17 @@ public class MainActivity extends AdaptiveActivity
     }
 
     @Override
+    public void hideDrawer() {
+        isDrawerHidden = true;
+        if (!isPhone()) return;
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        toggle.setDrawerIndicatorEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        toggle.setToolbarNavigationClickListener(null);
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         goBack();
         return true;
@@ -240,6 +255,11 @@ public class MainActivity extends AdaptiveActivity
 
     @Override
     public void onBackPressed() {
+        if (isDrawerHidden) {
+            finish();
+            return;
+        }
+
         presenter.goBack();
     }
 

@@ -24,7 +24,7 @@
     <string name="all_weather_pascal">hPa</string>
     <!-- Endregion -->
 
-    <!--MainActivity region -->
+    <!--Main Activity region -->
     <string name="main_activity_navigation_weather">Weather</string>
     <string name="main_activity_navigation_favorite">Favorite</string>
     <string name="main_activity_navigation_common">Common</string>
@@ -38,6 +38,7 @@
     <string name="weather_fragment_temperature">%1$.1f %2$s</string>
     <string name="weather_fragment_pressure">%1$.0f %2$s</string>
     <string name="weather_fragment_wind_speed">%1$.1f %2$s</string>
+    <string name="weather_fragment_error_message">Something went wrong, but we trying to repair all the problems. </string>
     <!-- Endregion -->
 
     <!-- About fragment -->
@@ -73,6 +74,6 @@
     <!-- Endregion -->
 
     <!-- Favorites fragment -->
-    <string name="fragment_favorites_empty">There is nothing city added.\nTo add new city click + button.</string>
+    <string name="fragment_favorites_empty">Ohhhhh, it seems to me, or you did not add a city yet? Let me help you. To add a city, click on the + button and next the city card to assign it active.</string>
     <!-- Endregion -->
 </resources>

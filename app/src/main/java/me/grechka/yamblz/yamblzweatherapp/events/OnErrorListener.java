@@ -6,5 +6,4 @@ package me.grechka.yamblz.yamblzweatherapp.events;
 
 public interface OnErrorListener {
     void onMissingCity();
-    void onNetworkError();
 }

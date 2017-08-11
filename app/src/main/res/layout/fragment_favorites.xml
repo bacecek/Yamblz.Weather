@@ -14,15 +14,7 @@
         android:layout_marginTop="14dp"
         />
 
-    <TextView
-        android:id="@+id/fragment_favorites_empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        style="@style/WeatherMediumTextOverlay"
-        android:text="@string/fragment_favorites_empty"
-        tools:text="Add +"
-        />
+    <include layout="@layout/content_missing_city" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fragment_favorites_add_city"

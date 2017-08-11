@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -38,11 +39,15 @@ public class MainPresenter extends MvpPresenter<MainView> {
     void updateCity() {
         appRepository.getCity()
                 .compose(schedulers.getIoToMainTransformerFlowable())
-                .subscribe(getViewState()::setCityToHeader);
+                .subscribe(this::onCityChanged);
     }
 
-    public void showWeather() {
-        getViewState().showWeather();
+    public void onCityChanged(@NonNull City city) {
+        getViewState().setCityToHeader(city);
+    }
+
+    public void showMissedCity() {
+        getViewState().showMissedCity();
     }
 
     public void showSettings() {

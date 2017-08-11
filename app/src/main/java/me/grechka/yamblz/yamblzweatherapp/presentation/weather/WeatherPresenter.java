@@ -96,6 +96,8 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
 
     void onError(Throwable t) {
         t.printStackTrace();
+        getViewState().hideLoading();
+        getViewState().setErrorViewEnabled(true);
         if (t instanceof MissingCityException) getViewState().onMissingCityError();
         else getViewState().onNetworkError();
     }
@@ -113,6 +115,8 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
     }
 
     private void setWeather(@NonNull Weather weather) {
+        getViewState().setErrorViewEnabled(false);
+
         for(WeatherType type: weatherTypes) {
             if (!type.isApplicable(weather)) continue;
             getViewState().setWeather(weather, type);

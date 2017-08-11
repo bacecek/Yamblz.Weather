@@ -5,7 +5,6 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -24,7 +23,6 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
-import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 
@@ -105,7 +103,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
                 .setTitle(R.string.main_activity_navigation_settings);
 
         mainActivity
-                .disableDrawer();
+                .selectBurgerButtonNavigation();
     }
 
 

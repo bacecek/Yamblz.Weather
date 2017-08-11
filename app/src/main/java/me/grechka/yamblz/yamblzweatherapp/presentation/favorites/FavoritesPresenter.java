@@ -60,7 +60,16 @@ public class FavoritesPresenter extends BasePresenter<FavoritesView> {
     public void updateCities(@NonNull List<City> cities) {
         Log.d(TAG, cities.toString());
 
-        if (cities.isEmpty()) getViewState().showEmptyView();
-        else getViewState().citiesListChanged(cities);
+        if (cities.isEmpty()) {
+            getViewState().onEmptyList();
+            return;
+        }
+
+        if (!cities.get(0).isActive()) {
+            getViewState().onActiveMissing(cities);
+            return;
+        }
+
+        getViewState().onListChanged(cities);
     }
 }

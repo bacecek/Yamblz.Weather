@@ -23,7 +23,10 @@ public interface WeatherView extends MvpView {
 
     @StateStrategyType(SkipStrategy.class) void onMissingCityError();
     @StateStrategyType(SkipStrategy.class) void onNetworkError();
+    void setErrorViewEnabled(boolean isEnabled);
 
     void setWeather(Weather weather, WeatherType type);
     void showCity(@NonNull City city);
+
+    void hideLoading();
 }

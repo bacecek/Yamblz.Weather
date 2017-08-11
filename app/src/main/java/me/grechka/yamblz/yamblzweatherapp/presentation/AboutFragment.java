@@ -3,7 +3,6 @@ package me.grechka.yamblz.yamblzweatherapp.presentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.grechka.yamblz.yamblzweatherapp.R;
-import me.grechka.yamblz.yamblzweatherapp.events.OnDrawerLocked;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 
 public class AboutFragment extends Fragment {
@@ -38,7 +36,7 @@ public class AboutFragment extends Fragment {
                 .setTitle(R.string.main_activity_navigation_about);
 
         mainActivity
-                .disableDrawer();
+                .selectBurgerButtonNavigation();
     }
 
     @OnClick(R.id.fragment_about_send_email)

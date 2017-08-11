@@ -13,6 +13,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
  */
 
 public interface FavoritesView extends MvpView {
-    void citiesListChanged(@NonNull List<City> cities);
-    void showEmptyView();
+    void onListChanged(@NonNull List<City> cities);
+    void onActiveMissing(@NonNull List<City> cities);
+    void onEmptyList();
 }

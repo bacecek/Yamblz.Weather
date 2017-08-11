@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -40,6 +41,10 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     private LinearLayoutManager linearLayoutManager;
 
     @Nullable @BindView(R.id.fragment_weather_app_bar) AppBarLayout weatherAppBar;
+
+    @BindView(R.id.fragment_weather_content_root) View contentRoot;
+    @BindView(R.id.content_error_root) View errorRoot;
+
     @BindView(R.id.content_weather_icon) RichTextView weatherIcon;
     @BindView(R.id.content_weather_temperature_view) TextView temperatureView;
     @BindView(R.id.content_weather_humidity_view) TextView humidityView;
@@ -136,7 +141,11 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
     @Override
     public void onNetworkError() {
         if (onErrorListener == null) return;
-        onErrorListener.onNetworkError();
+    }
+
+    @Override
+    public void hideLoading() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -144,9 +153,15 @@ public class WeatherFragment extends BaseFragment implements WeatherView,
         super.onResume();
 
         MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.enableDrawer();
+        mainActivity.selectBackButtonNavigation();
 
         onErrorListener = mainActivity;
+    }
+
+    @Override
+    public void setErrorViewEnabled(boolean isEnabled) {
+        errorRoot.setVisibility(isEnabled ? View.VISIBLE : View.GONE);
+        contentRoot.setVisibility(isEnabled ? View.GONE : View.VISIBLE);
     }
 
     private String getTempUnits() {
