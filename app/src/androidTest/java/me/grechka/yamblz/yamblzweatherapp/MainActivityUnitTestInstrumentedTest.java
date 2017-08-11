@@ -21,4 +21,8 @@ public class MainActivityUnitTestInstrumentedTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mainActivity = new ActivityTestRule<>(MainActivity.class);
+
+    @Test
+    public void mainActivity_navigateToAbout_aboutFragmentOpenedSuccessfully() {
+    }
 }
