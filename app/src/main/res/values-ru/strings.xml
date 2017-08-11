@@ -34,6 +34,7 @@
     <string name="weather_fragment_temperature">%1$.1f %2$s</string>
     <string name="weather_fragment_pressure">%1$.0f %2$s</string>
     <string name="weather_fragment_wind_speed">%1$.1f %2$s</string>
+    <string name="weather_fragment_error_message">Что-то пошло не так, но мы уже работаем над проблемой</string>
     <!-- Endregion -->
 
     <!-- About fragment -->
@@ -69,6 +70,6 @@
     <!-- Endregion -->
 
     <!-- Favorites fragment -->
-    <string name="fragment_favorites_empty">Список городов пуст.\nЧтобы добавить новый город, нажмите на клавишу с пиктограммой +.</string>
+    <string name="fragment_favorites_empty">Оххх, похоже твой список городов пуст. Чтобы выбрать город, нажми на кнопку +, а затем нажми на добавленный город, что сделать его текущим</string>
     <!-- Endregion -->
 </resources>
