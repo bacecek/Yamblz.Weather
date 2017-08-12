@@ -50,4 +50,38 @@ public class CityBuilderTest {
         assertEquals(city.getLocation(), new CityLocation(0, 0));
         assertEquals(city.isActive(), true);
     }
+
+    @Test
+    public void CityBuilder_notEqualsToAnother() {
+        City moscow = new City.Builder()
+                .title("Moscow")
+                .placeId("146")
+                .extendedTitle("Moscow, Russia")
+                .location(new CityLocation(0, 0))
+                .isActive(false)
+                .build();
+
+        City moscova = new City.Builder(moscow)
+                .placeId("122")
+                .isActive(true)
+                .build();
+
+        assertNotSame(moscow, moscova);
+    }
+
+    @Test
+    public void CityBuilder_equalsToAnother() {
+        City one = new City.Builder()
+                .title("Moscow")
+                .placeId("146")
+                .extendedTitle("Moscow, Russia")
+                .location(new CityLocation(0, 0))
+                .isActive(false)
+                .build();
+
+        City another = new City.Builder(one)
+                .build();
+
+        assertEquals(one, another);
+    }
 }
