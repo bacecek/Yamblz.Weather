@@ -5,7 +5,9 @@ import org.junit.Test;
 import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by alexander on 09/08/2017.
@@ -102,7 +104,9 @@ public class WeatherBuilderTest {
                 .weatherId(200)
                 .build();
 
-        assertNotSame(one, another);
+        assertFalse(one.equals(another) || another.equals(one));
+        assertNotSame(one.hashCode(), another.hashCode());
+        assertNotSame(one.toString(), another.toString());
     }
 
     @Test
@@ -125,6 +129,8 @@ public class WeatherBuilderTest {
         Weather another = new Weather.Builder(one)
                 .build();
 
-        assertEquals(one, another);
+        assertTrue(one.equals(another) && another.equals(one));
+        assertEquals(one.hashCode(), another.hashCode());
+        assertEquals(one.toString(), another.toString());
     }
 }

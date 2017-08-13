@@ -20,7 +20,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             '**/*_Impl*.*',
             '**/background/*',
             '**/di/*',
-            '**/di/modules/*'
+            '**/di/modules/*',
+            '**/*Command*.*',
+            '**/*Binder*.*'
     ]
 
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)

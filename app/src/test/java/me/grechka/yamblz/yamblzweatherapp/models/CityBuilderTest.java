@@ -51,6 +51,27 @@ public class CityBuilderTest {
         assertEquals(city.isActive(), true);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void CityBuilder_wrongTitlePassed_throwAnException() {
+        new City.Builder()
+                .title("   ")
+                .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void CityBuilder_wrongExtendedTitlePassed_throwAnException() {
+        new City.Builder()
+                .extendedTitle("   ")
+                .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void CityBuilder_wrongPlaceIdPassed_throwAnException() {
+        new City.Builder()
+                .placeId("   ")
+                .build();
+    }
+
     @Test
     public void CityBuilder_notEqualsToAnother() {
         City moscow = new City.Builder()
@@ -66,7 +87,9 @@ public class CityBuilderTest {
                 .isActive(true)
                 .build();
 
-        assertNotSame(moscow, moscova);
+        assertFalse(moscow.equals(moscova) || moscova.equals(moscow));
+        assertNotSame(moscow.hashCode(), moscova.hashCode());
+        assertNotSame(moscow.toString(), moscova.toString());
     }
 
     @Test
@@ -82,6 +105,8 @@ public class CityBuilderTest {
         City another = new City.Builder(one)
                 .build();
 
-        assertEquals(one, another);
+        assertTrue(one.equals(another) && another.equals(one));
+        assertEquals(one.hashCode(), another.hashCode());
+        assertEquals(one.toString(), another.toString());
     }
 }
