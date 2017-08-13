@@ -129,7 +129,6 @@ public class WeatherPresenterTest extends BaseTest {
 
         verify(view).hideLoading();
         verify(view).setErrorViewEnabled(true);
-        verify(view).onNetworkError();
     }
 
     @Test
