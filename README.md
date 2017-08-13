@@ -7,7 +7,7 @@
 <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/icon.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/weather.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/forecast.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/favorites.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/drawer.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/about.png" width="270" height="480"> 
 
 ## Tablet Screenshots
-<img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/weather_tablet.png" width="480" height="270"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/settings_tablet.png" width="480" height="270"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/about_tablet.png" width="480" height="270"> 
+<img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/weather_tablet.png" width="512" height="384"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/settings_tablet.png" width="512" height="384"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/about_tablet.png" width="512" height="384"> 
 
 
 ## API
