@@ -36,8 +36,6 @@ public class WeatherInteractorImpl implements WeatherInteractor {
     private List<Converter<Integer, Float>> pressuresConverters;
     private List<Converter<Integer, Float>> temperatureConverters;
 
-    private int[] unitModes;
-
     @Inject
     public WeatherInteractorImpl(@NonNull DatabaseRepository databaseRepository,
                                  @NonNull PreferencesRepository preferencesRepository,

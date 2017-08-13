@@ -11,6 +11,8 @@ import android.view.WindowManager;
 
 public final class MetricsUtils {
 
+    private static final int TABLET_SMALLEST_WIDTH = 600;
+
     private float scaleFactor;
     private DisplayMetrics displayMetrics;
 
@@ -23,5 +25,13 @@ public final class MetricsUtils {
 
     public int getSmallestWidth() {
         return (int) Math.min(displayMetrics.widthPixels / scaleFactor, displayMetrics.heightPixels / scaleFactor);
+    }
+
+    public boolean isPhone() {
+        return getSmallestWidth() <= TABLET_SMALLEST_WIDTH;
+    }
+
+    public boolean isTablet() {
+        return getSmallestWidth() > TABLET_SMALLEST_WIDTH;
     }
 }

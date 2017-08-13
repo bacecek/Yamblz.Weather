@@ -6,14 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.events.OnItemClickListener;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
+import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseViewHolder;
 import sasd97.java_blog.xyz.circleview.CircleView;
 
 /**
@@ -25,27 +28,20 @@ public class CitySearchAdapter extends RecyclerView.Adapter<CitySearchAdapter.Ci
     private OnItemClickListener<City> listener;
     private List<City> cities = new ArrayList<>();
 
-    public void setListener(OnItemClickListener<City> listener) {
+    public void setOnItemClickListener(OnItemClickListener<City> listener) {
         this.listener = listener;
     }
 
-    class CitySearchViewHolder extends RecyclerView.ViewHolder
+    class CitySearchViewHolder extends BaseViewHolder
         implements View.OnClickListener {
 
-        private View clickRegionView;
-
-        private TextView cityArea;
-        private TextView cityTitle;
-        private CircleView cityLogoHolder;
+        @BindView(R.id.row_city_title) TextView cityTitle;
+        @BindView(R.id.row_city_description) TextView cityArea;
+        @BindView(R.id.row_city_alias) CircleView cityLogoHolder;
+        @BindView(R.id.row_city_clickable_area) View clickRegionView;
 
         CitySearchViewHolder(View itemView) {
             super(itemView);
-
-            cityTitle = (TextView) itemView.findViewById(R.id.row_city_title);
-            cityArea = (TextView) itemView.findViewById(R.id.row_city_description);
-            cityLogoHolder = (CircleView) itemView.findViewById(R.id.row_city_alias);
-            clickRegionView = itemView.findViewById(R.id.row_city_clickable_area);
-
             clickRegionView.setOnClickListener(this);
         }
 

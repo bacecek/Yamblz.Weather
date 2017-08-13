@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/row_forecast_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="@dimen/all_medium_margin"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="@dimen/all_medium_margin"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="8dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:padding="@dimen/all_medium_padding"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <View
+            android:id="@+id/row_forecast_delimeter"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/all_large_margin"
+            android:layout_marginEnd="@dimen/all_large_margin"
+            android:layout_marginLeft="@dimen/all_large_margin"
+            android:layout_marginRight="@dimen/all_large_margin"
+            android:layout_marginStart="@dimen/all_large_margin"
+            android:layout_marginTop="@dimen/all_large_margin"
+            android:background="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.644"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/row_forecast_date"
+            style="@style/WeatherMediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/all_medium_margin"
+            android:layout_marginEnd="@dimen/all_medium_margin"
+            android:layout_marginLeft="@dimen/all_medium_margin"
+            android:layout_marginRight="@dimen/all_medium_margin"
+            android:layout_marginStart="@dimen/all_medium_margin"
+            android:layout_marginTop="@dimen/all_medium_margin"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/row_forecast_delimeter"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12/07" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/all_medium_margin"
+            android:layout_marginLeft="@dimen/all_medium_margin"
+            android:layout_marginRight="@dimen/all_medium_margin"
+            android:layout_marginTop="@dimen/all_medium_margin"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/row_forecast_delimeter"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <sasd97.java_blog.xyz.richtextview.RichTextView
+                android:id="@+id/row_forecast_icon"
+                style="@style/WeatherSmallIcon"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:fontAsset="weather_icons.ttf"
+                tools:layout_editor_absoluteX="48dp"
+                tools:layout_editor_absoluteY="515dp"
+                tools:text="W" />
+
+            <TextView
+                android:id="@+id/row_forecast_temperature"
+                style="@style/WeatherMediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                tools:layout_editor_absoluteX="64dp"
+                tools:layout_editor_absoluteY="529dp"
+                tools:text="22 C" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

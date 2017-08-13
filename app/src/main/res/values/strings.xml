@@ -24,7 +24,7 @@
     <string name="all_weather_pascal">hPa</string>
     <!-- Endregion -->
 
-    <!--MainActivity region -->
+    <!--Main Activity region -->
     <string name="main_activity_navigation_weather">Weather</string>
     <string name="main_activity_navigation_favorite">Favorite</string>
     <string name="main_activity_navigation_common">Common</string>
@@ -38,17 +38,18 @@
     <string name="weather_fragment_temperature">%1$.1f %2$s</string>
     <string name="weather_fragment_pressure">%1$.0f %2$s</string>
     <string name="weather_fragment_wind_speed">%1$.1f %2$s</string>
+    <string name="weather_fragment_error_message">Something went wrong, but we trying to repair all the problems. </string>
     <!-- Endregion -->
 
     <!-- About fragment -->
-    <string name="fragment_about_message">
-        Hi,
-        \nI hope you download this application not driven by mistake.
-        \nI believe that it will really help to solve your problems, for example, choosing a wear before going to the street.
-        \nIf you have any problems, you can always write me a mail, clicking the button below.
-        \nEnjoy!
-        \nYandex Mobilization student,
-        \n<b>Alexander Dadukin</b></string>
+    <string name="fragment_about_message_contact">Contact with author</string>
+    <string name="fragment_about_message_version">Version 0.1.0</string>
+    <string name="fragment_about_message_released">realeased 13 August 2017. Build 34</string>
+    <string name="fragment_about_yamblz">#YAMBLZ 2017 YANDEX</string>
+    <string name="fragment_about_author_mail_type">text/plain</string>
+    <string name="fragment_about_author_mail_address">st235@yandex.ru</string>
+    <string name="fragment_about_author_mail_theme">Yamblz Weather Application</string>
+    <string name="fragment_about_author_mail_provider_title">Send via</string>
     <!-- Endregion -->
 
     <!-- Settings fragment -->
@@ -73,6 +74,6 @@
     <!-- Endregion -->
 
     <!-- Favorites fragment -->
-    <string name="fragment_favorites_empty">There is nothing city added.\nTo add new city click + button.</string>
+    <string name="fragment_favorites_empty">Ohhhhh, it seems to me, or you did not add a city yet? Let me help you. To add a city, click on the + button and next the city card to assign it active.</string>
     <!-- Endregion -->
 </resources>

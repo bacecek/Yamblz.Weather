@@ -1,0 +1,7 @@
+<resources>
+    <style name="WeatherMenuListItem">
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:buttonTint">@color/colorPrimaryDark</item>
+    </style>
+</resources>

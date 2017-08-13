@@ -1,0 +1,86 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.main.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_marginBottom="@dimen/all_medium_margin"
+        android:layout_marginLeft="@dimen/all_medium_margin"
+        android:layout_marginStart="@dimen/all_medium_margin"
+        android:layout_marginTop="@dimen/all_medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.505"
+        app:srcCompat="@drawable/weather_logo" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/fragment_about_send_email"
+        style="?borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/all_medium_margin"
+        android:layout_marginEnd="@dimen/all_medium_margin"
+        android:layout_marginLeft="@dimen/all_medium_margin"
+        android:layout_marginRight="@dimen/all_medium_margin"
+        android:layout_marginTop="@dimen/all_medium_margin"
+        android:clickable="true"
+        android:padding="@dimen/all_medium_padding"
+        android:text="@string/fragment_about_message_contact"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_about_copyright"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_about_released"
+        app:layout_constraintVertical_bias="0.502"
+        app:srcCompat="@drawable/ic_send_white_24dp" />
+
+    <TextView
+        android:id="@+id/fragment_about_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_medium_margin"
+        android:layout_marginRight="@dimen/all_medium_margin"
+        android:layout_marginTop="52dp"
+        android:text="@string/fragment_about_message_version"
+        android:textAppearance="@style/AboutText"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fragment_about_released"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/all_medium_margin"
+        android:layout_marginRight="@dimen/all_medium_margin"
+        android:layout_marginTop="8dp"
+        android:text="@string/fragment_about_message_released"
+        android:textAppearance="@style/AboutText"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_about_version" />
+
+    <TextView
+        android:id="@+id/fragment_about_copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="@dimen/all_medium_margin"
+        android:layout_marginRight="@dimen/all_medium_margin"
+        android:text="@string/fragment_about_yamblz"
+        android:textAppearance="@style/AboutText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>

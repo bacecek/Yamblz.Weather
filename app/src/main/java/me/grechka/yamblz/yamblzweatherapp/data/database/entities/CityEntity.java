@@ -14,20 +14,18 @@ import me.grechka.yamblz.yamblzweatherapp.models.response.city.CityLocation;
  */
 
 @Entity(tableName = "cities", indices =
-@Index(value = {"title", "area", "location_latitude", "location_longitude"}, unique = true))
+@Index(value = {"place_id"}, unique = true))
 public class CityEntity {
 
     public static final CityEntity DEFAULT = new CityEntity();
 
     static {
-        DEFAULT.setUid(1);
         DEFAULT.setTitle("Moscow");
-        DEFAULT.setArea("Moscow");
+        DEFAULT.setArea("Moscow, Russia");
         DEFAULT.setLatitude(55.755826);
         DEFAULT.setLongitude(37.6173);
         DEFAULT.setActive(true);
-        DEFAULT.setPlaceId("ChIJybDUc_xKtUYRTM9XV8zWRD0");
-
+        DEFAULT.setPlaceId("moscow_default");
     }
 
     @PrimaryKey(autoGenerate = true)

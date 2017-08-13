@@ -15,15 +15,15 @@ public final class PrefsStorage implements Storage<String> {
     private static final String APP_PREFERENCES = "wether.app.shared.preferences";
 
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     public PrefsStorage(Context context) {
         sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
     }
 
     @Override
     public <T> Storage<String> put(@NonNull String key, @NonNull T value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         if (value instanceof Boolean) {
             editor.putBoolean(key, (Boolean) value);
         } else if (value instanceof Integer) {
@@ -72,14 +72,16 @@ public final class PrefsStorage implements Storage<String> {
 
     @Override
     public void remove(String key) {
-        editor
+        sharedPreferences
+                .edit()
                 .remove(key)
                 .apply();
     }
 
     @Override
     public void clear() {
-        editor
+        sharedPreferences
+                .edit()
                 .clear()
                 .apply();
     }

@@ -1,5 +1,4 @@
 apply from: 'dependencies.gradle'
-apply from: 'jacoco.gradle'
 
 buildscript {
     apply from: 'dependencies.gradle'
@@ -14,7 +13,6 @@ buildscript {
     dependencies {
         classpath gradlePlugins.android
         classpath gradlePlugins.retrolambda
-        classpath gradlePlugins.jacoco
     }
 }
 

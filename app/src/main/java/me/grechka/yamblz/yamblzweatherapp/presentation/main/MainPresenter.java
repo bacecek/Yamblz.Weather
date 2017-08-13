@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.data.DatabaseRepository;
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.utils.RxSchedulers;
 
 /**
@@ -27,18 +28,26 @@ public class MainPresenter extends MvpPresenter<MainView> {
                          @NonNull DatabaseRepository appRepository) {
         this.schedulers = schedulers;
         this.appRepository = appRepository;
+    }
 
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
         updateCity();
     }
 
     void updateCity() {
         appRepository.getCity()
                 .compose(schedulers.getIoToMainTransformerFlowable())
-                .subscribe(getViewState()::setCityToHeader);
+                .subscribe(this::onCityChanged);
     }
 
-    public void showWeather() {
-        getViewState().showWeather();
+    public void onCityChanged(@NonNull City city) {
+        getViewState().setCityToHeader(city);
+    }
+
+    public void showMissedCity() {
+        getViewState().onCityMissedError();
     }
 
     public void showSettings() {
@@ -59,10 +68,5 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void navigate(int screenId) {
         getViewState().navigate(screenId);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }

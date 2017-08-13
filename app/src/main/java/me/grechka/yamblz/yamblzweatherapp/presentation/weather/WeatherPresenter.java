@@ -1,10 +1,8 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.weather;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
 import java.util.Set;
@@ -12,6 +10,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import me.grechka.yamblz.yamblzweatherapp.di.scopes.MainScope;
+import me.grechka.yamblz.yamblzweatherapp.domain.errors.MissingCityException;
 import me.grechka.yamblz.yamblzweatherapp.domain.weather.WeatherInteractor;
 import me.grechka.yamblz.yamblzweatherapp.domain.converters.ConvertersConfig;
 import me.grechka.yamblz.yamblzweatherapp.models.City;
@@ -41,6 +40,11 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
         this.scheduler = scheduler;
         this.weatherTypes = weatherTypes;
         this.interactor = interactor;
+    }
+
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
 
         addSubscription(interactor.getUnitsMods()
                 .compose(scheduler.getIoToMainTransformer())
@@ -54,30 +58,45 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
     private void setUnitMods(@NonNull List<Integer> unitMods) {
         this.unitMods = unitMods;
         this.getWeather();
+        this.getForecast();
     }
 
     private void cityChanged(@NonNull City city) {
         getViewState().showCity(city);
         this.getWeather();
+        this.getForecast();
     }
 
     void getWeather() {
         interactor.getWeather()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(this::setWeather);
+                .subscribe(this::setWeather, this::onError);
     }
 
     void updateWeather() {
         interactor
                 .updateWeather()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(this::setWeather);
+                .subscribe(this::setWeather, this::onError);
     }
 
     void getForecast() {
         interactor.getForecast()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(getViewState()::addForecast);
+                .subscribe(getViewState()::addForecasts, this::onError);
+    }
+
+    void updateForecast() {
+        interactor.updateForecast()
+                .compose(scheduler.getIoToMainTransformerSingle())
+                .subscribe(getViewState()::addForecasts, this::onError);
+    }
+
+    void onError(Throwable t) {
+        t.printStackTrace();
+        getViewState().hideLoading();
+        getViewState().setErrorViewEnabled(true);
+        if (t instanceof MissingCityException) getViewState().onMissingCityError();
     }
 
     boolean isCelsius() {
@@ -93,11 +112,12 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
     }
 
     private void setWeather(@NonNull Weather weather) {
+        getViewState().setErrorViewEnabled(false);
+
         for(WeatherType type: weatherTypes) {
             if (!type.isApplicable(weather)) continue;
             getViewState().setWeather(weather, type);
             break;
         }
-        this.getForecast();
     }
 }

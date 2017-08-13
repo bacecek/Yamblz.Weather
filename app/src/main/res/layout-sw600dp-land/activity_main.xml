@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SlidingPaneLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_sliding_pane"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorGreyMd800"
@@ -12,10 +12,10 @@
     <android.support.design.widget.NavigationView
         android:id="@+id/main_activity_navigation_view"
         style="@style/NavigationView"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/main_activity_navigation_view_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:elevation="0dp"
+        app:elevation="@dimen/all_no_elevation"
         app:menu="@menu/activity_main_drawer" />
 
     <include layout="@layout/app_bar_main" />

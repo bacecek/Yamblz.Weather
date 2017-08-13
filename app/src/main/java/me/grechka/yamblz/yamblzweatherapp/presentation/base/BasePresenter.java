@@ -1,6 +1,7 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.base;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.arellomobile.mvp.MvpPresenter;
 import com.arellomobile.mvp.MvpView;

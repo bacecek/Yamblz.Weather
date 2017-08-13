@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by alexander on 07/07/2017.
  */
 
-public class RxSchedulersImpl extends RxSchedulers {
+public final class RxSchedulersImpl extends RxSchedulers {
 
     @Override
     public Scheduler getMainThreadScheduler() {

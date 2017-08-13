@@ -1,4 +1,4 @@
-package me.grechka.yamblz.yamblzweatherapp.utils;
+package me.grechka.yamblz.yamblzweatherapp.helpers;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -24,8 +25,15 @@ public class JsonProvider {
     private JsonProvider() {
     }
 
+    public static <T> T openFile(@NonNull Type type,
+                                 @NonNull String fileName) {
+        InputStream inputStream = JsonProvider.class.getClassLoader().getResourceAsStream(fileName);
+        InputStreamReader reader = new InputStreamReader(inputStream);
+        return gson.fromJson(reader, type);
+    }
+
     public static <T> T openFile(@NonNull Class<T> to,
-                                        @NonNull String fileName) {
+                                 @NonNull String fileName) {
         InputStream inputStream = to.getClassLoader().getResourceAsStream(fileName);
         InputStreamReader reader = new InputStreamReader(inputStream);
         return gson.fromJson(reader, to);

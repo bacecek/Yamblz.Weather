@@ -33,7 +33,7 @@ public class CurrentWeatherUpdateJob extends Job {
                 .getNetworkWeather()
                 .subscribe(weather -> {
             Log.d("Job", "Job completed: " + weather.toString());
-        });
+        }, throwable -> Log.e("Job", "Job is falling down", throwable));
 
         return Result.SUCCESS;
     }

@@ -1,10 +1,11 @@
-task jacocoTestReport(type: JacocoReport) {
+task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
     group = "Reporting"
     description = "Generate Jacoco coverage reports"
 
     reports {
         xml.enabled = true
         html.enabled = true
+        csv.enabled = true
     }
 
     // Exclude Dagger 2 and other generated code
@@ -16,8 +17,12 @@ task jacocoTestReport(type: JacocoReport) {
             '**/*_MembersInjector*.*',
             '**/*_Provide*.*',
             '**/Dagger*.*',
+            '**/*_Impl*.*',
+            '**/background/*',
             '**/di/*',
-            '**/di/modules/*'
+            '**/di/modules/*',
+            '**/*Command*.*',
+            '**/*Binder*.*'
     ]
 
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)

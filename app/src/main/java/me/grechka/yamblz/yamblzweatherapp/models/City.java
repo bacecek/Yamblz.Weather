@@ -53,6 +53,7 @@ public class City {
 
         City city = (City) o;
 
+        if (isActive != city.isActive) return false;
         if (title != null ? !title.equals(city.title) : city.title != null) return false;
         if (placeId != null ? !placeId.equals(city.placeId) : city.placeId != null) return false;
         if (extendedTitle != null ? !extendedTitle.equals(city.extendedTitle) : city.extendedTitle != null)
@@ -67,6 +68,7 @@ public class City {
         result = 31 * result + (placeId != null ? placeId.hashCode() : 0);
         result = 31 * result + (extendedTitle != null ? extendedTitle.hashCode() : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (isActive ? 1 : 0);
         return result;
     }
 

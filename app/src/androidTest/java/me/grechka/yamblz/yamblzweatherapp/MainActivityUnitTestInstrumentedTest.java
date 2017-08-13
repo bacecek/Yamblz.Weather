@@ -3,6 +3,7 @@ package me.grechka.yamblz.yamblzweatherapp;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,10 +24,5 @@ public class MainActivityUnitTestInstrumentedTest {
 
     @Test
     public void mainActivity_navigateToAbout_aboutFragmentOpenedSuccessfully() {
-        onView(withContentDescription(R.string.navigation_drawer_open)).perform(click());
-
-        onView(withText(R.string.main_activity_navigation_about))
-                .check(matches(isDisplayed()))
-                .perform(click());
     }
 }

@@ -3,11 +3,9 @@ package me.grechka.yamblz.yamblzweatherapp.data.database.daos;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 import me.grechka.yamblz.yamblzweatherapp.data.database.entities.ForecastEntity;
 
@@ -20,6 +18,9 @@ public interface ForecastDao {
 
     @Insert
     void insert(ForecastEntity forecast);
+
+    @Insert
+    void insertAll(List<ForecastEntity> forecasts);
 
     @Query("SELECT * FROM forecasts WHERE city IS :cityId ORDER BY date")
     Single<List<ForecastEntity>> getAll(long cityId);
