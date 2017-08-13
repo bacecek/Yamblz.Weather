@@ -114,4 +114,8 @@
         <item name="android:textSize">18sp</item>
         <item name="android:padding">4dp</item>
     </style>
+
+    <style name="AboutText" parent="MediumText">
+        <item name="android:textColor">@color/colorGreyMd100</item>
+    </style>
 </resources>
