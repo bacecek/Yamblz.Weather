@@ -170,14 +170,14 @@ public class WeatherPresenterTest extends BaseTest {
     public void getForecast() throws Exception {
         presenter.getForecast();
 
-        verify(view, atLeastOnce()).addForecast(anyList());
+        verify(view, atLeastOnce()).addForecasts(anyList());
     }
 
     @Test
     public void updateForecast() throws Exception {
         presenter.updateForecast();
 
-        verify(view, atLeastOnce()).addForecast(anyList());
+        verify(view, atLeastOnce()).addForecasts(anyList());
     }
 
     @Test

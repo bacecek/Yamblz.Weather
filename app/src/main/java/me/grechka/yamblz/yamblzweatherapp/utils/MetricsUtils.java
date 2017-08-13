@@ -27,6 +27,10 @@ public final class MetricsUtils {
         return (int) Math.min(displayMetrics.widthPixels / scaleFactor, displayMetrics.heightPixels / scaleFactor);
     }
 
+    public boolean isPhone() {
+        return getSmallestWidth() <= TABLET_SMALLEST_WIDTH;
+    }
+
     public boolean isTablet() {
         return getSmallestWidth() > TABLET_SMALLEST_WIDTH;
     }

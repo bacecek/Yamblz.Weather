@@ -1,10 +1,8 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.weather;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
-import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
 import java.util.Set;
@@ -85,13 +83,13 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
     void getForecast() {
         interactor.getForecast()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(getViewState()::addForecast, this::onError);
+                .subscribe(getViewState()::addForecasts, this::onError);
     }
 
     void updateForecast() {
         interactor.updateForecast()
                 .compose(scheduler.getIoToMainTransformerSingle())
-                .subscribe(getViewState()::addForecast, this::onError);
+                .subscribe(getViewState()::addForecasts, this::onError);
     }
 
     void onError(Throwable t) {
@@ -99,7 +97,6 @@ public class WeatherPresenter extends BasePresenter<WeatherView> {
         getViewState().hideLoading();
         getViewState().setErrorViewEnabled(true);
         if (t instanceof MissingCityException) getViewState().onMissingCityError();
-        else getViewState().onNetworkError();
     }
 
     boolean isCelsius() {

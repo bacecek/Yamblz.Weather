@@ -35,13 +35,16 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
     @BindColor(R.color.colorTextSecondary) int highlightTextColor;
     @BindColor(R.color.colorPrimaryDark) int highlightBackgroundColor;
 
-    @BindViews({R.id.content_common_settings_celsius, R.id.content_common_settings_fahrenheit})
+    @BindViews({R.id.content_common_settings_celsius,
+            R.id.content_common_settings_fahrenheit})
     List<Button> temperatureButtonsGroup;
 
-    @BindViews({R.id.content_common_settings_ms, R.id.content_common_settings_kmh})
+    @BindViews({R.id.content_common_settings_ms,
+            R.id.content_common_settings_kmh})
     List<Button> speedButtonsGroup;
 
-    @BindViews({R.id.content_common_settings_pascal, R.id.content_common_settings_mmhg})
+    @BindViews({R.id.content_common_settings_pascal,
+            R.id.content_common_settings_mmhg})
     List<Button> pressureButtonsGroup;
 
     @Inject
@@ -66,7 +69,6 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
                 .getAppComponent()
                 .addMainComponent()
                 .inject(this);
-
     }
 
     @Override
@@ -74,44 +76,6 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
         super.onViewsCreated(savedInstanceState);
         radioGroup.setOnCheckedChangeListener(this);
         setCheckedFrequency();
-    }
-
-    private void setCheckedFrequency() {
-        String tag = presenter.getUpdateFrequency();
-        RadioButton button = (RadioButton) radioGroup.findViewWithTag(tag);
-        button.setChecked(true);
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        int frequency = getFrequencyFromTag(checkedId);
-        presenter.changeUpdateSchedule(frequency);
-    }
-
-    private int getFrequencyFromTag(@IdRes int checkedId) {
-        return Integer.parseInt((String) getView().findViewById(checkedId).getTag());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        MainActivity mainActivity = (MainActivity) getActivity();
-
-        mainActivity
-                .getSupportActionBar()
-                .setTitle(R.string.main_activity_navigation_settings);
-
-        mainActivity
-                .selectBurgerButtonNavigation();
-    }
-
-
-    @OnClick({R.id.content_common_settings_celsius, R.id.content_common_settings_fahrenheit})
-    public void onTemperatureGroupClick(View v) {
-        deselectGroup(temperatureButtonsGroup);
-        enableButton(v.getId(), temperatureButtonsGroup);
-        presenter.saveTemperature(v.getId());
     }
 
     @Override
@@ -126,6 +90,29 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
                 R.id.content_common_settings_pascal, pressureButtonsGroup);
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        int frequency = getFrequencyFromTag(checkedId);
+        presenter.changeUpdateSchedule(frequency);
+    }
+
+    private int getFrequencyFromTag(@IdRes int checkedId) {
+        return Integer.parseInt((String) getView().findViewById(checkedId).getTag());
+    }
+
+    private void setCheckedFrequency() {
+        String tag = presenter.getUpdateFrequency();
+        RadioButton button = radioGroup.findViewWithTag(tag);
+        button.setChecked(true);
+    }
+
+    @OnClick({R.id.content_common_settings_celsius, R.id.content_common_settings_fahrenheit})
+    public void onTemperatureGroupClick(View v) {
+        deselectGroup(temperatureButtonsGroup);
+        enableButton(v.getId(), temperatureButtonsGroup);
+        presenter.saveTemperature(v.getId());
+    }
+
     @OnClick({R.id.content_common_settings_ms, R.id.content_common_settings_kmh})
     public void onSpeedGroupClick(View v) {
         deselectGroup(speedButtonsGroup);
@@ -138,6 +125,20 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
         deselectGroup(pressureButtonsGroup);
         enableButton(v.getId(), pressureButtonsGroup);
         presenter.savePressure(v.getId());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        MainActivity mainActivity = (MainActivity) getActivity();
+
+        mainActivity
+                .getSupportActionBar()
+                .setTitle(R.string.main_activity_navigation_settings);
+
+        mainActivity
+                .selectBurgerButtonNavigation();
     }
 
     private void deselectGroup(List<Button> group) {
