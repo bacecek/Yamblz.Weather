@@ -18,7 +18,7 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 public interface MainView extends MvpView {
     void setCityToHeader(@NonNull City city);
 
-    @StateStrategyType(OneExecutionStateStrategy.class) void showMissedCity();
+    @StateStrategyType(OneExecutionStateStrategy.class) void onCityMissedError();
 
     @StateStrategyType(SkipStrategy.class) void showWeather();
     @StateStrategyType(SkipStrategy.class) void showSettings();

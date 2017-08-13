@@ -1,9 +1,13 @@
 package me.grechka.yamblz.yamblzweatherapp.presentation.main;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,21 +36,17 @@ public class MainActivity extends AdaptiveActivity
         OnErrorListener,
         NavigationView.OnNavigationItemSelectedListener {
 
-    private boolean isDrawerHidden = false;
+    @InjectPresenter MainPresenter presenter;
 
     @BindColor(R.color.colorWhite) int colorWhite;
-
+    @BindView(R.id.main_activity_navigation_view) NavigationView navigationView;
     @Nullable @BindView(R.id.extend_fragment_container) View extendedFragmentContainer;
     @Nullable @BindView(R.id.main_activity_drawer_layout) DrawerLayout drawerLayout;
 
-    @BindView(R.id.main_activity_navigation_view) NavigationView navigationView;
-
-    @Nullable private TextView cityAreaHeaderTextView;
     @Nullable private TextView cityTitleHeaderTextView;
-
+    @Nullable private TextView cityAreaHeaderTextView;
+    private boolean isDrawerHidden = false;
     private ActionBarDrawerToggle toggle;
-
-    @InjectPresenter MainPresenter presenter;
 
     @ProvidePresenter
     public MainPresenter providePresenter() {
@@ -64,8 +64,7 @@ public class MainActivity extends AdaptiveActivity
 
     @Override
     protected int obtainAdaptationMode() {
-        if (extendedFragmentContainer == null) return PHONE;
-        return TABLET;
+        return extendedFragmentContainer == null ? PHONE : TABLET;
     }
 
     @Override
@@ -77,22 +76,14 @@ public class MainActivity extends AdaptiveActivity
     @Override
     protected void onPhoneInit() {
         super.onPhoneInit();
-
         showWeather();
     }
 
     @Override
     protected void onTabletInit() {
         super.onTabletInit();
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new FavoritesFragment())
-                .commit();
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.extend_fragment_container, new WeatherFragment())
-                .commit();
+        navigateToFragment(new FavoritesFragment(), R.id.fragment_container, false);
+        navigateToFragment(new WeatherFragment(), R.id.extend_fragment_container, true);
     }
 
     @Override
@@ -117,19 +108,14 @@ public class MainActivity extends AdaptiveActivity
         onHeaderInit(navigationHeaderView);
     }
 
-    @Override
-    protected void onTabletViewsCreated(@Nullable Bundle savedInstanceState) {
-        super.onTabletViewsCreated(savedInstanceState);
-    }
-
     private void onHeaderInit(@Nullable View headerView) {
         if (headerView  == null) return;
 
-        View searchView = headerView.findViewById(R.id.main_activity_choose_city);
-        cityTitleHeaderTextView = headerView.findViewById(R.id.fragment_weather_header_city_title);
+        View currentCityCardView = headerView.findViewById(R.id.main_activity_choose_city);
         cityAreaHeaderTextView = headerView.findViewById(R.id.fragment_weather_header_city_area);
+        cityTitleHeaderTextView = headerView.findViewById(R.id.fragment_weather_header_city_title);
 
-        searchView.setOnClickListener(v -> showFavorites());
+        currentCityCardView.setOnClickListener(v -> showFavorites());
     }
 
     @Override
@@ -146,38 +132,27 @@ public class MainActivity extends AdaptiveActivity
 
     @Override
     public void showWeather() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new WeatherFragment())
-                .commit();
+        navigateToFragment(new WeatherFragment(), R.id.fragment_container, true);
     }
 
     @Override
     public void showSettings() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new SettingsFragment())
-                .addToBackStack(null)
-                .commit();
+        navigateToFragment(new SettingsFragment(), R.id.fragment_container, true);
     }
 
     @Override
     public void showAbout() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new AboutFragment())
-                .addToBackStack(null)
-                .commit();
+        navigateToFragment(new AboutFragment(), R.id.fragment_container, true);
     }
 
     @Override
     public void showFavorites() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new FavoritesFragment())
-                .addToBackStack(null)
-                .commit();
+        navigateToFragment(new FavoritesFragment(), R.id.fragment_container, true);
         closeDrawer();
     }
 
     @Override
-    public void showMissedCity() {
+    public void onCityMissedError() {
         showFavorites();
     }
 
@@ -266,5 +241,17 @@ public class MainActivity extends AdaptiveActivity
     @Override
     public void goBack() {
         if (!closeDrawer()) super.onBackPressed();
+    }
+
+    private void navigateToFragment(@NonNull Fragment fragment,
+                                    @IdRes int layoutRes,
+                                    boolean isIncludedToBackStack) {
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction()
+                .replace(layoutRes, fragment);
+
+        if (isIncludedToBackStack) transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 }

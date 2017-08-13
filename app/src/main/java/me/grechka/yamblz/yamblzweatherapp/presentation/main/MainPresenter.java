@@ -47,7 +47,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     public void showMissedCity() {
-        getViewState().showMissedCity();
+        getViewState().onCityMissedError();
     }
 
     public void showSettings() {

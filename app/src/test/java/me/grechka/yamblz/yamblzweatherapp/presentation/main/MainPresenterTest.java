@@ -59,7 +59,7 @@ public class MainPresenterTest extends BaseTest {
     @Test
     public void showMissedCity() {
         presenter.showMissedCity();
-        verify(view).showMissedCity();
+        verify(view).onCityMissedError();
     }
 
     @Test
