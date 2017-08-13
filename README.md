@@ -11,7 +11,9 @@
 
 
 ## API
-To display the weather was used an open API. [OpenWeatherAPI](https://openweathermap.org/)
+To display the weather was used an open API. [OpenWeatherAPI.](https://openweathermap.org/)
+
+To search cities was used an open [Google Places API.](https://developers.google.com/places/)
 
 ## Icons
 #### Weather Icons
