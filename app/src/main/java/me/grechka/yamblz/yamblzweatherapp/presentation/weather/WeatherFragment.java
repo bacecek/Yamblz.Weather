@@ -7,11 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,7 +29,6 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.AdaptiveFragment;
-import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseFragment;
 import me.grechka.yamblz.yamblzweatherapp.presentation.forecast.ForecastAdapter;
 import me.grechka.yamblz.yamblzweatherapp.presentation.main.MainActivity;
 import me.grechka.yamblz.yamblzweatherapp.utils.MetricsUtils;
@@ -173,7 +170,7 @@ public class WeatherFragment extends AdaptiveFragment implements WeatherView,
         super.onResume();
 
         MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.selectBackButtonNavigation();
+        mainActivity.selectBurgerButtonNavigation();
         onErrorListener = mainActivity;
     }
 

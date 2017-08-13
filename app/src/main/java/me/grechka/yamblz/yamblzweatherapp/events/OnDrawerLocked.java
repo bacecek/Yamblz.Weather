@@ -5,8 +5,8 @@ package me.grechka.yamblz.yamblzweatherapp.events;
  */
 
 public interface OnDrawerLocked {
-    void selectBackButtonNavigation();
     void selectBurgerButtonNavigation();
+    void selectBackButtonNavigation();
 
     void hideDrawer();
 }

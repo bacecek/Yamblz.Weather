@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +62,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         @BindView(R.id.row_favorites_city) TextView cityTitle;
         @BindView(R.id.row_favorites_area) TextView cityArea;
 
-        @BindColor(R.color.colorWhite) int white;
-        @BindColor(R.color.colorYandexPrimary) int yandex;
+        @BindColor(R.color.colorWhite) int whiteColor;
+        @BindColor(R.color.colorYandexPrimary) int yandexColor;
 
         public FavoritesViewHolder(View itemView) {
             super(itemView);
@@ -74,7 +73,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             cityTitle.setText(city.getTitle());
             cityArea.setText(city.getExtendedTitle());
 
-            cityCard.setCardBackgroundColor(city.isActive() ? yandex : white);
+            cityCard.setCardBackgroundColor(city.isActive() ? yandexColor : whiteColor);
         }
 
         public boolean isActive() {

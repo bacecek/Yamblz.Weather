@@ -138,7 +138,7 @@ public class SettingsFragment extends BaseFragment implements SettingsView,
                 .setTitle(R.string.main_activity_navigation_settings);
 
         mainActivity
-                .selectBurgerButtonNavigation();
+                .selectBackButtonNavigation();
     }
 
     private void deselectGroup(List<Button> group) {

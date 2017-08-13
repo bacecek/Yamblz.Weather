@@ -46,6 +46,10 @@
         \nEnjoy!
         \nYandex Mobilization student,
         \n<b>Alexander Dadukin</b></string>
+    <string name="fragment_about_author_mail_type">text/plain</string>
+    <string name="fragment_about_author_mail_address">st235@yandex.ru</string>
+    <string name="fragment_about_author_mail_theme">#Yamblz Погодное приложение</string>
+    <string name="fragment_about_author_mail_provider_title">Отправить с помощью</string>
     <!-- Endregion -->
 
     <!-- Settings fragment -->

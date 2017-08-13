@@ -58,8 +58,6 @@ public class FavoritesPresenter extends BasePresenter<FavoritesView> {
     }
 
     public void updateCities(@NonNull List<City> cities) {
-        Log.d(TAG, cities.toString());
-
         if (cities.isEmpty()) {
             getViewState().onEmptyList();
             return;

@@ -36,16 +36,16 @@ public class AboutFragment extends Fragment {
                 .setTitle(R.string.main_activity_navigation_about);
 
         mainActivity
-                .selectBurgerButtonNavigation();
+                .selectBackButtonNavigation();
     }
 
     @OnClick(R.id.fragment_about_send_email)
     public void onSendEmail(View v) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, "st235@yandex.ru");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Ymblz.Weather");
-        startActivity(Intent.createChooser(intent, "Send via"));
+        intent.setType(getString(R.string.fragment_about_author_mail_type));
+        intent.putExtra(Intent.EXTRA_EMAIL, getString(R.string.fragment_about_author_mail_address));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.fragment_about_author_mail_theme));
+        startActivity(Intent.createChooser(intent, getString(R.string.fragment_about_author_mail_provider_title)));
     }
 
     @Override

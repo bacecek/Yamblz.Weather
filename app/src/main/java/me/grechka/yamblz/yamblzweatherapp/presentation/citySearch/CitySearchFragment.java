@@ -26,7 +26,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import me.grechka.yamblz.yamblzweatherapp.R;
 import me.grechka.yamblz.yamblzweatherapp.WeatherApp;
 import me.grechka.yamblz.yamblzweatherapp.events.OnDismissDialogListener;
@@ -40,6 +39,8 @@ import me.grechka.yamblz.yamblzweatherapp.models.City;
 public class CitySearchFragment extends MvpAppCompatDialogFragment
         implements CitySearchView, OnItemClickListener<City> {
 
+    @Inject @InjectPresenter CitySearchPresenter presenter;
+
     @BindView(R.id.fragment_city_search_edittext) EditText searchEditText;
     @BindView(R.id.fragment_city_search_progress_bar) ProgressBar loadingProgressBar;
     @BindView(R.id.fragment_city_search_recycler_view) RecyclerView suggestRecyclerView;
@@ -47,10 +48,6 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
     private OnDismissDialogListener listener;
     private CitySearchAdapter adapter = new CitySearchAdapter();
     private LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-
-    @Inject
-    @InjectPresenter
-    CitySearchPresenter presenter;
 
     @ProvidePresenter
     CitySearchPresenter providePresenter() {
@@ -98,7 +95,7 @@ public class CitySearchFragment extends MvpAppCompatDialogFragment
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        adapter.setListener(this);
+        adapter.setOnItemClickListener(this);
         suggestRecyclerView.setLayoutManager(layoutManager);
         suggestRecyclerView.setAdapter(adapter);
 

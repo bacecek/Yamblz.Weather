@@ -182,7 +182,7 @@ public class MainActivity extends AdaptiveActivity
     }
 
     @Override
-    public void selectBackButtonNavigation() {
+    public void selectBurgerButtonNavigation() {
         isDrawerHidden = false;
         if (!isPhone()) return;
 
@@ -193,7 +193,7 @@ public class MainActivity extends AdaptiveActivity
     }
 
     @Override
-    public void selectBurgerButtonNavigation() {
+    public void selectBackButtonNavigation() {
         isDrawerHidden = false;
         if (!isPhone()) return;
 

@@ -15,15 +15,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import butterknife.BindView;
 import me.grechka.yamblz.yamblzweatherapp.R;
-import me.grechka.yamblz.yamblzweatherapp.models.City;
 import me.grechka.yamblz.yamblzweatherapp.models.Weather;
 import me.grechka.yamblz.yamblzweatherapp.models.weatherTypes.WeatherType;
 import me.grechka.yamblz.yamblzweatherapp.presentation.base.BaseViewHolder;
-import me.grechka.yamblz.yamblzweatherapp.presentation.favorites.FavoritesDiffCallback;
 import sasd97.java_blog.xyz.richtextview.RichTextView;
 
 /**
@@ -33,35 +32,35 @@ import sasd97.java_blog.xyz.richtextview.RichTextView;
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder> {
 
     private Context context;
-    private String tempUnits = "";
-    private List<Weather> forecast;
+    private String tempUnits = "°";
+    private List<Weather> forecasts;
     private Set<WeatherType> weatherTypes;
 
     public ForecastAdapter(@NonNull Set<WeatherType> weatherTypes) {
-        forecast = new ArrayList<>();
+        forecasts = new ArrayList<>();
         this.weatherTypes = weatherTypes;
     }
 
-    public void setTempUnits(String tempUnits) {
+    public void setTempUnits(@NonNull String tempUnits) {
         this.tempUnits = tempUnits;
     }
 
     public void addAll(@NonNull List<Weather> forecast) {
-        ForecastDiffCallback diffCallback = new ForecastDiffCallback(this.forecast, forecast);
+        ForecastDiffCallback diffCallback = new ForecastDiffCallback(this.forecasts, forecast);
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
 
-        this.forecast.clear();
-        this.forecast.addAll(forecast);
+        this.forecasts.clear();
+        this.forecasts.addAll(forecast);
         diffResult.dispatchUpdatesTo(this);
     }
 
     public class ForecastViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.row_forecast_icon) RichTextView forecastIcon;
-        @BindView(R.id.row_forecast_temperature) TextView forecastTemperature;
         @BindView(R.id.row_forecast_date) TextView forecastDate;
         @BindView(R.id.row_forecast_card) CardView forecastCard;
+        @BindView(R.id.row_forecast_icon) RichTextView forecastIcon;
         @BindView(R.id.row_forecast_delimeter) View forecastDelimiter;
+        @BindView(R.id.row_forecast_temperature) TextView forecastTemperature;
 
         public ForecastViewHolder(View itemView) {
             super(itemView);
@@ -69,17 +68,17 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
         void setWeather(@NonNull Weather weather,
                         @NonNull WeatherType type) {
-
             forecastIcon.setText(context.getString(type.getIconRes()));
-            forecastIcon.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
-            forecastTemperature.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
             forecastTemperature.setText(context.getString(R.string.weather_fragment_temperature,
                     weather.getTemperature(), tempUnits));
+            forecastIcon.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
+            forecastTemperature.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
+
             forecastCard.setCardBackgroundColor(ContextCompat.getColor(context, type.getCardColor()));
             forecastDelimiter.setBackgroundColor(ContextCompat.getColor(context, type.getTextColor()));
             forecastDate.setTextColor(ContextCompat.getColor(context, type.getTextColor()));
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM", Locale.US);
             String format = formatter.format(new Date(weather.getUpdateTime()));
             forecastDate.setText(format);
         }
@@ -94,7 +93,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
     @Override
     public void onBindViewHolder(ForecastViewHolder holder, int position) {
-        Weather weather = forecast.get(position);
+        Weather weather = forecasts.get(position);
 
         for(WeatherType type: weatherTypes) {
             if (!type.isApplicable(weather)) continue;
@@ -105,6 +104,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
     @Override
     public int getItemCount() {
-        return forecast.size();
+        return forecasts.size();
     }
 }

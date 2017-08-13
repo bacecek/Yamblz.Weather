@@ -39,18 +39,15 @@ public class FavoritesFragment extends AdaptiveFragment
         OnItemClickListener<City>,
         OnDismissDialogListener {
 
-    private OnDrawerLocked drawerLocker;
-    private FavoritesAdapter favoritesAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    @Inject MetricsUtils metricsUtils;
+    @Inject @InjectPresenter FavoritesPresenter presenter;
 
     @BindView(R.id.fragment_favorites_empty_view) View emptyView;
     @BindView(R.id.fragment_favorites_recycler_view) RecyclerView citiesRecyclerView;
 
-    @Inject
-    MetricsUtils metricsUtils;
-
-    @Inject
-    @InjectPresenter FavoritesPresenter presenter;
+    private OnDrawerLocked drawerLocker;
+    private FavoritesAdapter favoritesAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @ProvidePresenter FavoritesPresenter providePresenter() {
         return presenter;
@@ -111,7 +108,7 @@ public class FavoritesFragment extends AdaptiveFragment
                 .setTitle(R.string.main_activity_navigation_favorites);
 
         drawerLocker
-                .selectBurgerButtonNavigation();
+                .selectBackButtonNavigation();
     }
 
     @Override
@@ -169,6 +166,6 @@ public class FavoritesFragment extends AdaptiveFragment
 
     private void unlockBackNavigation() {
         if (drawerLocker == null) return;
-        drawerLocker.selectBurgerButtonNavigation();
+        drawerLocker.selectBackButtonNavigation();
     }
 }
