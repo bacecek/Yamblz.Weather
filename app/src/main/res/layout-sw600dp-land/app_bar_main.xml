@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="end"
-    android:layout_marginLeft="64dp"
-    android:layout_marginStart="64dp"
-    app:elevation="2dp"
+    android:layout_marginLeft="@dimen/main_activity_horizontal_panel_spacing"
+    android:layout_marginStart="@dimen/main_activity_horizontal_panel_spacing"
+    app:elevation="@dimen/all_tiny_elevation"
     tools:context=".presentation.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -36,15 +36,13 @@
             android:id="@+id/fragment_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
 
         <FrameLayout
             android:id="@+id/extend_fragment_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

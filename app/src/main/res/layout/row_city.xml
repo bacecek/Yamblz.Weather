@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
-    android:clickable="true"
-    android:background="@drawable/rounded_white_card_backfield">
+    android:background="@drawable/rounded_white_card_backfield"
+    android:clickable="true">
 
     <LinearLayout
         android:id="@+id/row_city_clickable_area"
@@ -13,26 +13,26 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <sasd97.java_blog.xyz.circleview.CircleView
             android:id="@+id/row_city_alias"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:layout_margin="8dp"
-            app:cv_textSize="22sp"
+            app:cv_backgroundColor="@color/colorPrimaryDark"
             app:cv_textColor="@android:color/white"
-            app:cv_backgroundColor="@color/colorPrimaryDark" />
+            app:cv_textSize="22sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:gravity="start">
+            android:gravity="start"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/row_city_title"

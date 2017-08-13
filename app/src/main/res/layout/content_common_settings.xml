@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         style="@style/WeatherMenuItem"
         android:layout_width="match_parent"
@@ -29,12 +29,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="@string/settings_fragment_common_temperature"
-            android:layout_toEndOf="@+id/content_common_settings_temperature_icon"
-            android:layout_toRightOf="@+id/content_common_settings_temperature_icon"
-            android:layout_toLeftOf="@+id/content_common_settings_fahrenheit"
-            android:layout_toStartOf="@+id/content_common_settings_fahrenheit"
             android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/content_common_settings_temperature_icon"
+            android:layout_toLeftOf="@+id/content_common_settings_fahrenheit"
+            android:layout_toRightOf="@+id/content_common_settings_temperature_icon"
+            android:layout_toStartOf="@+id/content_common_settings_fahrenheit"
+            android:text="@string/settings_fragment_common_temperature"
             tools:text="Set preferences" />
 
         <android.support.v7.widget.AppCompatButton
@@ -79,11 +79,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/settings_fragment_common_pressure"
             android:layout_toEndOf="@+id/content_common_settings_pressure_icon"
-            android:layout_toRightOf="@+id/content_common_settings_pressure_icon"
             android:layout_toLeftOf="@+id/content_common_settings_mmhg"
+            android:layout_toRightOf="@+id/content_common_settings_pressure_icon"
             android:layout_toStartOf="@+id/content_common_settings_mmhg"
+            android:text="@string/settings_fragment_common_pressure"
             tools:text="Set preferences" />
 
         <android.support.v7.widget.AppCompatButton
@@ -128,11 +128,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="@string/settings_fragment_common_speed"
             android:layout_toEndOf="@+id/content_common_settings_speed_icon"
-            android:layout_toRightOf="@+id/content_common_settings_speed_icon"
             android:layout_toLeftOf="@+id/content_common_settings_ms"
+            android:layout_toRightOf="@+id/content_common_settings_speed_icon"
             android:layout_toStartOf="@+id/content_common_settings_ms"
+            android:text="@string/settings_fragment_common_speed"
             tools:text="Set preferences" />
 
         <android.support.v7.widget.AppCompatButton
