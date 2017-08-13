@@ -3,8 +3,27 @@
 [![Build Status](https://travis-ci.org/sasd97/Yamblz.Weather.svg?branch=dev)](https://travis-ci.org/sasd97/Yamblz.Weather)
 [![codecov](https://codecov.io/gh/sasd97/Yamblz.Weather/branch/dev/graph/badge.svg)](https://codecov.io/gh/sasd97/Yamblz.Weather)
 
+## Phone Screenshots
+<img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/icon.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/weather.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/forecast.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/favorites.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/drawer.png" width="270" height="480"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/about.png" width="270" height="480"> 
+
+## Tablet Screenshots
+<img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/weather_tablet.png" width="480" height="270"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/settings_tablet.png" width="480" height="270"> <img src="https://github.com/sasd97/Yamblz.Weather/blob/dev/images/about_tablet.png" width="480" height="270"> 
+
+
 ## API
 To display the weather was used an open API. [OpenWeatherAPI](https://openweathermap.org/)
+
+## Icons
+#### Weather Icons
+Icons were taken from [here](https://github.com/erikflowers/weather-icons). 
+Weather Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)
+
+#### Other Icons
+_City icon:_ Icon made by [Zlatko Najdenovski](https://www.flaticon.com/authors/zlatko-najdenovski) from www.flaticon.com  
+
+_Bone icon (on error):_ Icon made by [Trinh Ho](https://www.flaticon.com/authors/trinh-ho) from www.flaticon.com
+
+License: Flaticon Basic License.
 
 ## License
 
